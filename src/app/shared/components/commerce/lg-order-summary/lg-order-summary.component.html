@@ -1,0 +1,83 @@
+<div class="bg-[#F9F1E7] border border-[#E8E8E8] p-6 flex flex-col gap-6">
+
+  <!-- Heading -->
+  <h3 class="font-[Montserrat] font-light text-xs uppercase tracking-[0.2em] text-[#333333]">
+    Order Summary
+  </h3>
+
+  <!-- Item list -->
+  @if (items().length > 0) {
+    <ul class="flex flex-col gap-4">
+      @for (item of items(); track item.id) {
+        <li class="flex items-start gap-4">
+          <!-- Thumbnail -->
+          <img
+            [src]="item.image"
+            [alt]="item.title"
+            class="w-16 h-16 object-cover flex-shrink-0 bg-[#EDE4D8]"
+          />
+          <!-- Info -->
+          <div class="flex-1 min-w-0">
+            <p class="font-[Montserrat] font-light text-xs uppercase tracking-[0.1em] text-[#333333] truncate">
+              {{ item.title }}
+            </p>
+            <p class="mt-1 font-[Inter] text-xs text-[#7A6F65]">
+              Qty {{ item.qty }} × {{ item.price | lgCurrencyEgp }}
+            </p>
+          </div>
+          <!-- Line total -->
+          <p class="font-[Montserrat] font-light text-xs text-[#333333] flex-shrink-0">
+            {{ item.price * item.qty | lgCurrencyEgp }}
+          </p>
+        </li>
+      }
+    </ul>
+  }
+
+  <!-- Divider -->
+  <div class="border-t border-[#E8E8E8]"></div>
+
+  <!-- Subtotal -->
+  <div class="flex items-center justify-between">
+    <span class="font-[Montserrat] font-light text-xs uppercase tracking-[0.15em] text-[#7A6F65]">
+      Subtotal
+    </span>
+    <span class="font-[Montserrat] font-light text-sm text-[#333333]">
+      {{ subtotal() | lgCurrencyEgp }}
+    </span>
+  </div>
+
+  <!-- Shipping -->
+  <div class="flex items-center justify-between">
+    <span class="font-[Montserrat] font-light text-xs uppercase tracking-[0.15em] text-[#7A6F65]">
+      Shipping
+    </span>
+    <span class="font-[Montserrat] font-light text-sm text-[#B88E2F]">
+      Free
+    </span>
+  </div>
+
+  <!-- Divider -->
+  <div class="border-t border-[#E8E8E8]"></div>
+
+  <!-- Total -->
+  <div class="flex items-baseline justify-between">
+    <span class="font-[Montserrat] font-light text-xs uppercase tracking-[0.15em] text-[#333333]">
+      Total
+    </span>
+    <span class="font-[Cormorant_Garamond] font-light text-2xl text-[#B88E2F]">
+      {{ subtotal() | lgCurrencyEgp }}
+    </span>
+  </div>
+
+  <!-- CTA -->
+  <lg-button
+    variant="primary"
+    size="lg"
+    [attr.style]="'width: 100%'"
+    (click)="ctaClick.emit()"
+  >
+    {{ ctaLabel() }}
+  </lg-button>
+
+</div>

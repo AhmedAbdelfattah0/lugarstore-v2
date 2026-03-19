@@ -1,0 +1,36 @@
+<div class="inline-flex items-center border border-[#E8E8E8]">
+  <button
+    type="button"
+    class="w-9 h-9 flex items-center justify-center font-[Montserrat] font-light text-base text-[#333333] transition-colors duration-200"
+    [class.opacity-30]="atMin()"
+    [class.pointer-events-none]="atMin()"
+    [class.hover:text-[#B88E2F]]="!atMin()"
+    (click)="decrement()"
+    [attr.aria-label]="'Decrease quantity'"
+    [disabled]="atMin()"
+  >
+    <svg width="12" height="2" viewBox="0 0 12 2" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+      <line x1="0" y1="1" x2="12" y2="1"/>
+    </svg>
+  </button>
+
+  <span class="w-10 h-9 flex items-center justify-center font-[Montserrat] font-light text-sm text-[#333333] border-x border-[#E8E8E8] select-none">
+    {{ value() }}
+  </span>
+
+  <button
+    type="button"
+    class="w-9 h-9 flex items-center justify-center font-[Montserrat] font-light text-base text-[#333333] transition-colors duration-200"
+    [class.opacity-30]="atMax()"
+    [class.pointer-events-none]="atMax()"
+    [class.hover:text-[#B88E2F]]="!atMax()"
+    (click)="increment()"
+    [attr.aria-label]="'Increase quantity'"
+    [disabled]="atMax()"
+  >
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+      <line x1="6" y1="0" x2="6" y2="12"/>
+      <line x1="0" y1="6" x2="12" y2="6"/>
+    </svg>
+  </button>
+</div>

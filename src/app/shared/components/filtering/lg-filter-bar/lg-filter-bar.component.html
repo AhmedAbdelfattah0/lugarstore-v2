@@ -1,0 +1,41 @@
+<div class="sticky top-16 lg:top-20 z-20 bg-white border-b border-[#E8E8E8]">
+  <div class="max-w-[1280px] mx-auto px-6 py-4 flex flex-col sm:flex-row sm:items-center gap-4">
+
+    <!-- Category pills — horizontally scrollable on mobile -->
+    <div class="flex items-center gap-2 overflow-x-auto pb-1 sm:pb-0 flex-1 min-w-0 scrollbar-hide">
+      <!-- All pill -->
+      <lg-category-pill
+        label="All"
+        [active]="activeCategory() === null"
+        (pillClick)="selectCategory(null)"
+      />
+
+      @for (cat of categories(); track cat) {
+        <lg-category-pill
+          [label]="cat"
+          [active]="activeCategory() === cat"
+          (pillClick)="selectCategory(cat)"
+        />
+      }
+    </div>
+
+    <!-- Sort + count -->
+    <div class="flex items-center gap-4 flex-shrink-0">
+      <span class="font-[Inter] text-xs text-[#7A6F65] whitespace-nowrap">
+        {{ productCount() }} {{ productCount() === 1 ? 'piece' : 'pieces' }}
+      </span>
+
+      <select
+        class="font-[Montserrat] font-light text-xs uppercase tracking-[0.1em] text-[#333333] bg-transparent border border-[#E8E8E8] px-3 py-1.5 outline-none cursor-pointer hover:border-[#B88E2F] transition-colors duration-200"
+        [value]="sortValue()"
+        (change)="onSortChange($event)"
+        aria-label="Sort products"
+      >
+        @for (opt of sortOptions; track opt.value) {
+          <option [value]="opt.value">{{ opt.label }}</option>
+        }
+      </select>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,67 @@
+@if (isVisible()) {
+  <nav class="flex items-center justify-center gap-1" aria-label="Pagination">
+
+    <!-- Prev -->
+    <button
+      type="button"
+      class="w-9 h-9 flex items-center justify-center border border-[#E8E8E8] text-[#7A6F65] transition-colors duration-200"
+      [class.opacity-30]="!hasPrev()"
+      [class.pointer-events-none]="!hasPrev()"
+      [class.hover:border-[#B88E2F]]="hasPrev()"
+      [class.hover:text-[#B88E2F]]="hasPrev()"
+      (click)="prev()"
+      [attr.aria-label]="'Previous page'"
+      [disabled]="!hasPrev()"
+    >
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+        <polyline points="9 2 4 7 9 12"/>
+      </svg>
+    </button>
+
+    <!-- Page numbers — hidden on mobile -->
+    <div class="hidden sm:flex items-center gap-1">
+      @for (p of pages(); track p) {
+        <button
+          type="button"
+          class="w-9 h-9 flex items-center justify-center font-[Montserrat] font-light text-xs tracking-[0.1em] border transition-colors duration-200"
+          [class.bg-[#B88E2F]]="p === page()"
+          [class.text-white]="p === page()"
+          [class.border-[#B88E2F]]="p === page()"
+          [class.bg-transparent]="p !== page()"
+          [class.text-[#333333]]="p !== page()"
+          [class.border-[#E8E8E8]]="p !== page()"
+          [class.hover:border-[#B88E2F]]="p !== page()"
+          [class.hover:text-[#B88E2F]]="p !== page()"
+          (click)="goTo(p)"
+          [attr.aria-label]="'Page ' + p"
+          [attr.aria-current]="p === page() ? 'page' : null"
+        >
+          {{ p }}
+        </button>
+      }
+    </div>
+
+    <!-- Mobile: page indicator -->
+    <span class="sm:hidden font-[Montserrat] font-light text-xs text-[#7A6F65] px-3">
+      {{ page() }} / {{ totalPages() }}
+    </span>
+
+    <!-- Next -->
+    <button
+      type="button"
+      class="w-9 h-9 flex items-center justify-center border border-[#E8E8E8] text-[#7A6F65] transition-colors duration-200"
+      [class.opacity-30]="!hasNext()"
+      [class.pointer-events-none]="!hasNext()"
+      [class.hover:border-[#B88E2F]]="hasNext()"
+      [class.hover:text-[#B88E2F]]="hasNext()"
+      (click)="next()"
+      [attr.aria-label]="'Next page'"
+      [disabled]="!hasNext()"
+    >
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+        <polyline points="5 2 10 7 5 12"/>
+      </svg>
+    </button>
+
+  </nav>
+}
