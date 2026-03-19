@@ -1,0 +1,10 @@
+<button
+  [type]="type()"
+  [disabled]="disabled() || loading()"
+  [class]="buttonClass()"
+>
+  @if (loading()) {
+    <lg-spinner size="sm" />
+  }
+  <ng-content />
+</button>

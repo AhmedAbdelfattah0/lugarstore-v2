@@ -1,0 +1,30 @@
+:host {
+  display: block;
+}
+
+.eyebrow {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #B88E2F;
+  margin-bottom: 0.75rem;
+}
+
+.heading {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-weight: 300;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  color: #333333;
+  line-height: 1.1;
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+}
+
+.subtext {
+  font-family: 'Inter', system-ui, sans-serif;
+  color: #7A6F65;
+  line-height: 1.7;
+  max-width: 600px;
+}

@@ -1,0 +1,98 @@
+.toast-container {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 380px;
+  width: calc(100vw - 3rem);
+  pointer-events: none;
+}
+
+.toast-item {
+  position: relative;
+  overflow: hidden;
+  padding: 1rem 1.25rem;
+  background: #ffffff;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  pointer-events: all;
+  animation: toast-slide-in 0.3s ease-out forwards;
+  border-left: 3px solid transparent;
+}
+
+@keyframes toast-slide-in {
+  from {
+    transform: translateX(110%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.toast-success  { border-left-color: #B88E2F; }
+.toast-wishlist { border-left-color: #B88E2F; }
+.toast-error    { border-left-color: #E97171; }
+.toast-info     { border-left-color: #1A1A18; }
+
+.toast-body {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.toast-icon {
+  font-size: 0.9375rem;
+  flex-shrink: 0;
+  line-height: 1.6;
+  color: #7A6F65;
+}
+
+.toast-message {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.875rem;
+  color: #333333;
+  line-height: 1.5;
+}
+
+.toast-dismiss {
+  background: none;
+  border: none;
+  color: #7A6F65;
+  cursor: pointer;
+  font-size: 0.75rem;
+  padding: 0;
+  flex-shrink: 0;
+  line-height: 1.6;
+  transition: color 0.15s;
+
+  &:hover {
+    color: #333333;
+  }
+}
+
+.toast-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 100%;
+  transform-origin: left;
+  animation: toast-progress linear forwards;
+}
+
+@keyframes toast-progress {
+  from { transform: scaleX(1); }
+  to   { transform: scaleX(0); }
+}
+
+.progress-gold { background-color: #B88E2F; }
+.progress-red  { background-color: #E97171; }
+.progress-dark { background-color: #1A1A18; }

@@ -1,0 +1,9 @@
+<div [class]="containerClass()">
+  @if (eyebrow()) {
+    <p class="eyebrow">{{ eyebrow() }}</p>
+  }
+  <h2 class="heading">{{ heading() }}</h2>
+  @if (subtext()) {
+    <p class="subtext" [class.mx-auto]="align() === 'center'">{{ subtext() }}</p>
+  }
+</div>

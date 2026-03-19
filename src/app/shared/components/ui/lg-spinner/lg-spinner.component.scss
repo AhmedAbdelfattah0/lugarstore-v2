@@ -1,0 +1,16 @@
+:host {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #B88E2F;
+}
+
+svg {
+  animation: lg-spin 0.8s linear infinite;
+}
+
+@keyframes lg-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
