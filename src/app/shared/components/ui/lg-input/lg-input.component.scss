@@ -1,0 +1,149 @@
+:host {
+  display: block;
+}
+
+// ── Wrapper ──────────────────────────────────────────────────────────────────
+.lg-input-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+}
+
+// ── Label ────────────────────────────────────────────────────────────────────
+.lg-input-label {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  color: #7A6F65;
+  line-height: 1.4;
+}
+
+.required-mark {
+  color: #E97171;
+  margin-left: 2px;
+}
+
+// ── Base field ───────────────────────────────────────────────────────────────
+.lg-field {
+  width: 100%;
+  background: #FFFFFF;
+  border: 1px solid #E8E8E8;
+  border-radius: 4px;
+  padding: 10px 14px;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: #333333;
+  line-height: 1.6;
+  outline: none;
+  transition: border-color 0.2s ease;
+  appearance: none;
+  -webkit-appearance: none;
+
+  &::placeholder {
+    color: #7A6F65;
+  }
+
+  &:focus {
+    border-color: #B88E2F;
+  }
+
+  &.has-error {
+    border-color: #E97171;
+  }
+
+  &:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    background: #F9F1E7;
+  }
+}
+
+// ── Textarea ─────────────────────────────────────────────────────────────────
+.lg-textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+// ── Select ───────────────────────────────────────────────────────────────────
+.lg-select-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.lg-select {
+  cursor: pointer;
+  padding-right: 2.75rem;
+
+  option {
+    background: #FFFFFF;
+    color: #333333;
+  }
+}
+
+.lg-chevron {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+}
+
+// ── File upload ───────────────────────────────────────────────────────────────
+.lg-file-zone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  background: #FFFFFF;
+  border: 1px dashed #E8E8E8;
+  border-radius: 4px;
+  padding: 32px 24px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+
+  &:hover,
+  &.is-dragging {
+    border-color: #B88E2F;
+  }
+
+  &.has-error {
+    border-color: #E97171;
+  }
+}
+
+.lg-upload-icon {
+  display: block;
+  flex-shrink: 0;
+}
+
+.lg-upload-text {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  color: #7A6F65;
+  margin: 0;
+}
+
+// ── Error message ─────────────────────────────────────────────────────────────
+.lg-error-msg {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: #E97171;
+  line-height: 1.4;
+}
+
+// ── Screen-reader only (hidden file input) ────────────────────────────────────
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}

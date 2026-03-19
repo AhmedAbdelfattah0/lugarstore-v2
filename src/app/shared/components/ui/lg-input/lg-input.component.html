@@ -1,0 +1,107 @@
+<div class="lg-input-wrapper">
+
+  @if (label()) {
+    <label [for]="inputId" class="lg-input-label">
+      {{ label() }}
+      @if (required()) {
+        <span class="required-mark" aria-hidden="true">*</span>
+      }
+    </label>
+  }
+
+  @switch (type()) {
+
+    @case ('textarea') {
+      <textarea
+        [id]="inputId"
+        [placeholder]="placeholder()"
+        [disabled]="disabled()"
+        [class.has-error]="hasError()"
+        class="lg-field lg-textarea"
+        (input)="onValueChange($event)"
+      >{{ value() }}</textarea>
+    }
+
+    @case ('select') {
+      <div class="lg-select-wrapper">
+        <select
+          [id]="inputId"
+          [disabled]="disabled()"
+          [class.has-error]="hasError()"
+          class="lg-field lg-select"
+          (change)="onValueChange($event)"
+        >
+          @if (placeholder()) {
+            <option value="" disabled [selected]="!value()">{{ placeholder() }}</option>
+          }
+          @for (opt of options(); track opt.value) {
+            <option [value]="opt.value" [selected]="value() === opt.value">
+              {{ opt.label }}
+            </option>
+          }
+        </select>
+        <span class="lg-chevron" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M4 6L8 10L12 6" stroke="#B88E2F" stroke-width="1.5"
+              stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </span>
+      </div>
+    }
+
+    @case ('file-upload') {
+      <div
+        class="lg-file-zone"
+        [class.is-dragging]="isDragging()"
+        [class.has-error]="hasError()"
+        role="button"
+        tabindex="0"
+        [attr.aria-label]="'Upload file' + (multiple() ? 's' : '')"
+        (dragover)="onDragOver($event)"
+        (dragleave)="onDragLeave()"
+        (drop)="onDrop($event)"
+        (click)="fileInput.click()"
+        (keydown.enter)="fileInput.click()"
+      >
+        <svg class="lg-upload-icon" width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <path d="M16 22V10" stroke="#B88E2F" stroke-width="1.5" stroke-linecap="round" />
+          <path d="M10 16L16 10L22 16" stroke="#B88E2F" stroke-width="1.5"
+            stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M6 26H26" stroke="#B88E2F" stroke-width="1.5" stroke-linecap="round" />
+        </svg>
+
+        <p class="lg-upload-text">
+          {{ value() || 'Drag & drop or click to browse' }}
+        </p>
+
+        <input
+          #fileInput
+          type="file"
+          class="sr-only"
+          [multiple]="multiple()"
+          [disabled]="disabled()"
+          (change)="onFileChange($event)"
+        />
+      </div>
+    }
+
+    @default {
+      <input
+        [id]="inputId"
+        type="text"
+        [placeholder]="placeholder()"
+        [disabled]="disabled()"
+        [value]="value()"
+        [class.has-error]="hasError()"
+        class="lg-field"
+        (input)="onValueChange($event)"
+      />
+    }
+
+  }
+
+  @if (error()) {
+    <span class="lg-error-msg" role="alert">{{ error() }}</span>
+  }
+
+</div>

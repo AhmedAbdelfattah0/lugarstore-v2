@@ -1,0 +1,171 @@
+:host {
+  display: block;
+}
+
+// ── Card shell ───────────────────────────────────────────────────────────────
+.product-card {
+  background: #FFFFFF;
+  border: 1px solid #E8E8E8;
+  border-radius: 4px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color 0.25s ease;
+
+  &:hover {
+    border-color: #B88E2F;
+
+    .img-primary   { opacity: 0; }
+    .img-secondary { opacity: 1; }
+    .quick-add     { transform: translateY(0); }
+  }
+}
+
+// ── Image area ───────────────────────────────────────────────────────────────
+// padding-top % is relative to width → creates a fixed aspect ratio.
+// 75% ≈ 65 % of total card height when content area is ~100px.
+.card-img {
+  position: relative;
+  padding-top: 75%;
+  overflow: hidden;
+  background: #F9F1E7; // cream placeholder while loading
+
+  &--featured {
+    padding-top: 100%; // taller image for featured variant
+  }
+}
+
+.img-primary,
+.img-secondary {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.4s ease;
+}
+
+.img-secondary {
+  opacity: 0;
+}
+
+// ── Badge ─────────────────────────────────────────────────────────────────────
+.badge-slot {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 2;
+}
+
+// ── Wishlist button ───────────────────────────────────────────────────────────
+.wishlist-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.88);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.15s ease;
+
+  &:hover {
+    background: #FFFFFF;
+  }
+}
+
+// ── Quick-add bar ─────────────────────────────────────────────────────────────
+.quick-add {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #B88E2F;
+  padding: 11px 16px;
+  text-align: center;
+  transform: translateY(100%);
+  transition: transform 0.28s ease;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.quick-add-label {
+  font-family: var(--font-label);
+  font-weight: 300;
+  font-size: 0.6875rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #FFFFFF;
+}
+
+// ── Card body ─────────────────────────────────────────────────────────────────
+.card-body {
+  padding: 16px;
+
+  &--compact {
+    padding: 12px;
+  }
+}
+
+.category-label {
+  font-family: var(--font-label);
+  font-weight: 300;
+  font-size: 0.625rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #7A6F65;
+  margin-bottom: 6px;
+}
+
+.product-title {
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 400;
+  color: #333333;
+  line-height: 1.4;
+  // 2-line clamp
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 10px;
+
+  &--featured {
+    font-size: 1.0625rem;
+  }
+
+  &--compact {
+    font-size: 0.8125rem;
+    margin-bottom: 8px;
+  }
+}
+
+// ── Pricing ───────────────────────────────────────────────────────────────────
+.price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.price {
+  &--active {
+    font-family: var(--font-heading);
+    font-weight: 300;
+    font-size: 1.125rem;
+    color: #B88E2F;
+    letter-spacing: 0.05em;
+  }
+
+  &--original {
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    color: #7A6F65;
+    text-decoration: line-through;
+  }
+}

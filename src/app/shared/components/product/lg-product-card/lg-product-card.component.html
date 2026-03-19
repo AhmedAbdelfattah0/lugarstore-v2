@@ -1,0 +1,100 @@
+<article
+  class="product-card"
+  [class.product-card--featured]="variant() === 'featured'"
+  [class.product-card--compact]="variant() === 'compact'"
+>
+
+  <!-- ── Image area ──────────────────────────────────────────────────────── -->
+  <div class="card-img" [class.card-img--featured]="variant() === 'featured'">
+
+    <img
+      [src]="product().primaryImage"
+      [alt]="product().title"
+      class="img-primary"
+      loading="lazy"
+    />
+
+    @if (secondaryImage()) {
+      <img
+        [src]="secondaryImage()!"
+        [alt]="product().title"
+        class="img-secondary"
+        loading="lazy"
+      />
+    }
+
+    <!-- Badge — top-left -->
+    @if (activeBadge()) {
+      <div class="badge-slot">
+        <lg-badge
+          [variant]="activeBadge()!"
+          [label]="activeBadge() === 'discount' ? discountLabel() : ''"
+        />
+      </div>
+    }
+
+    <!-- Wishlist — top-right -->
+    <button
+      type="button"
+      class="wishlist-btn"
+      [attr.aria-label]="isWishlisted() ? 'Remove from wishlist' : 'Add to wishlist'"
+      (click)="onWishlistToggle($event)"
+    >
+      @if (isWishlisted()) {
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="#B88E2F">
+          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5
+            2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09
+            C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5
+            c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+        </svg>
+      } @else {
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+          stroke="#7A6F65" stroke-width="1.5"
+          stroke-linecap="round" stroke-linejoin="round"
+        >
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67
+            l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06
+            L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+        </svg>
+      }
+    </button>
+
+    <!-- Quick-add bar — slides up on hover -->
+    <div class="quick-add" (click)="onAddToCart($event)">
+      <span class="quick-add-label">Quick Add +</span>
+    </div>
+
+  </div>
+  <!-- /card-img -->
+
+  <!-- ── Content ─────────────────────────────────────────────────────────── -->
+  <div class="card-body" [class.card-body--compact]="variant() === 'compact'">
+
+    <p class="category-label">{{ product().categoryName }}</p>
+
+    <h3
+      class="product-title"
+      [class.product-title--featured]="variant() === 'featured'"
+      [class.product-title--compact]="variant() === 'compact'"
+    >
+      {{ product().title }}
+    </h3>
+
+    <div class="price-row">
+      @if (product().hasDiscount) {
+        <span class="price price--active">
+          {{ product().discountedPrice | lgCurrencyEgp }}
+        </span>
+        <span class="price price--original">
+          {{ product().price | lgCurrencyEgp }}
+        </span>
+      } @else {
+        <span class="price price--active">
+          {{ product().price | lgCurrencyEgp }}
+        </span>
+      }
+    </div>
+
+  </div>
+
+</article>
