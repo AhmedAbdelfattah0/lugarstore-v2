@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(unzip -o session-logger.skill -d /tmp/session-logger-extract && unzip -o session-restore.skill -d /tmp/session-restore-extract)",
+      "Bash(find /Users/ahmedabdelfatah/Documents/personal-projects/Lugar-Store-v2/lugar-store -name \"session-log.md\" -not -path \"*/node_modules/*\" 2>/dev/null | head -5)",
+      "Bash(npm install tailwindcss @tailwindcss/postcss postcss gsap 2>&1)",
+      "Bash(BASE=/Users/ahmedabdelfatah/Documents/personal-projects/Lugar-Store-v2/lugar-store/src/app\n\nmkdir -p \\\\\n  $BASE/core/guards \\\\\n  $BASE/core/services \\\\\n  $BASE/features/home/components \\\\\n  $BASE/features/home/models \\\\\n  $BASE/features/home/services \\\\\n  $BASE/features/home/pages \\\\\n  $BASE/features/products/components \\\\\n  $BASE/features/products/models \\\\\n  $BASE/features/products/services \\\\\n  $BASE/features/products/pages \\\\\n  $BASE/features/product-detail/components \\\\\n  $BASE/features/product-detail/models \\\\\n  $BASE/features/product-detail/services \\\\\n  $BASE/features/product-detail/pages \\\\\n  $BASE/features/cart/components \\\\\n  $BASE/features/cart/pages \\\\\n  $BASE/features/wishlist/components \\\\\n  $BASE/features/wishlist/pages \\\\\n  $BASE/features/checkout/components \\\\\n  $BASE/features/checkout/pages \\\\\n  $BASE/features/hot-deals/components \\\\\n  $BASE/features/hot-deals/pages \\\\\n  $BASE/features/contact/components \\\\\n  $BASE/features/contact/pages \\\\\n  $BASE/features/custom-order/components \\\\\n  $BASE/features/custom-order/pages \\\\\n  $BASE/features/atelier/components \\\\\n  $BASE/features/atelier/pages \\\\\n  $BASE/shared/components/ui \\\\\n  $BASE/shared/components/navigation \\\\\n  $BASE/shared/components/product \\\\\n  $BASE/shared/components/commerce \\\\\n  $BASE/shared/components/filtering \\\\\n  $BASE/shared/components/feedback \\\\\n  $BASE/shared/components/layout \\\\\n  $BASE/shared/models \\\\\n  $BASE/shared/pipes \\\\\n  $BASE/shared/services\n\necho \"Folder structure created.\")",
+      "Bash(npx tsc --noEmit -p tsconfig.app.json 2>&1)",
+      "Bash(npx ng build --configuration development 2>&1)",
+      "WebFetch(domain:v20.angular.dev)",
+      "Bash(grep -rn \"BootstrapContext\\\\|bootstrapApplication\" /Users/ahmedabdelfatah/Documents/personal-projects/Lugar-Store-v2/lugar-store/node_modules/@angular/platform-browser/*.d.ts 2>/dev/null | head -20)",
+      "Bash(npx tsc --noEmit 2>&1)",
+      "Bash(node -e \"const p = require\\('/Users/ahmedabdelfatah/Documents/personal-projects/Lugar-Store-v2/lugar-store/package.json'\\); console.log\\(p.dependencies['@angular/core']\\)\")",
+      "Bash(npx tsc --noEmit --project tsconfig.app.json 2>&1 | head -30)",
+      "Bash(npx tsc --noEmit --project tsconfig.app.json 2>&1)",
+      "Bash(npx ng build --configuration=development 2>&1 | tail -20)",
+      "Bash(npx tsc --noEmit 2>&1 && echo \"✓ TypeScript clean\" || echo \"ERRORS FOUND\")"
+    ]
+  }
+}
