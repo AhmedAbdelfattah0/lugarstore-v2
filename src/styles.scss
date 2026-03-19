@@ -1,0 +1,72 @@
+// === Design Tokens ===
+// Tailwind v4 @theme — Sass passes unknown at-rules through as plain CSS
+// PostCSS picks these up and generates utilities: bg-gold, text-bg-primary, etc.
+
+@theme {
+  /* Color Palette */
+  --color-bg-primary:   #F9F1E7;
+  --color-bg-secondary: #EDE4D8;
+  --color-bg-dark:      #1A1A18;
+  --color-surface:      #FFFFFF;
+  --color-text-dark:    #333333;
+  --color-text-muted:   #7A6F65;
+  --color-text-light:   #FFFFFF;
+  --color-gold:         #B88E2F;
+  --color-gold-hover:   #9A7A32;
+  --color-border:       #E8E8E8;
+  --color-error:        #E97171;
+
+  /* Typography */
+  --font-heading: 'Cormorant Garamond', Georgia, serif;
+  --font-label:   'Montserrat', sans-serif;
+  --font-body:    'Inter', system-ui, sans-serif;
+
+  /* Font Sizes */
+  --font-size-hero:    6rem;    // 96px  — H1 hero
+  --font-size-section: 4rem;    // 64px  — H2 sections
+  --font-size-sub:     2.5rem;  // 40px  — H3 sub-headings
+
+  /* Letter Spacing */
+  --letter-spacing-heading:      0.05em;
+  --letter-spacing-heading-wide: 0.1em;
+  --letter-spacing-label:        0.15em;
+  --letter-spacing-label-wide:   0.2em;
+
+  /* Spacing */
+  --section-padding-y:  5rem;   // 80px  minimum
+  --hero-padding-y:     7.5rem; // 120px minimum
+  --content-max-width:  80rem;  // 1280px
+  --grid-gap:           2rem;   // 32px
+  --card-padding:       1.5rem; // 24px
+
+  /* Border Radius */
+  --radius-sm: 2px;
+  --radius-md: 4px; // max allowed per design rules
+}
+
+// === Base Styles ===
+@layer base {
+  html {
+    font-family: var(--font-body);
+    color: var(--color-text-dark);
+    background-color: var(--color-bg-primary);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: 300;
+    letter-spacing: var(--letter-spacing-heading);
+    line-height: 1.1;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+}
