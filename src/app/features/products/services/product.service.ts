@@ -19,14 +19,14 @@ interface RawProductDetail {
   images: string[];
   videoLink: string;
   categoryId: string;
-  subCategoryId: number;
+  subCategoryId: number | string;
   rating: number;
   isNew?: boolean;
   discount: number;
   reviews?: number;
   badge?: string;
   subtitle?: string;
-  availability: string;
+  availability: string | number;
   qty: number;
   categoryName: string;
 }
@@ -38,6 +38,8 @@ export class ProductService {
   getProducts(filters?: FilterParams): Observable<Product[]> {
     return this.http.get<any[]>('/products/get_products.php').pipe(
       map(raw => {
+  
+
         let products = raw.map(normalizeProduct);
 
         if (filters?.category !== undefined) {
@@ -93,11 +95,11 @@ export class ProductService {
       images,
       primaryImage: images[0] || 'assets/images/placeholder.png',
       categoryId: Number(raw.categoryId),
-      categoryName: raw.categoryName,
-      subCategoryId: raw.subCategoryId,
-      isNew: raw.subCategoryId === 1,
-      isTop: raw.subCategoryId === 5,
-      isOutOfStock: raw.availability !== 'in_stock',
+      categoryName: raw.categoryName ?? '',
+      subCategoryId: Number(raw.subCategoryId),
+      isNew: Number(raw.subCategoryId) === 1,
+      isTop: Number(raw.subCategoryId) === 5,
+      isOutOfStock: raw.qty === 0 || Number(raw.availability) === 0,
       rating: raw.rating,
       reviews: raw.reviews ?? 0,
       description: raw.description,

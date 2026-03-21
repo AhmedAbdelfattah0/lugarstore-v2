@@ -4,36 +4,31 @@
 }
 
 .promo {
-  background: #1A1A18;
-  position: relative;
-  overflow: hidden;
-}
-
-.promo__track {
   width: 100%;
+  background: #F9F1E7;
 }
 
-.promo__slide {
+// Asymmetric editorial grid: 40% text / 60% image
+.promo__grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  min-height: 560px;
+  grid-template-columns: 40% 60%;
+  width: 100%;
+  min-height: 600px;
 
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     grid-template-columns: 1fr;
+    min-height: auto;
   }
 }
 
-.promo__slide--api {
-  grid-template-columns: 1fr 1fr;
-}
-
-.promo__text-panel {
+// ── Left text panel ─────────────────────────────────────────────────────────
+.promo__text {
+  background: #F9F1E7;
+  padding: 80px 60px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 80px 72px;
-  gap: 24px;
-  background: #1A1A18;
+  gap: 20px;
 
   @media (max-width: 1024px) {
     padding: 60px 40px;
@@ -45,100 +40,81 @@
 
 .promo__eyebrow {
   font-family: 'Montserrat', sans-serif;
-  font-size: 0.65rem;
   font-weight: 300;
+  font-size: 11px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: #B88E2F;
   margin: 0;
 }
 
-.promo__headline {
+.promo__heading {
   font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(2.5rem, 4vw, 3.5rem);
   font-weight: 300;
-  color: #FFFFFF;
+  font-size: clamp(2rem, 3.5vw, 3.25rem);
   line-height: 1.08;
+  color: #1A1A18;
   letter-spacing: 0.01em;
   margin: 0;
 }
 
-.promo__body {
+.promo__subtext {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(1rem, 1.5vw, 1.375rem);
+  color: #B88E2F;
+  margin: 0;
+}
+
+.promo__description {
   font-family: 'Inter', sans-serif;
-  font-size: 0.875rem;
+  font-size: 0.9375rem;
   line-height: 1.75;
-  color: rgba(255, 255, 255, 0.6);
+  color: #7A6F65;
   max-width: 360px;
   margin: 0;
 }
 
-.promo__cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 0.7rem;
-  font-weight: 300;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: #B88E2F;
+.promo__actions {
+  margin-top: 8px;
+}
+
+.promo__cta-link {
+  color: inherit;
   text-decoration: none;
-  border-bottom: 1px solid #B88E2F;
-  padding-bottom: 4px;
-  width: fit-content;
-  transition: color 0.2s;
-
-  &:hover {
-    color: #FFFFFF;
-    border-color: #FFFFFF;
-  }
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
 }
 
-.promo__image-panel {
-  position: relative;
-  overflow: hidden;
-
-  @media (max-width: 768px) {
-    height: 280px;
-  }
-}
-
-.promo__image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.8s ease;
-  display: block;
-
-  .promo:hover & {
-    transform: scale(1.02);
-  }
-}
-
-/* Controls */
-.promo__controls {
-  position: absolute;
-  bottom: 32px;
-  left: 50%;
-  transform: translateX(-50%);
+// Nav + dots row
+.promo__bottom {
   display: flex;
   align-items: center;
-  gap: 16px;
-  z-index: 10;
+  justify-content: space-between;
+  margin-top: 8px;
+  padding-top: 28px;
+  border-top: 1px solid rgba(184, 142, 47, 0.2);
+}
+
+.promo__nav {
+  display: flex;
+  gap: 10px;
 }
 
 .promo__arrow {
   background: none;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: rgba(255, 255, 255, 0.7);
-  width: 36px;
-  height: 36px;
+  border: 1px solid #E8E8E8;
+  color: #1A1A18;
+  width: 40px;
+  height: 40px;
   border-radius: 2px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: border-color 0.2s, color 0.2s;
 
   &:hover {
     border-color: #B88E2F;
@@ -153,7 +129,7 @@
 }
 
 .promo__dot {
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(26, 26, 24, 0.2);
   border: none;
   width: 6px;
   height: 6px;
@@ -166,5 +142,31 @@
     background: #B88E2F;
     width: 20px;
     border-radius: 3px;
+  }
+}
+
+// ── Right image panel ────────────────────────────────────────────────────────
+.promo__image-panel {
+  position: relative;
+  overflow: hidden;
+  min-height: 480px;
+
+  @media (max-width: 1024px) {
+    height: 380px;
+    min-height: unset;
+  }
+}
+
+.promo__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.8s ease;
+
+  .promo:hover & {
+    transform: scale(1.02);
   }
 }

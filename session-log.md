@@ -399,3 +399,49 @@ No mobile designs for Homepage, PLP, PDP, Cart, Checkout, etc.
 
 ### Next Step
 > Confirm inventory then start Phase 3 Homepage using frame e2d6b2be8a234881b6905cf91679fbf1
+
+---
+
+## Session: 2026-03-22 | 00:17
+
+**Project:** Lugar Store v2
+**Feature:** Phase 3 Homepage — Layout fixes, component rewrites, bento grid
+**Status:** ✅ Completed
+
+### What Was Done
+Added :host{display:block;width:100%} to all 10 home feature components to fix narrow column bug | Rewrote lg-navbar to CSS Grid 1fr auto 1fr | Fixed hero height:100vh so image fills right panel | Fixed room slider with explicit height:600px on .room__photos + @if active-only rendering | Rewrote lg-promo-banner as editorial 40/60 split with 3 hardcoded slides, removed BannerService dependency | Rewrote lg-trust-strip with BEM classes and 4-column SCSS grid | Rewrote lg-footer with BEM classes and full SCSS grid 2fr 1fr 1fr 1fr | Rebuilt lg-featured-collection bento grid: index 0 large left spans 2 rows, index 1 top-right, index 2 bottom-right, index 3+ in 3-col grid below | Fixed product title ALL-CAPS via toTitleCase() in normalizeProduct() + CSS text-transform:capitalize | Added global full-width reset outside @layer in styles.scss | Swapped all placeholder images to Unsplash real photos
+
+### Files Touched
+src/styles.scss: global html/body/app-root width reset outside @layer | src/app/shared/components/navigation/lg-navbar/lg-navbar.component.scss: CSS Grid 1fr auto 1fr layout | src/app/features/home/components/lg-hero/lg-hero.component.scss: height:100vh fix | src/app/features/home/components/lg-room-slider/lg-room-slider.component.html: @if active-only rendering | src/app/features/home/components/lg-room-slider/lg-room-slider.component.scss: explicit height:600px on .room__photos | src/app/features/home/components/lg-promo-banner/lg-promo-banner.component.ts: removed banners input 3 editorial slides | src/app/features/home/components/lg-promo-banner/lg-promo-banner.component.html: 40/60 editorial grid | src/app/features/home/components/lg-promo-banner/lg-promo-banner.component.scss: asymmetric grid layout | src/app/shared/components/commerce/lg-trust-strip/lg-trust-strip.component.html: BEM rewrite | src/app/shared/components/commerce/lg-trust-strip/lg-trust-strip.component.scss: 4-col grid with gold dividers | src/app/shared/components/navigation/lg-footer/lg-footer.component.html: BEM rewrite | src/app/shared/components/navigation/lg-footer/lg-footer.component.scss: full SCSS grid | src/app/features/home/components/lg-featured-collection/lg-featured-collection.component.html: bento + remaining grid | src/app/features/home/components/lg-featured-collection/lg-featured-collection.component.scss: explicit grid-row placement | src/app/shared/models/product.model.ts: toTitleCase() in normalizeProduct() | src/app/shared/components/product/lg-product-card/lg-product-card.component.scss: text-transform capitalize
+
+### Key Decisions
+All layout components use BEM SCSS not Tailwind utilities — Tailwind v4 content scanning unreliable for Angular templates | Global width rules placed outside @layer to outrank Tailwind Preflight | Editorial promo banner is fully static no BannerService needed for Phase 3 | Product title normalization done in model layer not component | Bento uses explicit grid-row:1/3 placement not grid-column:span
+
+### Blockers / Open Questions
+None
+
+### Next Step
+> Phase 4 — Build PLP: products page with filter sidebar sort controls pagination and product grid
+
+---
+
+## Session: 2026-03-22 | 01:14
+
+**Project:** Lugar Store v2
+**Feature:** Homepage UI polish — layout fixes, real API images, filter tabs, data normalization
+**Status:** ✅ Completed
+
+### What Was Done
+Fixed lg-categories-section to full-width zigzag layout (rows bleed to screen edge)|Fixed lg-hero 50/50 split layout — larger headline clamp(52px,5.5vw,88px), repositioned floating card left:24px|Fixed lg-categories-section typography with clamp() fluid sizing and image zoom reset|Fixed Featured Collection filter tabs root cause: featuredProducts was slice(0,6) — added allProducts signal to HomeStateService, tabs now filter full catalog|Fixed isNew/isTop always false: subCategoryId comes as string from API — added Number() parse in normalizeProduct and normalizeProductDetail|Fixed isOutOfStock always true: API sends availability as number not 'in_stock' string — combined check qty===0||Number(availability)===0|Fixed categoryName null crash: added ?? '' fallback in normalizeProduct and normalizeProductDetail|Replaced all Unsplash placeholder images with real API data: hero uses featuredProduct.primaryImage, promo-banner uses category images, room-slider uses product images+titles, social-gallery uses first 9 products|Removed lazy routing — all page components now eagerly imported|Removed lazy loading from app.routes.ts for faster navigation
+
+### Files Touched
+src/app/features/home/components/lg-categories-section/lg-categories-section.component.scss — full-width zigzag rows, fluid clamp() typography|src/app/features/home/components/lg-categories-section/lg-categories-section.component.html — categories__header wrapper for constrained header|src/app/features/home/components/lg-hero/lg-hero.component.scss — 50/50 grid, card left:24px, headline clamp(52px,5.5vw,88px)|src/app/features/home/components/lg-hero/lg-hero.component.ts — added heroImage computed signal|src/app/features/home/components/lg-hero/lg-hero.component.html — [src]=heroImage()|src/app/features/home/services/home-state.service.ts — added allProducts signal|src/app/features/home/components/lg-featured-collection/lg-featured-collection.component.ts — filteredProducts slices from full catalog, capped at 6|src/app/shared/models/product.model.ts — subCategoryId:number|string, Number() parse for isNew/isTop, availability guard, categoryName ?? ''|src/app/features/products/services/product.service.ts — same normalizeProductDetail fixes|src/app/features/home/components/lg-promo-banner/lg-promo-banner.component.ts — slides computed from homeState.categories()|src/app/features/home/components/lg-room-slider/lg-room-slider.component.ts — slides computed from homeState.allProducts()|src/app/features/home/components/lg-room-slider/lg-room-slider.component.html — updated to slides()/activeSlide() signal syntax|src/app/features/home/components/lg-social-gallery/lg-social-gallery.component.ts — galleryItems computed from allProducts|src/app/app.routes.ts — removed all loadComponent lazy routes, direct imports
+
+### Key Decisions
+allProducts vs featuredProducts: kept featuredProducts as slice(0,6) for hero card only; allProducts exposes full catalog for filter components|Slide editorial copy extracted to SLIDE_COPY constant in promo-banner — API only provides images, copy stays static|Room slider uses product.title+categoryName instead of hardcoded editorial names — real product data preferred|isOutOfStock uses combined qty===0||Number(availability)===0 since API availability field type is unknown
+
+### Blockers / Open Questions
+Diagnostic console.log still present in product.service.ts getProducts() — should be removed after confirming isOutOfStock fix in browser|Commented-out console.log still in home-state.service.ts — can be deleted
+
+### Next Step
+> Remove the two diagnostic console.logs (product.service.ts and home-state.service.ts), then begin Phase 4 — Products List Page (PLP)

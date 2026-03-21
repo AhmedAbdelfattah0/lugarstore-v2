@@ -5,31 +5,37 @@
 
 .categories {
   background: #F9F1E7;
-  padding: 100px 0;
-}
-
-.categories__container {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 48px;
+  padding-top: 100px;
 
   @media (max-width: 768px) {
-    padding: 0 24px;
+    padding-top: 72px;
   }
 }
 
+/* Section header — stays constrained */
+.categories__header {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 48px 72px;
+
+  @media (max-width: 768px) {
+    padding: 0 24px 56px;
+  }
+}
+
+/* Rows list — full viewport width, no padding, no max-width */
 .categories__list {
-  margin-top: 72px;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 0;
 }
 
 /* Each zigzag row */
 .cat-row {
   display: grid;
   grid-template-columns: 55% 45%;
-  min-height: 480px;
+  min-height: clamp(400px, 45vw, 620px);
+  width: 100%;
 
   &--reversed {
     grid-template-columns: 45% 55%;
@@ -40,14 +46,18 @@
 
     .cat-row__text {
       order: 1;
-      padding-left: 0;
-      padding-right: 80px;
+      padding-left: clamp(40px, 6vw, 120px);
+      padding-right: clamp(40px, 6vw, 120px);
       align-items: flex-end;
       text-align: right;
-    }
 
-    .cat-row__cta {
-      flex-direction: row-reverse;
+      .cat-row__body {
+        margin-left: auto;
+      }
+
+      .cat-row__cta {
+        flex-direction: row-reverse;
+      }
     }
   }
 
@@ -60,37 +70,46 @@
     }
     &--reversed .cat-row__text {
       order: 1;
-      padding-right: 0;
+      padding: 36px 24px;
       align-items: flex-start;
       text-align: left;
+
+      .cat-row__body {
+        margin-left: 0;
+      }
     }
   }
 }
 
+/* Image cell — absolutely positioned img, no initial scale */
 .cat-row__image-wrap {
   position: relative;
   overflow: hidden;
   display: block;
   background: #EDE4D8;
+
+  @media (max-width: 768px) {
+    min-height: 280px;
+  }
 }
 
 .cat-row__image-wrap--skeleton {
   background: #EDE4D8;
-  min-height: 400px;
+  min-height: clamp(400px, 45vw, 620px);
 }
 
 .cat-row__image {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.7s ease;
+  object-position: center center;
+  transform: scale(1.0);
+  transition: transform 0.8s ease;
 
   .cat-row__image-wrap:hover & {
     transform: scale(1.03);
-  }
-
-  @media (max-width: 768px) {
-    height: 280px;
   }
 }
 
@@ -105,73 +124,69 @@
   }
 }
 
+/* Text cell — fluid padding scales with viewport */
 .cat-row__text {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 20px;
-  padding: 60px 80px;
+  padding: clamp(40px, 6vw, 120px) clamp(48px, 7vw, 120px);
+  background: #F9F1E7;
 
-  @media (max-width: 1024px) {
-    padding: 48px 40px;
-  }
   @media (max-width: 768px) {
-    padding: 36px 0;
+    padding: 36px 24px;
   }
 }
 
 .cat-row__eyebrow {
   font-family: 'Montserrat', sans-serif;
-  font-size: 0.65rem;
   font-weight: 300;
-  letter-spacing: 0.2em;
+  font-size: clamp(10px, 0.8vw, 13px);
+  letter-spacing: 0.25em;
   text-transform: uppercase;
   color: #B88E2F;
-  margin: 0;
+  margin: 0 0 16px;
 }
 
 .cat-row__title {
   font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(2rem, 3.5vw, 3rem);
   font-weight: 300;
-  color: #1A1A18;
+  font-size: clamp(48px, 5vw, 80px);
   line-height: 1.1;
+  color: #333333;
   letter-spacing: 0.01em;
-  margin: 0;
+  margin: 0 0 20px;
+  user-select: none;
 }
 
 .cat-row__body {
   font-family: 'Inter', sans-serif;
-  font-size: 0.875rem;
-  line-height: 1.75;
+  font-size: clamp(14px, 1.1vw, 16px);
+  line-height: 1.7;
   color: #7A6F65;
-  margin: 0;
-  max-width: 340px;
+  max-width: 400px;
+  margin: 0 0 32px;
 }
 
 .cat-row__cta {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   font-family: 'Montserrat', sans-serif;
-  font-size: 0.7rem;
   font-weight: 300;
-  letter-spacing: 0.18em;
+  font-size: clamp(11px, 0.9vw, 13px);
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: #1A1A18;
+  color: #B88E2F;
   text-decoration: none;
-  border-bottom: 1px solid #B88E2F;
-  padding-bottom: 4px;
   width: fit-content;
-  transition: color 0.2s;
+  transition: opacity 0.2s;
 
   &:hover {
-    color: #B88E2F;
+    opacity: 0.75;
   }
 }
 
 .cat-row__cta-arrow {
-  font-size: 0.9rem;
   transition: transform 0.2s;
 
   .cat-row__cta:hover & {

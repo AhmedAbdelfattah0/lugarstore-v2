@@ -128,6 +128,7 @@
   font-weight: 400;
   color: #333333;
   line-height: 1.4;
+  text-transform: capitalize; // normalize API ALL-CAPS titles
   // 2-line clamp
   display: -webkit-box;
   -webkit-line-clamp: 2;

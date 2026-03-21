@@ -51,13 +51,15 @@ export class LgFeaturedCollectionComponent {
   protected readonly filteredProducts = computed(() => {
     const tab      = this.activeTab();
     const products = this.products();
+    let result: Product[];
     switch (tab) {
-      case 'new':    return products.filter(p => p.isNew);
-      case 'top':    return products.filter(p => p.isTop);
-      case 'dining': return products.filter(p => p.categoryName.toLowerCase().includes('dining'));
-      case 'office': return products.filter(p => p.categoryName.toLowerCase().includes('office'));
-      default:       return products;
+      case 'new':    result = products.filter(p => p.isNew);    break;
+      case 'top':    result = products.filter(p => p.isTop);    break;
+      case 'dining': result = products.filter(p => p.categoryName?.toLowerCase().includes('dining')); break;
+      case 'office': result = products.filter(p => p.categoryName?.toLowerCase().includes('office')); break;
+      default:       result = products; break;
     }
+    return result.slice(0, 6);
   });
 
   protected setTab(tab: FilterTab): void {

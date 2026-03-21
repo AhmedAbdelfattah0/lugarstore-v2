@@ -15,7 +15,7 @@
   </div>
 
   <div class="gallery__mosaic">
-    @for (image of images; track image.src; let i = $index) {
+    @for (item of galleryItems(); track item.id; let i = $index) {
       <a
         class="gallery__cell"
         [class.gallery__cell--tall]="i === 0 || i === 5"
@@ -23,12 +23,12 @@
         [href]="instagramUrl"
         target="_blank"
         rel="noopener noreferrer"
-        [attr.aria-label]="'View post ' + (i + 1) + ' on Instagram'"
+        [attr.aria-label]="'View ' + item.title + ' on Instagram'"
       >
         <img
           class="gallery__image"
-          [src]="image.src"
-          [alt]="image.alt"
+          [src]="item.image"
+          [alt]="item.title"
           loading="lazy"
         />
         <div class="gallery__overlay" aria-hidden="true">
@@ -37,6 +37,7 @@
             <circle cx="12" cy="12" r="4" stroke="white" stroke-width="1.5"/>
             <circle cx="17.5" cy="6.5" r="1" fill="white"/>
           </svg>
+          <span class="gallery__title">{{ item.title }}</span>
         </div>
       </a>
     }

@@ -1,1 +1,75 @@
-// Trust strip styles handled via Tailwind utilities
+:host {
+  display: block;
+  width: 100%;
+}
+
+.trust-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  width: 100%;
+  background: #FFFFFF;
+  padding: 60px 0;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.trust-item {
+  padding: 40px 32px;
+  text-align: center;
+  border-right: 1px solid #B88E2F;
+
+  &--last {
+    border-right: none;
+  }
+
+  @media (max-width: 1024px) {
+    // 2-column: remove right border on even items, add bottom border on top row
+    &:nth-child(2n) {
+      border-right: none;
+    }
+    &:nth-child(-n + 2) {
+      border-bottom: 1px solid #B88E2F;
+    }
+  }
+
+  @media (max-width: 640px) {
+    border-right: none;
+    border-bottom: 1px solid #B88E2F;
+
+    &--last {
+      border-bottom: none;
+    }
+  }
+}
+
+.trust-eyebrow {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #B88E2F;
+  margin-bottom: 12px;
+}
+
+.trust-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: 22px;
+  color: #333333;
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+
+.trust-desc {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: #7A6F65;
+  line-height: 1.6;
+}

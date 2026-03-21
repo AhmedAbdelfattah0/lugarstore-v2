@@ -5,6 +5,7 @@ import {
   PLATFORM_ID,
   afterNextRender,
   input,
+  computed,
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { RouterLink } from '@angular/router';
@@ -24,6 +25,11 @@ export class LgHeroComponent {
   private readonly platformId = inject(PLATFORM_ID);
 
   readonly featuredProduct = input<Product | null>(null);
+
+  protected readonly heroImage = computed(() =>
+    this.featuredProduct()?.primaryImage ??
+    'hero-lifestyle.jpg'
+  );
 
   constructor() {
     afterNextRender(() => {

@@ -33,40 +33,28 @@
 
     <!-- Right: Large lifestyle image -->
     <div class="hero__visual">
-      <div class="hero__image-wrap">
-        <img
-          class="hero__image"
-          src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1200"
-          alt="Luxury furniture in a modern Egyptian home"
-          loading="eager"
-        />
-        <div class="hero__image-overlay" aria-hidden="true"></div>
-      </div>
+      <img
+        class="hero__image"
+        [src]="heroImage()"
+        alt="Luxury furniture in a modern Egyptian home"
+        loading="eager"
+      />
+      <div class="hero__image-overlay" aria-hidden="true"></div>
 
-      <!-- Floating product card -->
+      <!-- Floating product card — text only -->
       @if (featuredProduct(); as product) {
         <div class="hero__card">
-          <div class="hero__card-image-wrap">
-            <img
-              class="hero__card-image"
-              [src]="product.primaryImage"
-              [alt]="product.title"
-              loading="eager"
-            />
-          </div>
-          <div class="hero__card-body">
-            <p class="hero__card-eyebrow">Featured Piece</p>
-            <p class="hero__card-title">{{ product.title }}</p>
-            <p class="hero__card-price">
-              @if (product.hasDiscount) {
-                <span class="hero__card-price--original">{{ product.price | lgCurrencyEgp }}</span>
-                <span class="hero__card-price--active">{{ product.discountedPrice | lgCurrencyEgp }}</span>
-              } @else {
-                <span class="hero__card-price--active">{{ product.price | lgCurrencyEgp }}</span>
-              }
-            </p>
-            <a [routerLink]="['/products', product.id]" class="hero__card-link">View →</a>
-          </div>
+          <p class="hero__card-eyebrow">Featured Piece</p>
+          <p class="hero__card-title">{{ product.title }}</p>
+          <p class="hero__card-price">
+            @if (product.hasDiscount) {
+              <span class="hero__card-price--original">{{ product.price | lgCurrencyEgp }}</span>
+              <span class="hero__card-price--active">{{ product.discountedPrice | lgCurrencyEgp }}</span>
+            } @else {
+              <span class="hero__card-price--active">{{ product.price | lgCurrencyEgp }}</span>
+            }
+          </p>
+          <a [routerLink]="['/products', product.id]" class="hero__card-link">View →</a>
         </div>
       }
 

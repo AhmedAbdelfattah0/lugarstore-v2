@@ -12,14 +12,14 @@ interface RawProduct {
   imgFour: string;
   videoLink: string;
   categoryId: string;        // string — must be parsed to number
-  subCategoryId: number;     // 1 = New, 5 = Top
+  subCategoryId: number | string; // API returns string or number — normalised on read
   rating: number;
   isNew?: boolean;
   discount: number;
   reviews?: number;
   badge?: string;
   subtitle?: string;
-  availability: string;
+  availability: string | number; // API may return '1'/'0' or 1/0
   qty: number;
   categoryName: string;
 }
@@ -40,7 +40,7 @@ export interface Product {
   subCategoryId: number;
   isNew: boolean;             // subCategoryId === 1
   isTop: boolean;             // subCategoryId === 5
-  isOutOfStock: boolean;      // availability !== 'in_stock'
+  isOutOfStock: boolean;      // qty === 0 or availability === 0
   rating: number;
   reviews: number;
   description: string;
@@ -50,13 +50,18 @@ export interface Product {
   qty: number;
 }
 
+// Convert API titles to Title Case — handles ALL CAPS input from the API
+function toTitleCase(str: string): string {
+  return str.toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
+}
+
 // Normalization function — used inside ProductService only
 export function normalizeProduct(raw: RawProduct): Product {
   const images = [raw.imgOne, raw.imgTwo, raw.imgThree, raw.imgFour]
     .filter(Boolean);
   return {
     id: raw.id,
-    title: raw.title,
+    title: toTitleCase(raw.title),
     titleAr: raw.titleAr,
     price: Number(raw.originalPrice),
     discountedPrice: Number(raw.discountedPrice),
@@ -65,11 +70,11 @@ export function normalizeProduct(raw: RawProduct): Product {
     images,
     primaryImage: images[0] || 'assets/images/placeholder.png',
     categoryId: Number(raw.categoryId),
-    categoryName: raw.categoryName,
-    subCategoryId: raw.subCategoryId,
-    isNew: raw.subCategoryId === 1,
-    isTop: raw.subCategoryId === 5,
-    isOutOfStock: raw.availability !== 'in_stock',
+    categoryName: raw.categoryName ?? '',
+    subCategoryId: Number(raw.subCategoryId),
+    isNew: Number(raw.subCategoryId) === 1,
+    isTop: Number(raw.subCategoryId) === 5,
+    isOutOfStock: raw.qty === 0 || Number(raw.availability) === 0,
     rating: raw.rating,
     reviews: raw.reviews ?? 0,
     description: raw.description,

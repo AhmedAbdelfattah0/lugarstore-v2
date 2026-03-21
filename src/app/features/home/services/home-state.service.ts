@@ -23,6 +23,10 @@ export class HomeStateService {
   readonly isLoading = this._isLoading.asReadonly();
   readonly error     = this._error.asReadonly();
 
+  // All products — for components that filter internally (lg-featured-collection)
+  readonly allProducts = this._products.asReadonly();
+
+  // First 6 — used only for hero featured card (firstFeatured in home page)
   readonly featuredProducts = computed(() => this._products().slice(0, 6));
 
   readonly newArrivals = computed(() =>
@@ -46,6 +50,8 @@ export class HomeStateService {
       banners:    this.bannerService.getBanners().pipe(catchError(() => of([]))),
     }).subscribe({
       next: ({ products, categories, banners }) => {
+   
+
         this._products.set(products);
         this._categories.set(categories);
         this._banners.set(banners);

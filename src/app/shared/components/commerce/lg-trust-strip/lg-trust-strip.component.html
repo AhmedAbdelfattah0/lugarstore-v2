@@ -1,23 +1,9 @@
-<section class="bg-[#F9F1E7] py-16">
-  <div class="max-w-[1280px] mx-auto px-6">
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 divide-[#E8E8E8]">
-      @for (item of items; track item.heading; let last = $last) {
-        <div
-          class="flex flex-col px-6 py-8 lg:py-0"
-          [class.lg:border-r]="!last"
-          [class.lg:border-[#B88E2F]]="!last"
-        >
-          <span class="font-[Montserrat] font-light text-[10px] uppercase tracking-[0.25em] text-[#B88E2F] mb-3">
-            {{ item.eyebrow }}
-          </span>
-          <h4 class="font-[Cormorant_Garamond] font-light text-xl text-[#333333] mb-2 leading-snug">
-            {{ item.heading }}
-          </h4>
-          <p class="font-[Inter] text-sm text-[#7A6F65] leading-relaxed">
-            {{ item.description }}
-          </p>
-        </div>
-      }
+<div class="trust-grid" aria-label="Why choose Lugar">
+  @for (item of items; track item.heading; let last = $last) {
+    <div class="trust-item" [class.trust-item--last]="last">
+      <p class="trust-eyebrow">{{ item.eyebrow }}</p>
+      <h4 class="trust-title">{{ item.heading }}</h4>
+      <p class="trust-desc">{{ item.description }}</p>
     </div>
-  </div>
-</section>
+  }
+</div>

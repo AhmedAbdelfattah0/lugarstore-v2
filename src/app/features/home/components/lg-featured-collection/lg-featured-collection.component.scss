@@ -23,11 +23,11 @@
   align-items: flex-end;
   justify-content: space-between;
   gap: 32px;
-  margin-bottom: 56px;
+  margin-bottom: 48px;
   flex-wrap: wrap;
 }
 
-/* Filter tabs */
+// ── Filter tabs ────────────────────────────────────────────────────────────
 .featured__tabs {
   display: flex;
   gap: 0;
@@ -44,30 +44,27 @@
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: #7A6F65;
-  padding: 10px 20px;
+  padding: 10px 20px 8px;
   cursor: pointer;
   position: relative;
   transition: color 0.2s;
   white-space: nowrap;
+  user-select: none;
 
   &::after {
     content: '';
     position: absolute;
-    bottom: -1px;
+    bottom: 0;
     left: 0;
-    right: 0;
-    height: 2px;
+    width: 0;
+    height: 1px;
     background: #B88E2F;
-    transform: scaleX(0);
-    transition: transform 0.2s;
+    transition: width 0.3s ease;
   }
 
   &--active {
     color: #B88E2F;
-
-    &::after {
-      transform: scaleX(1);
-    }
+    &::after { width: 100%; }
   }
 
   &:hover:not(&--active) {
@@ -75,11 +72,71 @@
   }
 }
 
-/* Bento grid */
+// ── Bento grid: 1 large left (spans 2 rows) + 2 stacked right ─────────────
+.featured__bento {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 16px;
+  width: 100%;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+}
+
+// Large card: left column, spans BOTH rows
+.bento__card-large {
+  grid-column: 1;
+  grid-row: 1 / 3;
+  min-height: 500px; // ensures taller image area
+
+  // Make the product card fill the full cell height
+  lg-product-card {
+    display: block;
+    height: 100%;
+  }
+
+  @media (max-width: 768px) {
+    grid-column: 1;
+    grid-row: auto;
+    min-height: unset;
+  }
+}
+
+// Small top: right column, row 1
+.bento__card-small-top {
+  grid-column: 2;
+  grid-row: 1;
+  min-height: 300px;
+
+  @media (max-width: 768px) {
+    grid-column: 1;
+    grid-row: auto;
+    min-height: unset;
+  }
+}
+
+// Small bottom: right column, row 2
+.bento__card-small-bottom {
+  grid-column: 2;
+  grid-row: 2;
+  min-height: 300px;
+
+  @media (max-width: 768px) {
+    grid-column: 1;
+    grid-row: auto;
+    min-height: unset;
+  }
+}
+
+// ── Remaining products (index 3+) — normal 3-column grid ──────────────────
 .featured__grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+  gap: 16px;
+  margin-top: 16px; // matches bento gap
 
   @media (max-width: 1024px) {
     grid-template-columns: repeat(2, 1fr);
@@ -90,29 +147,11 @@
 }
 
 .featured__cell {
-  /* Normal cell */
+  // normal card cell — no overrides needed
 }
 
-.featured__cell--large {
-  grid-column: span 2;
-  grid-row: span 1;
-
-  @media (max-width: 1024px) {
-    grid-column: span 2;
-  }
-  @media (max-width: 600px) {
-    grid-column: span 1;
-  }
-}
-
-/* Override product card to fill large cell */
-.featured__cell--large lg-product-card {
-  display: block;
-  height: 100%;
-}
-
+// ── Empty state ─────────────────────────────────────────────────────────────
 .featured__empty {
-  grid-column: 1 / -1;
   padding: 80px;
   text-align: center;
 }
@@ -124,7 +163,7 @@
   font-style: italic;
 }
 
-/* Footer */
+// ── Footer ──────────────────────────────────────────────────────────────────
 .featured__footer {
   display: flex;
   justify-content: center;

@@ -31,6 +31,11 @@ export class LgCategoriesSectionComponent {
     });
   }
 
+  protected onImageError(event: Event): void {
+    const img = event.target as HTMLImageElement;
+    img.src = 'room-1.png';
+  }
+
   private initScrollReveal(): void {
     import('gsap').then(({ gsap }) => {
       import('gsap/ScrollTrigger').then(({ ScrollTrigger }) => {
