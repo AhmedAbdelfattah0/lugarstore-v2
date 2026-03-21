@@ -1,0 +1,39 @@
+<lg-navbar />
+<lg-offer-banner />
+
+<main id="main-content">
+
+  @if (state.isLoading()) {
+    <div class="home-loading" aria-label="Loading">
+      <lg-spinner size="lg" />
+    </div>
+  }
+
+  @if (state.error(); as err) {
+    <div class="home-error" role="alert">
+      <p>{{ err }}</p>
+    </div>
+  }
+
+  <lg-hero [featuredProduct]="firstFeatured()" />
+
+  <lg-categories-section [categories]="state.categories()" />
+
+  <lg-promo-banner [banners]="state.banners()" />
+
+  <lg-featured-collection [products]="state.featuredProducts()" />
+
+  <lg-room-slider />
+
+  <lg-trust-section />
+
+  <lg-atelier-section />
+
+  <lg-social-gallery />
+
+</main>
+
+<lg-footer />
+
+<!-- Quick View Modal — always mounted for smooth open/close -->
+<lg-quick-view-modal />

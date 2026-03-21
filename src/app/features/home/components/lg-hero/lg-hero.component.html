@@ -1,0 +1,80 @@
+<section class="hero" aria-label="Hero">
+  <div class="hero__grid">
+
+    <!-- Left: Editorial text content -->
+    <div class="hero__content">
+      <p class="hero__eyebrow">Cairo — Est. 2011</p>
+
+      <h1 class="hero__headline">
+        Living Spaces<br>
+        Crafted<br>
+        <em>With Soul</em>
+      </h1>
+
+      <p class="hero__body">
+        Handcrafted in Cairo's finest workshops. Bespoke and
+        ready-made furniture for homes that deserve a story.
+      </p>
+
+      <div class="hero__actions">
+        <lg-button variant="primary" size="lg">
+          <a routerLink="/products" class="hero__cta-link">Explore Collections</a>
+        </lg-button>
+        <lg-button variant="outlined" size="lg">
+          <a routerLink="/custom-order" class="hero__cta-link">Commission a Piece</a>
+        </lg-button>
+      </div>
+
+      <div class="hero__scrollhint" aria-hidden="true">
+        <span class="hero__scrollhint-line"></span>
+        <span class="hero__scrollhint-label">Scroll</span>
+      </div>
+    </div>
+
+    <!-- Right: Large lifestyle image -->
+    <div class="hero__visual">
+      <div class="hero__image-wrap">
+        <img
+          class="hero__image"
+          src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1200"
+          alt="Luxury furniture in a modern Egyptian home"
+          loading="eager"
+        />
+        <div class="hero__image-overlay" aria-hidden="true"></div>
+      </div>
+
+      <!-- Floating product card -->
+      @if (featuredProduct(); as product) {
+        <div class="hero__card">
+          <div class="hero__card-image-wrap">
+            <img
+              class="hero__card-image"
+              [src]="product.primaryImage"
+              [alt]="product.title"
+              loading="eager"
+            />
+          </div>
+          <div class="hero__card-body">
+            <p class="hero__card-eyebrow">Featured Piece</p>
+            <p class="hero__card-title">{{ product.title }}</p>
+            <p class="hero__card-price">
+              @if (product.hasDiscount) {
+                <span class="hero__card-price--original">{{ product.price | lgCurrencyEgp }}</span>
+                <span class="hero__card-price--active">{{ product.discountedPrice | lgCurrencyEgp }}</span>
+              } @else {
+                <span class="hero__card-price--active">{{ product.price | lgCurrencyEgp }}</span>
+              }
+            </p>
+            <a [routerLink]="['/products', product.id]" class="hero__card-link">View →</a>
+          </div>
+        </div>
+      }
+
+      <!-- Decorative accent block -->
+      <div class="hero__accent" aria-hidden="true">
+        <span>Handcrafted in Cairo</span>
+      </div>
+    </div>
+
+  </div>
+</section>

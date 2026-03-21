@@ -1,0 +1,72 @@
+<section class="room" aria-label="Room inspirations">
+
+  <!-- Fixed left text panel -->
+  <div class="room__panel">
+    <p class="room__eyebrow">Room Inspirations</p>
+
+    <div class="room__slide-meta">
+      <span class="room__number">{{ activeSlide.number }}</span>
+      <span class="room__total">/{{ slides.length.toString().padStart(2, '0') }}</span>
+    </div>
+
+    <h2 class="room__title">{{ activeSlide.title }}</h2>
+    <p class="room__subtitle">{{ activeSlide.subtitle }}</p>
+    <p class="room__description">{{ activeSlide.description }}</p>
+
+    <!-- Navigation -->
+    <div class="room__nav">
+      <button
+        type="button"
+        class="room__arrow"
+        (click)="prev()"
+        aria-label="Previous room"
+      >
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <path d="M12 4L6 10l6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <button
+        type="button"
+        class="room__arrow"
+        (click)="next()"
+        aria-label="Next room"
+      >
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <path d="M8 4l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Progress bar -->
+    <div class="room__progress" aria-hidden="true">
+      <div
+        class="room__progress-fill"
+        [style.width.%]="((activeIndex() + 1) / slides.length) * 100"
+      ></div>
+    </div>
+  </div>
+
+  <!-- Right scrolling photos -->
+  <div class="room__photos" aria-live="polite">
+    @for (slide of slides; track slide.number; let i = $index) {
+      <div
+        class="room__photo"
+        [class.room__photo--active]="i === activeIndex()"
+        [attr.aria-hidden]="i !== activeIndex()"
+      >
+        <img
+          class="room__image"
+          [class.room__image--active]="i === activeIndex()"
+          [src]="slide.imageUrl"
+          [alt]="slide.title + ' — ' + slide.subtitle"
+          loading="lazy"
+        />
+        <div class="room__photo-label" aria-hidden="true">
+          <span>{{ slide.number }}</span>
+          <span>{{ slide.subtitle }}</span>
+        </div>
+      </div>
+    }
+  </div>
+
+</section>

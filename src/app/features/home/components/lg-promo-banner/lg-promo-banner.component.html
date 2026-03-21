@@ -1,0 +1,95 @@
+<section
+  class="promo"
+  aria-label="Promotional banner"
+  (mouseenter)="onMouseEnter()"
+  (mouseleave)="onMouseLeave()"
+>
+  <div class="promo__track">
+
+    <!-- API banners mode -->
+    @if (banners().length > 0) {
+      @if (activeBanner(); as banner) {
+        <div class="promo__slide promo__slide--api">
+          <div class="promo__image-panel">
+            <img
+              class="promo__image"
+              [src]="banner.fileUrl"
+              alt="Promotional banner"
+              loading="lazy"
+            />
+          </div>
+          <div class="promo__text-panel">
+            <p class="promo__eyebrow">Exclusive Offer</p>
+            <h2 class="promo__headline">Shop Our Latest Deals</h2>
+            <p class="promo__body">Discover curated pieces at exceptional value. Limited time only.</p>
+            <a class="promo__cta" routerLink="/hot-deals">Shop Now →</a>
+          </div>
+        </div>
+      }
+    } @else {
+      <!-- Static fallback slides -->
+      @if (activeSlide(); as slide) {
+        <div class="promo__slide">
+          <div class="promo__text-panel">
+            <p class="promo__eyebrow">{{ slide.eyebrow }}</p>
+            <h2 class="promo__headline">{{ slide.headline }}</h2>
+            <p class="promo__body">{{ slide.body }}</p>
+            <a class="promo__cta" [routerLink]="slide.ctaRoute">{{ slide.cta }} →</a>
+          </div>
+          <div class="promo__image-panel">
+            <img
+              class="promo__image"
+              [src]="slide.imageUrl"
+              [alt]="slide.headline"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      }
+    }
+
+  </div>
+
+  <!-- Controls -->
+  <div class="promo__controls" aria-label="Slide controls">
+    <!-- Prev -->
+    <button
+      type="button"
+      class="promo__arrow promo__arrow--prev"
+      (click)="prev()"
+      aria-label="Previous slide"
+    >
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+        <path d="M12 4L6 10l6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+
+    <!-- Dots -->
+    <div class="promo__dots" role="tablist" aria-label="Slides">
+      @for (i of dots(); track i) {
+        <button
+          type="button"
+          class="promo__dot"
+          [class.promo__dot--active]="i === activeIndex()"
+          (click)="goTo(i)"
+          [attr.aria-label]="'Go to slide ' + (i + 1)"
+          [attr.aria-selected]="i === activeIndex()"
+          role="tab"
+        ></button>
+      }
+    </div>
+
+    <!-- Next -->
+    <button
+      type="button"
+      class="promo__arrow promo__arrow--next"
+      (click)="next()"
+      aria-label="Next slide"
+    >
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+        <path d="M8 4l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </div>
+
+</section>

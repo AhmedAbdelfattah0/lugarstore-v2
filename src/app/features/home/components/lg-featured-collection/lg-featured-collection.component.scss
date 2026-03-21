@@ -1,0 +1,141 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.featured {
+  background: #EDE4D8;
+  padding: 100px 0;
+}
+
+.featured__container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 48px;
+
+  @media (max-width: 768px) {
+    padding: 0 24px;
+  }
+}
+
+.featured__header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+  margin-bottom: 56px;
+  flex-wrap: wrap;
+}
+
+/* Filter tabs */
+.featured__tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid rgba(184, 142, 47, 0.2);
+  flex-wrap: wrap;
+}
+
+.featured__tab {
+  background: none;
+  border: none;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 300;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #7A6F65;
+  padding: 10px 20px;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.2s;
+  white-space: nowrap;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #B88E2F;
+    transform: scaleX(0);
+    transition: transform 0.2s;
+  }
+
+  &--active {
+    color: #B88E2F;
+
+    &::after {
+      transform: scaleX(1);
+    }
+  }
+
+  &:hover:not(&--active) {
+    color: #1A1A18;
+  }
+}
+
+/* Bento grid */
+.featured__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.featured__cell {
+  /* Normal cell */
+}
+
+.featured__cell--large {
+  grid-column: span 2;
+  grid-row: span 1;
+
+  @media (max-width: 1024px) {
+    grid-column: span 2;
+  }
+  @media (max-width: 600px) {
+    grid-column: span 1;
+  }
+}
+
+/* Override product card to fill large cell */
+.featured__cell--large lg-product-card {
+  display: block;
+  height: 100%;
+}
+
+.featured__empty {
+  grid-column: 1 / -1;
+  padding: 80px;
+  text-align: center;
+}
+
+.featured__empty-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.25rem;
+  color: #7A6F65;
+  font-style: italic;
+}
+
+/* Footer */
+.featured__footer {
+  display: flex;
+  justify-content: center;
+  margin-top: 56px;
+}
+
+.featured__more-link {
+  color: inherit;
+  text-decoration: none;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+}

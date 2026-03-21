@@ -1,0 +1,48 @@
+<section class="atelier" aria-label="About Lugar Furniture">
+  <div class="atelier__container">
+
+    <!-- Left: Workshop photo -->
+    <div class="atelier__image-wrap">
+      <img
+        class="atelier__image"
+        src="https://images.unsplash.com/photo-1581783342308-f792dbdd27c5?w=800"
+        alt="Lugar Furniture workshop in Cairo"
+        loading="lazy"
+      />
+    </div>
+
+    <!-- Right: Text content -->
+    <div class="atelier__text">
+      <p class="atelier__eyebrow">Our Story</p>
+      <h2 class="atelier__headline">Where the Nile<br><em>Meets Modernity</em></h2>
+      <p class="atelier__body">
+        For over fifteen years, our master craftsmen have been shaping living
+        spaces across Egypt and the Gulf. Every joint, every finish, every
+        curve is a testament to the ancient woodworking traditions of Cairo —
+        reinterpreted for the modern home.
+      </p>
+      <p class="atelier__body">
+        We work exclusively with natural materials, sustainable sources, and
+        traditional joinery techniques. No shortcuts. No compromises.
+        Only furniture worthy of passing down generations.
+      </p>
+
+      <!-- Stats -->
+      <div class="atelier__stats" aria-label="Key figures">
+        @for (stat of stats; track stat.label; let i = $index) {
+          <div class="atelier__stat">
+            <span class="atelier__stat-value">
+              {{ displayValues()[i] }}{{ stat.suffix }}
+            </span>
+            <span class="atelier__stat-label">{{ stat.label }}</span>
+          </div>
+        }
+      </div>
+
+      <lg-button variant="primary" size="lg">
+        <a routerLink="/atelier" class="atelier__cta-link">Visit The Atelier</a>
+      </lg-button>
+    </div>
+
+  </div>
+</section>

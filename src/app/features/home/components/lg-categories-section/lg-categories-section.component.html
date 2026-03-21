@@ -1,0 +1,64 @@
+<section class="categories" aria-label="Browse categories">
+  <div class="categories__container">
+    <lg-section-header
+      eyebrow="The Collection"
+      heading="Shop By Room"
+      subtext="Every room deserves a signature. Find furniture that defines yours."
+    />
+
+    <div class="categories__list">
+      @for (category of categories(); track category.id; let i = $index) {
+        <div class="cat-row" [class.cat-row--reversed]="i % 2 !== 0">
+
+          <!-- Image panel -->
+          <a
+            class="cat-row__image-wrap"
+            [routerLink]="['/products']"
+            [queryParams]="{ category: category.id }"
+            [attr.aria-label]="'Shop ' + category.title"
+          >
+            <img
+              class="cat-row__image"
+              [src]="category.image || 'https://placehold.co/800x600/EDE4D8/B88E2F?text=' + category.title"
+              [alt]="category.title"
+              loading="lazy"
+            />
+            <div class="cat-row__image-overlay" aria-hidden="true"></div>
+          </a>
+
+          <!-- Text panel -->
+          <div class="cat-row__text">
+            <p class="cat-row__eyebrow">Category {{ (i + 1).toString().padStart(2, '0') }}</p>
+            <h2 class="cat-row__title">{{ category.title }}</h2>
+            <p class="cat-row__body">
+              Discover our curated selection of handcrafted pieces,
+              tailored for the modern Egyptian home.
+            </p>
+            <a
+              class="cat-row__cta"
+              [routerLink]="['/products']"
+              [queryParams]="{ category: category.id }"
+            >
+              Explore Category
+              <span class="cat-row__cta-arrow" aria-hidden="true">→</span>
+            </a>
+          </div>
+
+        </div>
+      }
+
+      @if (categories().length === 0) {
+        @for (i of [1,2,3]; track i) {
+          <div class="cat-row" [class.cat-row--reversed]="i % 2 === 0">
+            <div class="cat-row__image-wrap cat-row__image-wrap--skeleton"></div>
+            <div class="cat-row__text">
+              <div class="skeleton skeleton--sm"></div>
+              <div class="skeleton skeleton--lg"></div>
+              <div class="skeleton skeleton--md"></div>
+            </div>
+          </div>
+        }
+      }
+    </div>
+  </div>
+</section>

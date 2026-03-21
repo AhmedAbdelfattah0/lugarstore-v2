@@ -1,49 +1,46 @@
-<footer class="bg-[#1A1A18] text-white">
+<footer class="footer">
 
   <!-- Main content -->
-  <div class="max-w-[1280px] mx-auto px-6 pt-20 pb-12">
+  <div class="footer__inner">
 
-    <!-- Top: logo + tagline + social -->
-    <div class="border-b border-white/10 pb-12 mb-12 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
-      <div>
-        <p class="font-[Cormorant_Garamond] font-light text-6xl lg:text-8xl tracking-[-0.02em] text-white leading-none">
-          LUGAR.
-        </p>
-        <p class="mt-4 font-[Inter] text-sm text-[#7A6F65] max-w-sm leading-relaxed">
+    <!-- Top: wordmark + tagline + social icons -->
+    <div class="footer__top">
+      <div class="footer__brand">
+        <p class="footer__wordmark">LUGAR.</p>
+        <p class="footer__tagline">
           Handcrafted furniture for those who understand that great spaces are built on lasting foundations.
         </p>
       </div>
 
-      <!-- Social icons -->
-      <div class="flex items-center gap-5">
+      <div class="footer__socials">
         @for (social of socials; track social.icon) {
           <a
             [href]="social.href"
             target="_blank"
             rel="noopener noreferrer"
             [attr.aria-label]="social.label"
-            class="text-[#B88E2F] hover:text-white transition-colors duration-200"
+            class="footer__social-link"
           >
             @switch (social.icon) {
               @case ('instagram') {
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                   <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
                   <circle cx="12" cy="12" r="4"/>
                   <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
                 </svg>
               }
               @case ('facebook') {
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                   <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
                 </svg>
               }
               @case ('tiktok') {
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                   <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.71a8.21 8.21 0 0 0 4.79 1.52V6.78a4.85 4.85 0 0 1-1.02-.09z"/>
                 </svg>
               }
               @case ('whatsapp') {
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                   <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
                 </svg>
               }
@@ -53,75 +50,55 @@
       </div>
     </div>
 
-    <!-- Link columns + newsletter -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+    <!-- Link columns + newsletter: CSS Grid 2fr 1fr 1fr 1fr -->
+    <div class="footer__grid">
 
-      <!-- Link columns -->
       @for (col of footerColumns; track col.heading) {
-        <div>
-          <h4 class="font-[Montserrat] font-light text-xs uppercase tracking-[0.2em] text-[#B88E2F] mb-5">
-            {{ col.heading }}
-          </h4>
-          <ul class="flex flex-col gap-3">
+        <div class="footer__col">
+          <h4 class="footer__col-heading">{{ col.heading }}</h4>
+          <ul class="footer__col-links">
             @for (link of col.links; track link.label) {
               <li>
-                <a
-                  [href]="link.href"
-                  class="font-[Inter] text-sm text-[#7A6F65] hover:text-white transition-colors duration-200"
-                >{{ link.label }}</a>
+                <a [href]="link.href" class="footer__col-link">{{ link.label }}</a>
               </li>
             }
           </ul>
         </div>
       }
 
-      <!-- Newsletter -->
-      <div>
-        <h4 class="font-[Montserrat] font-light text-xs uppercase tracking-[0.2em] text-[#B88E2F] mb-5">
-          Newsletter
-        </h4>
-        <p class="font-[Inter] text-sm text-[#7A6F65] mb-5 leading-relaxed">
+      <!-- Newsletter column -->
+      <div class="footer__col">
+        <h4 class="footer__col-heading">Newsletter</h4>
+        <p class="footer__newsletter-body">
           Private previews, new arrivals, and design notes — curated for you.
         </p>
 
         @if (subscribed()) {
-          <p class="font-[Montserrat] font-light text-xs uppercase tracking-[0.15em] text-[#B88E2F]">
-            Thank you for subscribing.
-          </p>
+          <p class="footer__newsletter-thanks">Thank you for subscribing.</p>
         } @else {
-          <form (ngSubmit)="subscribe()" class="flex flex-col gap-3">
+          <form (ngSubmit)="subscribe()" class="footer__newsletter-form">
             <input
               type="email"
               placeholder="Your email address"
               [formControl]="emailControl"
-              class="w-full bg-transparent border-b border-white/20 pb-2 font-[Inter] text-sm text-white placeholder:text-[#7A6F65] outline-none focus:border-[#B88E2F] transition-colors duration-200"
+              class="footer__newsletter-input"
             />
-            <button
-              type="submit"
-              class="self-start font-[Montserrat] font-light text-xs uppercase tracking-[0.2em] text-[#B88E2F] hover:text-white transition-colors duration-200 border-b border-[#B88E2F] hover:border-white pb-0.5"
-            >
-              Subscribe
-            </button>
+            <button type="submit" class="footer__newsletter-btn">Subscribe</button>
           </form>
         }
       </div>
+
     </div>
   </div>
 
   <!-- Bottom bar -->
-  <div class="border-t border-white/10">
-    <div class="max-w-[1280px] mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
-      <p class="font-[Inter] text-xs text-[#7A6F65]">
-        © {{ currentYear }} Lugar Furniture. All rights reserved.
-      </p>
-      <div class="flex items-center gap-5">
-        <a href="#" class="font-[Inter] text-xs text-[#7A6F65] hover:text-white transition-colors duration-200">
-          Privacy Policy
-        </a>
-        <span class="text-[#7A6F65] text-xs">·</span>
-        <a href="#" class="font-[Inter] text-xs text-[#7A6F65] hover:text-white transition-colors duration-200">
-          Terms of Service
-        </a>
+  <div class="footer__bottom">
+    <div class="footer__bottom-inner">
+      <p class="footer__copyright">© {{ currentYear }} Lugar Furniture. All rights reserved.</p>
+      <div class="footer__legal-links">
+        <a href="#" class="footer__legal-link">Privacy Policy</a>
+        <span class="footer__legal-dot" aria-hidden="true">·</span>
+        <a href="#" class="footer__legal-link">Terms of Service</a>
       </div>
     </div>
   </div>

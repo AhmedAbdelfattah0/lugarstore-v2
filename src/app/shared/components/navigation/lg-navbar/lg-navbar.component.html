@@ -1,91 +1,67 @@
-<header
-  class="fixed top-0 left-0 right-0 z-30 bg-[#F9F1E7] transition-all duration-300"
-  [class.border-b]="scrolled()"
-  [class.border-[#E8E8E8]]="scrolled()"
->
-  <div class="max-w-[1280px] mx-auto px-6 h-16 lg:h-20 flex items-center">
+<header class="navbar" [class.navbar--scrolled]="scrolled()">
+  <div class="navbar__inner">
 
-    <!-- Left nav (desktop) -->
-    <nav class="hidden lg:flex items-center gap-8 flex-1">
+    <!-- Left: nav links (desktop only) -->
+    <nav class="navbar__nav" aria-label="Main navigation">
       @for (link of navLinks; track link.route) {
-        <a
-          [routerLink]="link.route"
-          class="font-[Montserrat] font-light text-xs uppercase tracking-[0.15em] text-[#333333] hover:text-[#B88E2F] transition-colors duration-200"
-        >{{ link.label }}</a>
+        <a [routerLink]="link.route" class="navbar__link">{{ link.label }}</a>
       }
     </nav>
 
-    <!-- Logo — centered -->
-    <a
-      routerLink="/"
-      class="flex-1 lg:flex-none text-center font-[Montserrat] font-light text-sm lg:text-base uppercase tracking-[0.3em] text-[#333333] hover:text-[#B88E2F] transition-colors duration-200 no-underline"
-      aria-label="Lugar Furniture — Home"
-    >
+    <!-- Center: logo -->
+    <a routerLink="/" class="navbar__logo" aria-label="Lugar Furniture — Home">
       LUGAR FURNITURE
     </a>
 
-    <!-- Right icons -->
-    <div class="flex items-center gap-4 lg:gap-5 flex-1 justify-end">
+    <!-- Right: icons -->
+    <div class="navbar__actions">
 
       <!-- Search (desktop) -->
-      <button
-        class="hidden lg:flex w-8 h-8 items-center justify-center text-[#333333] hover:text-[#B88E2F] transition-colors duration-200"
-        aria-label="Search"
-      >
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+      <button class="navbar__icon-btn navbar__icon-btn--desktop" type="button" aria-label="Search">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
           <circle cx="11" cy="11" r="8"/>
           <line x1="21" y1="21" x2="16.65" y2="16.65"/>
         </svg>
       </button>
 
       <!-- Wishlist -->
-      <a
-        routerLink="/wishlist"
-        class="relative flex w-8 h-8 items-center justify-center text-[#333333] hover:text-[#B88E2F] transition-colors duration-200"
-        aria-label="Wishlist"
-      >
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <a routerLink="/wishlist" class="navbar__icon-btn" aria-label="Wishlist">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
         </svg>
         @if (wishlist.count() > 0) {
-          <span class="absolute -top-1 -right-1 min-w-[16px] h-4 px-0.5 bg-[#B88E2F] text-white text-[10px] font-[Montserrat] font-light flex items-center justify-center">
-            {{ wishlist.count() }}
-          </span>
+          <span class="navbar__badge">{{ wishlist.count() }}</span>
         }
       </a>
 
       <!-- Cart -->
-      <a
-        routerLink="/cart"
-        class="relative flex w-8 h-8 items-center justify-center text-[#333333] hover:text-[#B88E2F] transition-colors duration-200"
-        aria-label="Shopping bag"
-      >
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <a routerLink="/cart" class="navbar__icon-btn" aria-label="Shopping bag">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
           <line x1="3" y1="6" x2="21" y2="6"/>
           <path d="M16 10a4 4 0 0 1-8 0"/>
         </svg>
         @if (cart.count() > 0) {
-          <span class="absolute -top-1 -right-1 min-w-[16px] h-4 px-0.5 bg-[#B88E2F] text-white text-[10px] font-[Montserrat] font-light flex items-center justify-center">
-            {{ cart.count() }}
-          </span>
+          <span class="navbar__badge">{{ cart.count() }}</span>
         }
       </a>
 
       <!-- Hamburger (mobile only) -->
       <button
-        class="lg:hidden flex w-8 h-8 items-center justify-center text-[#333333] hover:text-[#B88E2F] transition-colors duration-200"
+        class="navbar__icon-btn navbar__icon-btn--mobile"
+        type="button"
         (click)="drawer.toggle()"
         aria-label="Open menu"
         [attr.aria-expanded]="drawer.isOpen()"
       >
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
           <line x1="3" y1="6" x2="21" y2="6"/>
           <line x1="3" y1="12" x2="21" y2="12"/>
           <line x1="3" y1="18" x2="21" y2="18"/>
         </svg>
       </button>
     </div>
+
   </div>
 </header>
 

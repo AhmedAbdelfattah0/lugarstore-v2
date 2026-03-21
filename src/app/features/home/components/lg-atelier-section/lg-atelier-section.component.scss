@@ -1,0 +1,128 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.atelier {
+  background: #EDE4D8;
+  padding: 100px 0;
+}
+
+.atelier__container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 48px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+
+  @media (max-width: 1024px) {
+    gap: 48px;
+  }
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    padding: 0 24px;
+    gap: 40px;
+  }
+}
+
+.atelier__image-wrap {
+  position: relative;
+  overflow: hidden;
+  min-height: 600px; // provides height reference for the absolute image
+}
+
+.atelier__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.atelier__text {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.atelier__eyebrow {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 300;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #B88E2F;
+  margin: 0;
+}
+
+.atelier__headline {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 300;
+  color: #1A1A18;
+  line-height: 1.1;
+  letter-spacing: 0.01em;
+  margin: 0;
+
+  em {
+    font-style: italic;
+    color: #B88E2F;
+  }
+}
+
+.atelier__body {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  line-height: 1.8;
+  color: #7A6F65;
+  margin: 0;
+}
+
+.atelier__stats {
+  display: flex;
+  gap: 40px;
+  padding: 32px 0;
+  border-top: 1px solid rgba(184, 142, 47, 0.15);
+  border-bottom: 1px solid rgba(184, 142, 47, 0.15);
+
+  @media (max-width: 480px) {
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+}
+
+.atelier__stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.atelier__stat-value {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.5rem;
+  font-weight: 300;
+  color: #B88E2F;
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+
+.atelier__stat-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 300;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #7A6F65;
+}
+
+.atelier__cta-link {
+  color: inherit;
+  text-decoration: none;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+}

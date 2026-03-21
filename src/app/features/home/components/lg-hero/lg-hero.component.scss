@@ -1,0 +1,289 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.hero {
+  background: #F9F1E7;
+  width: 100%;
+  // Use explicit height so grid cells inherit it — min-height does NOT propagate to grid children
+  height: 100vh;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding-top: 68px; // clear fixed navbar
+}
+
+// Two-column grid that fills the full section height
+.hero__grid {
+  display: grid;
+  grid-template-columns: 45% 55%;
+  width: 100%;
+  height: 100%; // inherit the 100vh (minus 68px padding) from .hero
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
+    height: auto;
+    padding: 48px 24px 64px;
+    gap: 48px;
+  }
+}
+
+// Text content — inner max-width via padding, pushed from the right
+.hero__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 28px;
+  // Constrain text but let it breathe within the 45% column
+  padding: 80px 64px 80px 48px;
+  max-width: 680px;
+  margin-left: auto; // push against center from left edge
+
+  @media (max-width: 1024px) {
+    padding: 0;
+    max-width: 100%;
+    margin-left: 0;
+  }
+}
+
+.hero__eyebrow {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #B88E2F;
+  margin: 0;
+}
+
+.hero__headline {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: clamp(3rem, 5vw, 4.5rem);
+  line-height: 1.05;
+  color: #1A1A18;
+  letter-spacing: 0.01em;
+  margin: 0;
+
+  em {
+    font-style: italic;
+    color: #B88E2F;
+  }
+}
+
+.hero__body {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: #7A6F65;
+  max-width: 380px;
+  margin: 0;
+}
+
+.hero__actions {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.hero__cta-link {
+  color: inherit;
+  text-decoration: none;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+}
+
+.hero__scrollhint {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.hero__scrollhint-line {
+  display: block;
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, #B88E2F, transparent);
+}
+
+.hero__scrollhint-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #B88E2F;
+}
+
+// Right visual column — takes full grid cell height
+.hero__visual {
+  position: relative;
+  height: 100%; // inherit from grid cell which inherits from .hero
+  overflow: hidden;
+
+  @media (max-width: 1024px) {
+    height: 360px;
+  }
+}
+
+.hero__image-wrap {
+  position: absolute;
+  inset: 0; // fills .hero__visual which now has a defined height
+  overflow: hidden;
+
+  @media (max-width: 1024px) {
+    position: static;
+    height: 360px;
+  }
+}
+
+.hero__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.hero__image-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(249, 241, 231, 0.12) 0%,
+    transparent 30%
+  );
+  pointer-events: none;
+}
+
+// Floating product card
+.hero__card {
+  position: absolute;
+  bottom: 80px;
+  left: -80px;
+  background: #FFFFFF;
+  box-shadow: 0 20px 40px rgba(30, 27, 21, 0.08);
+  display: flex;
+  width: 280px;
+  z-index: 10;
+  border-radius: 2px;
+  overflow: hidden;
+
+  @media (max-width: 1200px) {
+    left: -32px;
+  }
+  @media (max-width: 1024px) {
+    position: static;
+    width: 100%;
+    max-width: 320px;
+  }
+}
+
+.hero__card-image-wrap {
+  width: 88px;
+  height: 120px;
+  flex-shrink: 0;
+  overflow: hidden;
+  background: #EDE4D8;
+}
+
+.hero__card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.hero__card-body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.hero__card-eyebrow {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #B88E2F;
+  margin: 0;
+}
+
+.hero__card-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: #1A1A18;
+  line-height: 1.3;
+  margin: 0;
+}
+
+.hero__card-price {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin: 0;
+}
+
+.hero__card-price--original {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  color: #7A6F65;
+  text-decoration: line-through;
+}
+
+.hero__card-price--active {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  color: #B88E2F;
+  font-weight: 500;
+}
+
+.hero__card-link {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #1A1A18;
+  text-decoration: none;
+  margin-top: auto;
+
+  &:hover {
+    color: #B88E2F;
+  }
+}
+
+// Decorative vertical accent strip
+.hero__accent {
+  position: absolute;
+  top: 48px;
+  right: 0;
+  background: #B88E2F;
+  padding: 6px 12px;
+  z-index: 10;
+
+  span {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 300;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #fff;
+    white-space: nowrap;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+    display: block;
+  }
+
+  @media (max-width: 1024px) {
+    display: none;
+  }
+}

@@ -1,0 +1,189 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.room {
+  background: #F9F1E7;
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  min-height: 640px;
+  overflow: hidden;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.room__panel {
+  background: #F9F1E7;
+  padding: 80px 56px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: center;
+  position: sticky;
+  top: 0;
+  height: 640px;
+  z-index: 5;
+
+  @media (max-width: 1024px) {
+    position: static;
+    height: auto;
+    padding: 56px 24px;
+  }
+}
+
+.room__eyebrow {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 300;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #B88E2F;
+  margin: 0;
+}
+
+.room__slide-meta {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.room__number {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3rem;
+  font-weight: 300;
+  color: #1A1A18;
+  line-height: 1;
+}
+
+.room__total {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 300;
+  color: #7A6F65;
+  letter-spacing: 0.1em;
+}
+
+.room__title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.8rem, 2.5vw, 2.25rem);
+  font-weight: 300;
+  color: #1A1A18;
+  line-height: 1.15;
+  letter-spacing: 0.01em;
+  margin: 0;
+}
+
+.room__subtitle {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 300;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #B88E2F;
+  margin: 0;
+}
+
+.room__description {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.75;
+  color: #7A6F65;
+  margin: 0;
+}
+
+.room__nav {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.room__arrow {
+  background: none;
+  border: 1px solid #E8E8E8;
+  color: #1A1A18;
+  width: 40px;
+  height: 40px;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    border-color: #B88E2F;
+    color: #B88E2F;
+  }
+}
+
+.room__progress {
+  height: 1px;
+  background: #E8E8E8;
+  margin-top: 8px;
+}
+
+.room__progress-fill {
+  height: 100%;
+  background: #B88E2F;
+  transition: width 0.5s ease;
+}
+
+/* Photo grid — needs explicit height so position:absolute children can fill it */
+.room__photos {
+  position: relative;
+  overflow: hidden;
+  height: 600px; // explicit height: required for absolute children to render
+
+  @media (max-width: 1024px) {
+    height: 380px;
+  }
+}
+
+.room__photo {
+  position: absolute;
+  inset: 0; // fills the 600px container
+  opacity: 0;
+  transition: opacity 0.6s ease;
+
+  &--active {
+    opacity: 1;
+    // DO NOT override position/height — keep absolute + inset:0
+  }
+}
+
+.room__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.room__photo-label {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 10px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  span:first-child {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 300;
+    color: #1A1A18;
+  }
+
+  span:last-child {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 300;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #B88E2F;
+  }
+}

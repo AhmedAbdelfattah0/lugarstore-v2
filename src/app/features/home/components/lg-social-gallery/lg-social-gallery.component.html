@@ -1,0 +1,44 @@
+<section class="gallery" aria-label="Instagram gallery">
+  <div class="gallery__header">
+    <p class="gallery__eyebrow">Follow Our Story</p>
+    <h2 class="gallery__headline">
+      <a
+        [href]="instagramUrl"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="gallery__handle"
+        aria-label="Follow us on Instagram"
+      >
+        @lugarfurniture.eg
+      </a>
+    </h2>
+  </div>
+
+  <div class="gallery__mosaic">
+    @for (image of images; track image.src; let i = $index) {
+      <a
+        class="gallery__cell"
+        [class.gallery__cell--tall]="i === 0 || i === 5"
+        [class.gallery__cell--wide]="i === 4"
+        [href]="instagramUrl"
+        target="_blank"
+        rel="noopener noreferrer"
+        [attr.aria-label]="'View post ' + (i + 1) + ' on Instagram'"
+      >
+        <img
+          class="gallery__image"
+          [src]="image.src"
+          [alt]="image.alt"
+          loading="lazy"
+        />
+        <div class="gallery__overlay" aria-hidden="true">
+          <svg class="gallery__icon" width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <rect x="2" y="2" width="20" height="20" rx="5" stroke="white" stroke-width="1.5"/>
+            <circle cx="12" cy="12" r="4" stroke="white" stroke-width="1.5"/>
+            <circle cx="17.5" cy="6.5" r="1" fill="white"/>
+          </svg>
+        </div>
+      </a>
+    }
+  </div>
+</section>

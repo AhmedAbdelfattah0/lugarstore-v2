@@ -1,0 +1,60 @@
+<section class="featured" aria-label="Featured collection">
+  <div class="featured__container">
+
+    <div class="featured__header">
+      <lg-section-header
+        eyebrow="Our Curation"
+        heading="Featured Collection"
+        subtext="Masterpieces from our workshops, ready to find their home."
+        align="left"
+      />
+
+      <!-- Filter tabs -->
+      <div class="featured__tabs" role="tablist" aria-label="Filter products">
+        @for (tab of tabs; track tab.key) {
+          <button
+            type="button"
+            class="featured__tab"
+            [class.featured__tab--active]="activeTab() === tab.key"
+            (click)="setTab(tab.key)"
+            [attr.aria-selected]="activeTab() === tab.key"
+            role="tab"
+          >
+            {{ tab.label }}
+          </button>
+        }
+      </div>
+    </div>
+
+    <!-- Bento grid -->
+    <div class="featured__grid">
+      @for (product of filteredProducts(); track product.id; let i = $index) {
+        <div
+          class="featured__cell"
+          [class.featured__cell--large]="i === 0"
+        >
+          <lg-product-card
+            [product]="product"
+            [variant]="i === 0 ? 'featured' : 'default'"
+            (addToCart)="addToCart($event)"
+            (addToWishlist)="addToWishlist($event)"
+          />
+        </div>
+      }
+
+      @if (filteredProducts().length === 0) {
+        <div class="featured__empty">
+          <p class="featured__empty-text">No products in this category yet.</p>
+        </div>
+      }
+    </div>
+
+    <!-- Show more -->
+    <div class="featured__footer">
+      <lg-button variant="outlined" size="lg">
+        <a routerLink="/products" class="featured__more-link">View All Products</a>
+      </lg-button>
+    </div>
+
+  </div>
+</section>

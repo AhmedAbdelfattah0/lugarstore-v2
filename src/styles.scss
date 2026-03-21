@@ -55,6 +55,18 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
+  body {
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  // Angular custom elements are inline by default — make them block
+  app-root,
+  router-outlet + * {
+    display: block;
+    width: 100%;
+  }
+
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
     font-weight: 300;
