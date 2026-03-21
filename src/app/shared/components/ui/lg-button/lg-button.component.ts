@@ -11,6 +11,9 @@ export type ButtonSize = 'sm' | 'md' | 'lg';
   imports: [LgSpinnerComponent],
   templateUrl: './lg-button.component.html',
   styleUrl: './lg-button.component.scss',
+  host: {
+    '[class.lg-full]': 'full()',
+  },
 })
 export class LgButtonComponent {
   readonly variant  = input<ButtonVariant>('primary');
@@ -18,6 +21,7 @@ export class LgButtonComponent {
   readonly disabled = input<boolean>(false);
   readonly loading  = input<boolean>(false);
   readonly type     = input<'button' | 'submit' | 'reset'>('button');
+  readonly full     = input<boolean>(false);
 
   readonly buttonClass = computed(() => {
     const v = this.variant();
@@ -44,7 +48,8 @@ export class LgButtonComponent {
     };
 
     const disabled = isDisabled ? 'opacity-50 pointer-events-none' : '';
+    const full = this.full() ? 'w-full' : '';
 
-    return [base, sizes[s], variants[v], disabled].filter(Boolean).join(' ');
+    return [base, sizes[s], variants[v], disabled, full].filter(Boolean).join(' ');
   });
 }

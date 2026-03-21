@@ -1,0 +1,107 @@
+@if (isBrowser && quickView.selectedProduct(); as product) {
+
+  <!-- ── Overlay ────────────────────────────────────────────────────────────── -->
+  <div
+    class="qv-overlay"
+    (click)="quickView.close()"
+    aria-hidden="true"
+  ></div>
+
+  <!-- ── Modal card ─────────────────────────────────────────────────────────── -->
+  <div
+    class="qv-card"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Quick product view"
+  >
+
+    <!-- × Close -->
+    <button
+      type="button"
+      class="qv-close"
+      (click)="quickView.close()"
+      aria-label="Close"
+    >
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+        stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+        <line x1="3" y1="3" x2="17" y2="17"/>
+        <line x1="17" y1="3" x2="3" y2="17"/>
+      </svg>
+    </button>
+
+    <!-- ── Left: Images (45%) ─────────────────────────────────────────────── -->
+    <div class="qv-images">
+
+      <div class="qv-main-image">
+        <img
+          [src]="quickView.activeImage()"
+          [alt]="product.title"
+          class="qv-main-img"
+        />
+      </div>
+
+      @if (product.images.length > 1) {
+        <div class="qv-thumbnails">
+          @for (img of product.images; track $index) {
+            <button
+              type="button"
+              class="qv-thumb"
+              [class.qv-thumb--active]="quickView.selectedImageIndex() === $index"
+              (click)="quickView.selectImage($index)"
+              [attr.aria-label]="'View image ' + ($index + 1)"
+            >
+              <img [src]="img" [alt]="product.title" loading="lazy" />
+            </button>
+          }
+        </div>
+      }
+
+    </div>
+    <!-- /qv-images -->
+
+    <!-- ── Right: Details (55%) ───────────────────────────────────────────── -->
+    <div class="qv-details">
+
+      <p class="qv-category">{{ product.categoryName }}</p>
+      <h2 class="qv-title">{{ product.title }}</h2>
+
+      <div class="qv-divider-wrap">
+        <lg-divider variant="gold" width="48px" />
+      </div>
+
+      <p class="qv-price">{{ quickView.activePrice() | lgCurrencyEgp }}</p>
+
+      <p class="qv-description">{{ product.description }}</p>
+
+      <div class="qv-stepper">
+        <lg-quantity-stepper
+          [value]="quickView.qty()"
+          (valueChange)="quickView.setQty($event)"
+        />
+      </div>
+
+      <lg-button
+        class="qv-add-btn"
+        variant="primary"
+        [full]="true"
+        [disabled]="product.isOutOfStock"
+        (click)="onAddToCart()"
+      >
+        {{ product.isOutOfStock ? 'Out of Stock' : 'Add to Cart' }}
+      </lg-button>
+
+      <a
+        [routerLink]="['/products', product.id]"
+        (click)="quickView.close()"
+        class="qv-view-link"
+      >
+        View Full Details →
+      </a>
+
+    </div>
+    <!-- /qv-details -->
+
+  </div>
+  <!-- /qv-card -->
+
+}

@@ -153,3 +153,249 @@
 
 ### Next Step
 > Start Phase 2 shared UI primitives: `lg-button`, `lg-input`, `lg-badge`, `lg-divider`, `lg-spinner`, and the `lg-currency` pipe — standalone, OnPush, `lg-` prefix, signal inputs, Tailwind v4 design tokens from CLAUDE.md.
+
+---
+
+## Session: 2026-03-19 | 15:30
+
+**Project:** Lugar Store — Luxury Furniture E-commerce (Angular 21 + SSR)
+**Feature:** Phase 2 — Shared Components (UI Primitives + Layout + Feedback)
+**Status:** ✅ Completed
+
+### What Was Done
+- Built `lg-spinner` — gold SVG spinner, CSS keyframe animation, 3 sizes (sm/md/lg)
+- Built `lg-badge` — 4 variants: new (cream bg), discount (gold fill), out-of-stock (gray muted), top (dark fill); optional label override via `input()`
+- Built `lg-divider` — horizontal/vertical orientations, gold/muted variants, optional `width` input for short decorative lines
+- Built `lg-button` — 4 variants (primary/outlined/ghost/text) × 3 sizes (sm/md/lg); Montserrat Light uppercase; shows `lg-spinner` during `loading` state; zero border-radius
+- Built `CurrencyEgpPipe` (`lgCurrencyEgp`) — recreates `AddSpaceAfterCurrencyPipe`; formats `2500` → `EGP 2,500` via `Intl.NumberFormat`
+- Built `lg-section-header` — eyebrow (gold Montserrat), heading (Cormorant Garamond), subtext (Inter muted, max 600px); left/center alignment via `input()`
+- Built `lg-empty-state` — icon + title + message + optional CTA button; uses `output<void>()` for `ctaClick`; composed with `lg-button`
+- Built `lg-toast` — reads `ToastService.toasts()` signal; bottom-right fixed position; slide-in CSS animation; CSS progress bar with `animation-duration` binding; 4 variants with gold/red/dark border-left indicators
+- Wired `lg-toast` into `app.ts` (imports + OnPush) and `app.html` (cleaned Angular placeholder, added `<router-outlet />` + `<lg-toast />`)
+- Applied `/angular-code-quality` skill: refactored all 8 components from inline templates to external `.html` + `.scss` files
+- Angular build and `tsc --noEmit`: **zero errors, zero warnings**
+
+### Files Touched
+- `src/app/shared/components/ui/lg-spinner/lg-spinner.component.ts` — created
+- `src/app/shared/components/ui/lg-spinner/lg-spinner.component.html` — created
+- `src/app/shared/components/ui/lg-spinner/lg-spinner.component.scss` — created
+- `src/app/shared/components/ui/lg-badge/lg-badge.component.ts` — created
+- `src/app/shared/components/ui/lg-badge/lg-badge.component.html` — created
+- `src/app/shared/components/ui/lg-badge/lg-badge.component.scss` — created
+- `src/app/shared/components/ui/lg-divider/lg-divider.component.ts` — created
+- `src/app/shared/components/ui/lg-divider/lg-divider.component.html` — created
+- `src/app/shared/components/ui/lg-divider/lg-divider.component.scss` — created
+- `src/app/shared/components/ui/lg-button/lg-button.component.ts` — created; imports `lg-spinner`
+- `src/app/shared/components/ui/lg-button/lg-button.component.html` — created
+- `src/app/shared/components/ui/lg-button/lg-button.component.scss` — created
+- `src/app/shared/pipes/currency-egp.pipe.ts` — created; `lgCurrencyEgp` pipe
+- `src/app/shared/components/layout/lg-section-header/lg-section-header.component.ts` — created
+- `src/app/shared/components/layout/lg-section-header/lg-section-header.component.html` — created
+- `src/app/shared/components/layout/lg-section-header/lg-section-header.component.scss` — created
+- `src/app/shared/components/feedback/lg-empty-state/lg-empty-state.component.ts` — created; imports `lg-button`
+- `src/app/shared/components/feedback/lg-empty-state/lg-empty-state.component.html` — created
+- `src/app/shared/components/feedback/lg-empty-state/lg-empty-state.component.scss` — created
+- `src/app/shared/components/feedback/lg-toast/lg-toast.component.ts` — created; injects `ToastService`
+- `src/app/shared/components/feedback/lg-toast/lg-toast.component.html` — created
+- `src/app/shared/components/feedback/lg-toast/lg-toast.component.scss` — created
+- `src/app/app.ts` — updated: added `ChangeDetectionStrategy.OnPush`, imported `LgToastComponent`
+- `src/app/app.html` — updated: replaced Angular placeholder with `<router-outlet />` + `<lg-toast />`
+
+### Key Decisions
+- **`input()` / `output()` everywhere**: Angular 21 signal-based inputs — no `@Input()` decorators used anywhere
+- **`computed()` for all class strings**: variant/size class maps computed reactively — components never mutate state
+- **External .html + .scss files**: applied per `angular-code-quality` skill rule "Separate files always" — not inline templates
+- **`lg-toast` uses class methods for icon/class mapping**: pure view-layer helpers with no state — acceptable in OnPush since they're called only when the `toasts()` signal changes
+- **`text` button variant uses `!px-0`**: Tailwind `!important` override to cancel the size padding class — keeps variant/size as independent axes
+- **Toast progress bar via CSS `animation-duration` binding**: fully CSS-driven (`@keyframes`), no JS timers in component — auto-dismiss is handled by `ToastService.setTimeout`
+
+### Blockers / Open Questions
+- None
+
+### Next Step
+> Build Phase 2 remaining shared components: `lg-input` (text/textarea/select/file variants), then the navigation group (`lg-navbar`, `lg-mobile-drawer`, `lg-breadcrumb`, `lg-footer`), following CLAUDE.md design tokens and the angular-code-quality skill pattern.
+
+---
+
+## Session: 2026-03-19 | 16:30
+
+**Project:** Lugar Store — Luxury Furniture E-commerce (Angular 21 + SSR)
+**Feature:** Phase 2 — Shared Components (Navigation + Commerce + Filtering)
+**Status:** ✅ Completed
+
+### What Was Done
+- Created `DrawerService` in `core/services/` — signal-based `isOpen`, `open()`, `close()`, `toggle()`
+- Created `BreadcrumbItem` interface in `shared/models/` and exported from barrel index
+- Built `lg-breadcrumb` — `BreadcrumbItem[]` input, previous items as `RouterLink`, last item as static current page, `›` separator, Montserrat Light muted uppercase
+- Built `lg-mobile-drawer` — CSS `translateX` slide-in from right (no GSAP), 88vw width, cream background, nav links, wishlist + cart counts as gold badges, social icons row (Instagram/Facebook/TikTok/WhatsApp inline SVG), dark overlay behind drawer
+- Built `lg-navbar` — cream background, logo centered (Montserrat), left nav links, right icons (search/wishlist/cart/hamburger), GSAP ScrollTrigger border-on-scroll wrapped in `afterNextRender` + `isPlatformBrowser`, wishlist/cart counts from services, hamburger calls `DrawerService.toggle()`, includes `<lg-mobile-drawer>`
+- Built `lg-footer` — dark `#1A1A18` background, "LUGAR." large Cormorant Garamond, tagline, gold social icons row, 3 link columns (The Gallery / Concierge / The Journal), newsletter `FormControl` + `Validators.email`, subscribed state via signal, bottom bar with copyright + Privacy Policy / Terms
+- Built `lg-quantity-stepper` — `–/+` buttons with `atMin`/`atMax` computed signals, disables at bounds, emits `valueChange`, Montserrat Light styled border box
+- Built `lg-order-summary` — item thumbnails list (image + name + qty×price), subtotal computed signal, "Free" shipping in gold, Cormorant Garamond total in gold, `lg-button` primary CTA, `lgCurrencyEgp` pipe throughout
+- Built `lg-trust-strip` — static 4-column grid, gold vertical `border-r` dividers, Montserrat Light eyebrow in gold, Cormorant Garamond heading, Inter description, responsive (1→2→4 cols)
+- Built `lg-category-pill` — gold fill + white text when active, transparent + gold border/text when inactive, no border-radius, Montserrat Light uppercase, `pillClick` output
+- Built `lg-filter-bar` — sticky (`top-16 lg:top-20`), white surface, category pills horizontally scrollable on mobile, sort `<select>` dropdown, product count muted text, emits `categoryChange` + `sortChange`
+- Built `lg-pagination` — page buttons with gold active state, prev/next arrows, hides when `totalPages ≤ 1`, mobile shows only prev/next + "page / total" indicator
+- TypeScript compile verified: **zero errors**
+
+### Files Touched
+- `src/app/core/services/drawer.service.ts` — created; `DrawerService` with `isOpen` signal
+- `src/app/shared/models/breadcrumb.model.ts` — created; `BreadcrumbItem` interface
+- `src/app/shared/models/index.ts` — added `BreadcrumbItem` re-export
+- `src/app/shared/components/navigation/lg-breadcrumb/lg-breadcrumb.component.ts` — created
+- `src/app/shared/components/navigation/lg-breadcrumb/lg-breadcrumb.component.html` — created
+- `src/app/shared/components/navigation/lg-breadcrumb/lg-breadcrumb.component.scss` — created
+- `src/app/shared/components/navigation/lg-mobile-drawer/lg-mobile-drawer.component.ts` — created
+- `src/app/shared/components/navigation/lg-mobile-drawer/lg-mobile-drawer.component.html` — created
+- `src/app/shared/components/navigation/lg-mobile-drawer/lg-mobile-drawer.component.scss` — created; CSS-only `translateX` slide animation
+- `src/app/shared/components/navigation/lg-navbar/lg-navbar.component.ts` — created; uses `afterNextRender` for GSAP
+- `src/app/shared/components/navigation/lg-navbar/lg-navbar.component.html` — created
+- `src/app/shared/components/navigation/lg-navbar/lg-navbar.component.scss` — created
+- `src/app/shared/components/navigation/lg-footer/lg-footer.component.ts` — created; uses `ReactiveFormsModule`
+- `src/app/shared/components/navigation/lg-footer/lg-footer.component.html` — created
+- `src/app/shared/components/navigation/lg-footer/lg-footer.component.scss` — created
+- `src/app/shared/components/commerce/lg-quantity-stepper/lg-quantity-stepper.component.ts` — created
+- `src/app/shared/components/commerce/lg-quantity-stepper/lg-quantity-stepper.component.html` — created
+- `src/app/shared/components/commerce/lg-quantity-stepper/lg-quantity-stepper.component.scss` — created
+- `src/app/shared/components/commerce/lg-order-summary/lg-order-summary.component.ts` — created
+- `src/app/shared/components/commerce/lg-order-summary/lg-order-summary.component.html` — created
+- `src/app/shared/components/commerce/lg-order-summary/lg-order-summary.component.scss` — created
+- `src/app/shared/components/commerce/lg-trust-strip/lg-trust-strip.component.ts` — created
+- `src/app/shared/components/commerce/lg-trust-strip/lg-trust-strip.component.html` — created
+- `src/app/shared/components/commerce/lg-trust-strip/lg-trust-strip.component.scss` — created
+- `src/app/shared/components/filtering/lg-category-pill/lg-category-pill.component.ts` — created
+- `src/app/shared/components/filtering/lg-category-pill/lg-category-pill.component.html` — created
+- `src/app/shared/components/filtering/lg-category-pill/lg-category-pill.component.scss` — created
+- `src/app/shared/components/filtering/lg-filter-bar/lg-filter-bar.component.ts` — created
+- `src/app/shared/components/filtering/lg-filter-bar/lg-filter-bar.component.html` — created
+- `src/app/shared/components/filtering/lg-filter-bar/lg-filter-bar.component.scss` — created; `.scrollbar-hide` utility
+- `src/app/shared/components/filtering/lg-pagination/lg-pagination.component.ts` — created
+- `src/app/shared/components/filtering/lg-pagination/lg-pagination.component.html` — created
+- `src/app/shared/components/filtering/lg-pagination/lg-pagination.component.scss` — created
+
+### Key Decisions
+- **GSAP in navbar via `afterNextRender` + dynamic import**: `afterNextRender` replaces `ngAfterViewInit` for SSR-safe GSAP; dynamic `import('gsap/ScrollTrigger')` ensures no server bundle contamination
+- **CSS-only drawer animation**: `lg-mobile-drawer` uses `transform: translateX(100%)` → `translateX(0)` via a CSS class toggle — GSAP reserved for page-level animations only
+- **`DrawerService` in `core/services/`**: singleton shared between `lg-navbar` (hamburger) and `lg-mobile-drawer` (reads state + close button) — no prop drilling
+- **`lg-filter-bar` sticky offset**: `top-16 lg:top-20` aligns with navbar height (64px mobile / 80px desktop)
+- **`[class]` binding instead of `ngClass`** in `lg-category-pill`: computed string concatenation avoids importing `NgClass` directive
+- **`lg-pagination.isVisible` computed**: hides the entire nav when `totalPages ≤ 1` — keeps consuming pages clean
+- **`lg-footer` newsletter via `ReactiveFormsModule`**: `FormControl` + `Validators.email` provides proper validation without Angular template-driven forms
+
+### Blockers / Open Questions
+- None
+
+### Next Step
+> Build `lg-input` (text/textarea/select/file variants in `shared/components/ui/`) and `lg-product-card` with all 5 states (default, new, discounted, out-of-stock, featured) — the last two remaining Phase 2 shared components before Phase 3 homepage begins.
+
+---
+
+## Session: 2026-03-19 | 18:00
+
+**Project:** Lugar Store — Luxury Furniture E-commerce (Angular 21 + SSR)
+**Feature:** Phase 2 — Final Shared Components: lg-input + lg-product-card
+**Status:** ✅ Completed
+
+### What Was Done
+- Built `lg-input` — 4 variants (text, textarea, select, file-upload), full error/focus/disabled states, drag-and-drop file zone, gold chevron on select, SSR-safe
+- Built `lg-product-card` — 3 variants (default, featured, compact), pure-CSS hover image swap, sliding quick-add bar, wishlist heart via WishlistService signal, badge priority logic, lgCurrencyEgp pipe for pricing
+- TypeScript compiled clean (`tsc --noEmit` — zero errors)
+- Phase 2 Shared Components is now 100% complete
+
+### Files Touched
+- `src/app/shared/components/ui/lg-input/lg-input.component.ts` — created; InputVariant type, valueChange + filesChange outputs, drag event handlers
+- `src/app/shared/components/ui/lg-input/lg-input.component.html` — created; @switch on type(), select uses options[] input, file-upload uses #fileInput template ref
+- `src/app/shared/components/ui/lg-input/lg-input.component.scss` — created; .lg-field base, focus→gold, error→red, textarea/select/file-zone variants
+- `src/app/shared/components/product/lg-product-card/lg-product-card.component.ts` — created; activeBadge/secondaryImage/isWishlisted computed signals, addToCart + addToWishlist outputs
+- `src/app/shared/components/product/lg-product-card/lg-product-card.component.html` — created; @if for secondary image, badge-slot, wishlist heart SVG, quick-add bar, lgCurrencyEgp pipe
+- `src/app/shared/components/product/lg-product-card/lg-product-card.component.scss` — created; padding-top aspect ratio trick, CSS-only hover effects (opacity + translateY), no JS
+
+### Key Decisions
+- Used `type` (not `variant`) as the lg-input discriminator to match the spec; added `options[]` input for select since ng-content inside @switch is unreliable for option projection
+- Added `filesChange: File[]` output on lg-input alongside `valueChange: string` — file-upload cannot meaningfully use a string output alone
+- `isDragging = signal(false)` kept in lg-input component (exception to no-state-signals rule — pure UI micro-interaction, no business state)
+- Image hover swap is 100% CSS (opacity transition) — zero JS, fully SSR-safe
+- Quick-add bar uses `transform: translateY(100%) → translateY(0)` on `.product-card:hover` — no JS needed
+- Badge priority: `isOutOfStock > hasDiscount > isNew > isTop` — single badge shown per card
+- `padding-top: 75%` for default image area (≈65% of total card height when content is ~100px); `100%` for featured
+
+### Blockers / Open Questions
+- None
+
+### Next Step
+> Start Phase 3 — Homepage: create `features/home/` folder structure, `HomeStateService` with banners/products signals, then build `lg-hero` component (GSAP animation in ngAfterViewInit + isPlatformBrowser guard, Cormorant Garamond heading, gold CTA button).
+
+---
+
+## Session: 2026-03-21 | 14:00
+
+**Project:** Lugar Store — Luxury Furniture E-commerce (Angular 21 + SSR)
+**Feature:** Phase 2 Final — lg-quick-view-modal + QuickViewService
+**Status:** ✅ Completed
+
+### What Was Done
+- Created `QuickViewService` with signals (`selectedProduct`, `selectedImageIndex`, `qty`), computed (`activeImage`, `activePrice`), and `buildCartItem()` transformation method — all state and logic lives in service per CLAUDE.md strict rule
+- Built `lg-quick-view-modal` standalone OnPush component — SSR-safe via `isBrowser = isPlatformBrowser(platformId)` class field guard on the entire `@if` block
+- Left panel (45% white): main image with 1:1 aspect ratio + thumbnail strip; active thumbnail gets 2px gold border via `.qv-thumb--active`
+- Right panel (55% cream `#F9F1E7`): category label (Montserrat Light muted), title (Cormorant Garamond Light), gold 48px `lg-divider`, `lgCurrencyEgp` price in gold, 2-line clamped description, `lg-quantity-stepper`, full-width "Add to Cart" `lg-button`, "View Full Details →" RouterLink
+- `onAddToCart()` calls `quickView.buildCartItem()` then `cart.add()` then `quickView.close()` — component is a pure orchestrator
+- CSS-only animations: overlay `@keyframes overlay-in` (250ms fade), modal `@keyframes modal-in` (300ms scale 0.96→1 + fade), mobile bottom-sheet `@keyframes modal-in-mobile` (slide up)
+- Mobile responsive: stacks to bottom-sheet (flex-column, anchored to bottom, 92vh max)
+- Extended `lg-button` with `[full]` boolean input — `host: { '[class.lg-full]': 'full()' }` adds class to host; `:host.lg-full { display: block }` in SCSS; `w-full` added to `buttonClass()` computed
+- Mounted `<lg-quick-view-modal />` at app root alongside `<lg-toast />`
+- `tsc --noEmit` zero errors + `ng build` clean (5s, no warnings)
+
+### Files Touched
+- `src/app/core/services/quick-view.service.ts` — **created**; `QuickViewService` with all modal state, computed values, and `buildCartItem()` transformation
+- `src/app/shared/components/product/lg-quick-view-modal/lg-quick-view-modal.component.ts` — **created**; lean component, orchestration only
+- `src/app/shared/components/product/lg-quick-view-modal/lg-quick-view-modal.component.html` — **created**; `@if (isBrowser && quickView.selectedProduct(); as product)` SSR guard + full 2-panel layout
+- `src/app/shared/components/product/lg-quick-view-modal/lg-quick-view-modal.component.scss` — **created**; layout + keyframe animations + mobile bottom-sheet responsive
+- `src/app/shared/components/ui/lg-button/lg-button.component.ts` — **modified**; added `full` input + `host` class binding
+- `src/app/shared/components/ui/lg-button/lg-button.component.scss` — **modified**; added `:host.lg-full { display: block }`
+- `src/app/app.ts` — **modified**; imported `LgQuickViewModalComponent`
+- `src/app/app.html` — **modified**; added `<lg-quick-view-modal />`
+
+### Key Decisions
+- **All QuickViewService state in service**: `selectedImageIndex` and `qty` live in the service (not component) per CLAUDE.md "no state signals in components" rule — even though they are view-level concerns
+- **`buildCartItem()` in service**: Product→CartItem transformation logic kept out of component; component is a pure orchestrator calling `buildCartItem()` then `cart.add()` then `close()`
+- **`lg-button [full]` via Angular `host` binding**: uses `host: { '[class.lg-full]': 'full()' }` + `:host.lg-full { display: block }` in SCSS to properly propagate full-width without `::ng-deep` or wrapper divs
+- **SSR via class field `isBrowser`**: `isPlatformBrowser(platformId)` initialized once at construction — not a signal, acts as a static gate. Entire `@if` block renders nothing server-side
+- **CSS scale+fade over GSAP**: spec explicitly required CSS animations for modal entrance; GSAP reserved for page-level hero animations only
+- **`@if (expr; as product)` syntax**: Angular 17+ template local variable binds the truthy Product object cleanly, avoiding repeated `quickView.selectedProduct()!` non-null assertions
+
+### Blockers / Open Questions
+- None
+
+### Next Step
+> Start Phase 3 — Homepage: create `features/home/` folder structure, `HomeStateService` with banners/products signals, then build feature components (hero, featured-products, categories strip, banners carousel) and assemble the home page.
+
+---
+
+## Session: 2026-03-21 | 16:19
+
+**Project:** Lugar Store v2
+**Feature:** Stitch MCP canvas inventory
+**Status:** ✅ Completed
+
+### What Was Done
+- Connected to Stitch MCP and identified Lugar Furniture project (ID: 18164580020997828064)
+- Listed all 19 active screens across all pages
+- Created full structured canvas inventory grouped by page
+- Identified duplicate/refined screen versions for PDP, Hot Deals, Collections
+- Confirmed only 1 mobile screen active (navigation drawer)
+
+### Files Touched
+No files changed — research/inventory session only
+
+### Key Decisions
+- All screens are @2x retina (2560px desktop / 780px mobile = 1280px/390px design width)
+- Two PDP versions exist: 6ef3ffb4 (Refined) and b266e9972e (earlier); use 6ef3ffb4
+- Two Collections versions: b4c6ec74 (full editorial PLP) and 816610bd (list view)
+- Two Hot Deals versions: d4d6d93a (Refined) is the canonical one
+- No mobile screens for inner pages — desktop-first build confirmed
+
+### Blockers / Open Questions
+No mobile designs for Homepage, PLP, PDP, Cart, Checkout, etc.
+
+### Next Step
+> Confirm inventory then start Phase 3 Homepage using frame e2d6b2be8a234881b6905cf91679fbf1
