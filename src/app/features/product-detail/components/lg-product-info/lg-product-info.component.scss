@@ -1,0 +1,185 @@
+// Info panel — Stitch: screen 6ef3ffb4cfd84747bba4a16d4d56455d
+// Background + padding are owned by .pdp__panel (page wrapper), not this component.
+// Spacing uses individual margin-bottom per element, matching Stitch mb-* values.
+
+:host {
+  display: contents;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+
+  // ── Category label — Stitch: text-[10px] tracking-label mb-4 ─────────
+  &__category {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    font-size: 10px;
+    letter-spacing: 0.15em;   // Stitch: tracking-label = 0.15em
+    text-transform: uppercase;
+    color: #7a6f65;
+    margin: 0 0 16px;         // Stitch: mb-4 = 16px
+  }
+
+  // ── Product title — Stitch: text-7xl Cormorant leading-tight tracking-editorial mb-4
+  &__title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 72px;          // Stitch: text-7xl = 72px
+    line-height: 1.1;         // Stitch: leading-tight
+    letter-spacing: 0.1em;   // Stitch: tracking-editorial
+    color: #1e1b15;
+    margin: 0 0 16px;         // Stitch: mb-4 = 16px
+  }
+
+  // ── Star rating row — Stitch: flex items-center gap-1 mb-6 ───────────
+  &__rating {
+    display: flex;
+    align-items: center;
+    gap: 4px;                 // Stitch: gap-1 = 4px
+    margin-bottom: 24px;      // Stitch: mb-6 = 24px
+  }
+
+  &__star {
+    font-size: 14px;          // Stitch: text-sm = 14px
+    color: #d9cfc3;
+
+    &--filled { color: #b88e2f; }
+  }
+
+  &__reviews {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    font-size: 10px;
+    letter-spacing: 0.05em;  // Stitch: tracking-widest ≈ 0.05em
+    text-transform: uppercase;
+    color: #a8a29e;
+    margin-left: 12px;        // Stitch: ml-3 = 12px
+  }
+
+  // ── Price block — Stitch: text-3xl Cormorant mb-8 ────────────────────
+  &__price-block {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 32px;      // Stitch: mb-8 = 32px
+  }
+
+  &__price {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+
+    &--default,
+    &--discounted {
+      font-size: 30px;        // Stitch: text-3xl = 30px
+      color: #b88e2f;
+    }
+
+    &--original {
+      font-size: 24px;
+      color: #c4bdb5;
+      text-decoration: line-through;
+    }
+  }
+
+  // ── Description — Stitch: Inter leading-[1.7] mb-10 max-w-md ─────────
+  &__description {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;         // Stitch: font-light
+    font-size: 14px;
+    line-height: 1.7;         // Stitch: leading-[1.7]
+    color: #57534e;
+    margin: 0 0 40px;         // Stitch: mb-10 = 40px
+    max-width: 28rem;         // Stitch: max-w-md
+  }
+
+  // ── Availability — Stitch: Montserrat text-[10px] mb-8 ───────────────
+  &__availability {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #57a37c;
+    margin: 0 0 24px;
+
+    &--oos { color: #e97171; }
+  }
+
+  // ── Purchase row — Stitch: flex items-center gap-6 ───────────────────
+  &__purchase {
+    display: flex;
+    align-items: center;
+    gap: 24px;                // Stitch: gap-6 = 24px (stepper + button)
+    margin-bottom: 24px;
+
+    lg-quantity-stepper { flex-shrink: 0; }
+    lg-button { flex: 1; min-width: 0; }
+  }
+
+  // ── Text-style CTAs — Stitch: flex flex-col gap-4 pt-4 ───────────────
+  &__text-ctas {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;                // Stitch: gap-4 = 16px
+    padding-top: 16px;        // Stitch: pt-4 = 16px
+    margin-bottom: 32px;
+  }
+
+  &__text-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    font-size: 10px;
+    letter-spacing: 0.15em;  // Stitch: tracking-label
+    text-transform: uppercase;
+    color: #1c1917;
+    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: color 150ms ease;
+
+    &:hover { color: #b88e2f; }
+
+    // Wishlist CTA — gold per Stitch
+    &--wishlist { color: #b88e2f; }
+  }
+
+  &__arrow {
+    font-size: 12px;
+    letter-spacing: 0;
+  }
+
+  // ── Trust strip — Stitch: grid-cols-3 gap-4 pt-8 border-t ────────────
+  &__trust {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);  // Stitch: grid-cols-3
+    gap: 16px;                               // Stitch: gap-4 = 16px
+    padding-top: 32px;                       // Stitch: pt-8 = 32px
+    border-top: 1px solid rgba(210, 197, 177, 0.3);  // Stitch: outline-variant/30
+    text-align: center;
+  }
+
+  &__trust-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;                  // Stitch: gap-2 = 8px
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    font-size: 8px;            // Stitch: text-[8px]
+    letter-spacing: 0.15em;   // Stitch: tracking-label
+    text-transform: uppercase;
+    color: #7a6f65;
+  }
+
+  &__trust-icon {
+    width: 24px;               // Stitch: material symbols default 24px
+    height: 24px;
+    color: #7a6f65;
+  }
+}

@@ -1,0 +1,69 @@
+<!-- LIFESTYLE section — category-curated image via CSS background-image -->
+<section
+  class="scrolly__lifestyle"
+  [style.background-image]="'url(' + lifestyleImage() + ')'"
+>
+  <div class="scrolly__lifestyle-content">
+    <blockquote class="scrolly__lifestyle-quote">
+      Defined by the<br>rhythm of light.
+    </blockquote>
+    <div class="scrolly__lifestyle-glass">
+      <p class="scrolly__lifestyle-body">
+        Each piece in the collection captures the transient beauty of
+        Egyptian afternoon sun, casting soft shadows across hand-stitched surfaces.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- CRAFT section — CSS background-image for quality control -->
+<section class="scrolly__craft">
+  <div
+    class="scrolly__craft-image"
+    [style.background-image]="'url(' + craftImage() + ')'"
+  ></div>
+  <div class="scrolly__craft-info">
+    <p class="scrolly__craft-label">Master Craftsmanship</p>
+    <h2 class="scrolly__craft-heading">Heritage in every stitch</h2>
+    <p class="scrolly__craft-body">
+      Every curve is carved from solid Egyptian cedarwood by our third-generation master
+      artisans. We believe in furniture that carries a soul, shaped by patience and tradition.
+    </p>
+    <div class="scrolly__craft-stats">
+      <div class="scrolly__craft-stat">
+        <span class="scrolly__craft-stat-value">60+</span>
+        <span class="scrolly__craft-stat-label">Hours of Craft</span>
+      </div>
+      <div class="scrolly__craft-stat">
+        <span class="scrolly__craft-stat-value">12</span>
+        <span class="scrolly__craft-stat-label">Quality Checks</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RELATED PRODUCTS section -->
+@if (relatedProducts().length > 0) {
+  <section class="scrolly__related">
+    <div class="scrolly__related-inner">
+      <div class="scrolly__related-header">
+        <div>
+          <p class="scrolly__related-label">The Ensemble</p>
+          <h2 class="scrolly__related-title">Curated For You</h2>
+        </div>
+        <a class="scrolly__related-explore" routerLink="/products">Explore Collection</a>
+      </div>
+      <div class="scrolly__related-grid">
+        @for (p of relatedProducts(); track p.id) {
+          <a class="scrolly__related-card" [routerLink]="['/products', p.id]">
+            <lg-product-card
+              [product]="p"
+              (addToCart)="addRelatedToCart.emit($event)"
+              (addToWishlist)="addRelatedToWishlist.emit($event)"
+            />
+          </a>
+        }
+      </div>
+    </div>
+  </section>
+}

@@ -1,3 +1,119 @@
+// =============================================================================
+// DESIGN TOKENS — PDP (002-pdp-pixel-perfect)
+// Source: Stitch MCP — project "Collections - Lugar Furniture 2026 Edition"
+//   Project ID: 18164580020997828064
+//   Screen ID:  6ef3ffb4cfd84747bba4a16d4d56455d
+//   Screen:     "Refined Product Detail - Living Spaces Sofa"
+//   Extracted:  2026-03-23
+// =============================================================================
+//
+// LAYOUT
+//   Split columns:         55% / 45%  (lg:grid-cols-[55%_45%])
+//   Max content width:     1280px
+//   Navbar height:         68px
+//   Main padding-top:      96px (pt-24)
+//
+// GALLERY (left column) — owned by lg-image-gallery
+//   Gallery padding:       32px (p-8)        ← was: none
+//   Gallery background:    #faf2e8           ← was: #ede4d8  [DISCREPANCY FIXED]
+//   Main image aspect:     4/5               ← was: not specified
+//   Thumbnail grid cols:   4 columns         ← was: flex row
+//   Thumbnail gap:         16px (gap-4)      ← was: 2px      [DISCREPANCY FIXED]
+//   Thumb aspect:          square
+//   Thumb active border:   1px solid rgba(122,89,0,0.2)  ← Stitch value
+//                          NOTE: spec FR-003 overrides to 2px solid #b88e2f (gold)
+//   Thumb hover opacity:   0.8               ← Stitch: hover:opacity-80
+//
+// INFO PANEL (right column) — owned by lg-product-info
+//   Panel background:      #F9F1E7          ✓ matches
+//   Panel padding:         64px (p-16)       ← was: 56px 56px 64px  [DISCREPANCY FIXED]
+//   Breadcrumb margin-b:   32px (mb-8)
+//   Title font-family:     Cormorant Garamond
+//   Title font-size:       72px (text-7xl at md)  ✓ matches
+//   Title font-weight:     300
+//   Title line-height:     tight (≈1.1)
+//   Title letter-spacing:  0.1em (tracking-editorial) ← was: 1px  [DISCREPANCY FIXED]
+//   Title color:           #1e1b15          ✓ matches
+//   Category label size:   10px, letter-spacing 0.15em, uppercase, Montserrat 300
+//   Star size:             14px (text-sm), gold #B88E2F  ✓ matches
+//   Reviews:               10px, tracking-widest (0.05em), Montserrat 300, stone-500
+//   Rating margin-b:       24px (mb-6)
+//   Price active size:     30px (text-3xl)   ← was: 36px  [DISCREPANCY FIXED]
+//   Price active color:    #B88E2F          ✓ matches
+//   Price margin-b:        32px (mb-8)
+//   Description font:      Inter, light, line-height 1.7, stone-600
+//   Description max-w:     28rem (max-w-md)
+//   Description margin-b:  40px (mb-10)
+//   Config section gap:    32px (space-y-8)
+//   Config section margin: 48px (mb-12)
+//   Color label margin-b:  16px (mb-4)
+//   Qty stepper:           border outline-variant/50, px-4 py-3
+//   Add to Cart btn:       bg primary-container (#b88e2f), py-5, text-[11px], tracking-label
+//   Wishlist CTA:          text-[#B88E2F], text-[10px], tracking-label
+//   Commission CTA:        stone-500, text-[10px], tracking-label
+//   Trust grid:            3 columns, gap-4 (16px)
+//   Trust padding-top:     32px (pt-8)
+//   Trust border:          1px solid outline-variant/30 ≈ rgba(210,197,177,0.3)
+//   Trust icons:           24px (default material symbols)  ← was: 20px  [DISCREPANCY FIXED]
+//   Trust label size:      8px (text-[8px])  ← was: 9px  [DISCREPANCY FIXED]
+//   Trust letter-spacing:  0.15em (tracking-label)
+//
+// LIFESTYLE SECTION — owned by lg-scrollytelling
+//   Layout:                FULL BLEED h-screen (viewport height)  ← was: 45/55 grid  [STRUCTURAL DISCREPANCY]
+//   Image:                 absolute inset-0, object-cover
+//   Overlay:               bg-stone-900/20
+//   Content position:      relative z-10, px-12 md:px-24
+//   Content max-w:         max-w-4xl (56rem)
+//   Quote font-size:       96px (text-8xl)   ← was: 52px  [DISCREPANCY FIXED]
+//   Quote font:            Cormorant 300, leading-none, tracking-editorial, white
+//   Quote margin-b:        32px (mb-8)
+//   Glass card bg:         white/10 backdrop-blur-lg
+//   Glass card padding:    32px (p-8)
+//   Glass card border:     border-l white/30
+//   Glass card max-w:      28rem (max-w-md)
+//   Body font-size:        14px (text-sm)    ← was: 13px  [DISCREPANCY FIXED]
+//   Body line-height:      1.7, Inter, white
+//
+// CRAFT SECTION — owned by lg-scrollytelling
+//   Grid columns:          50% / 50%         ✓ matches (2 equal cols)
+//   Min height:            819px (min-h-[819px]) ← was: 520px  [DISCREPANCY FIXED]
+//   Image side min-h:      500px
+//   Image filter:          grayscale(30%)    ← was: opacity 0.85  [DISCREPANCY FIXED]
+//   Info background:       #ffffff (bg-white) ← was: #f9f1e7  [DISCREPANCY FIXED]
+//   Info padding:          96px (p-24)       ← was: 80px 64px  [DISCREPANCY FIXED]
+//   Label size:            10px, tracking-[0.3em], gold #B88E2F, mb-6 (24px)
+//   Heading size:          48px (text-5xl)   ← was: 44px  [DISCREPANCY FIXED]
+//   Heading tracking:      0.1em (tracking-editorial)
+//   Heading margin-b:      32px (mb-8)
+//   Body size:             Inter, leading-1.7, stone-600, mb-12 (48px)
+//   Stats gap:             32px (gap-8)      ← was: 40px  [DISCREPANCY FIXED]
+//   Stats border:          border-t outline-variant/30 ≈ rgba(210,197,177,0.3) ← was: 0.5
+//   Stats padding-top:     32px (pt-8)
+//   Stat value size:       30px (text-3xl)   ← was: 32px  [DISCREPANCY FIXED]
+//   Stat value color:      #B88E2F          ← was: #1e1b15  [DISCREPANCY FIXED]
+//   Stat label size:       9px, tracking-label (0.15em), stone-500
+//
+// RELATED PRODUCTS — owned by lg-scrollytelling
+//   Background:            #F9F1E7          ✓ matches
+//   Section padding:       96px vertical, 32-48px horizontal  ← was: 80px 0  [DISCREPANCY FIXED]
+//   Max-width:             1920px mx-auto
+//   Header margin-bottom:  64px (mb-16)     ← was: 48px  [DISCREPANCY FIXED]
+//   Label size:            10px, tracking-[0.3em] ≈ 3px, gold #B88E2F
+//   Label margin-b:        16px (mb-4)
+//   Title size:            48px (text-5xl)  ← was: 44px  [DISCREPANCY FIXED]
+//   Title tracking:        0.1em (tracking-editorial)
+//   Explore link:          10px, tracking-label, border-b border-stone-900, pb-2
+//   Grid columns:          repeat(3, 1fr)   ✓ matches
+//   Grid gap:              32px (gap-8)     ← was: 24px  [DISCREPANCY FIXED]
+//   Card bg:               #ffffff (bg-white)
+//   Card padding:          24px (p-6)
+//   Card image aspect:     3/4 (aspect-[3/4])
+//   Card image margin-b:   24px (mb-6)
+//   Card title size:       24px (text-2xl)
+//   Card category:         10px, tracking-label, stone-400
+//   Card price:            18px (text-lg), color primary (#7a5900)
+// =============================================================================
+
 :host {
   display: block;
 }
@@ -15,461 +131,36 @@
     padding: 48px;
   }
 
-  // ── Above-fold split ───────────────────────────────────────────────────
+  // ── Above-fold split layout ────────────────────────────────────────────
+  // Stitch: grid-cols-[55%_45%] min-h-[921px]
+  // Default grid stretch — gallery height sets the row; panel centers in it
   &__split {
     display: grid;
-    grid-template-columns: 55fr 45fr;
-    align-items: start;
+    grid-template-columns: 55fr 45fr;   // Stitch: 55% / 45%
+    min-height: 921px;                  // Stitch: min-h-[921px]
   }
 
-  // ── Gallery (left column — sticky, fills viewport height) ─────────────
+  // ── Gallery wrapper ────────────────────────────────────────────────────
+  // Stitch: no sticky, no fixed height — flows naturally with aspect-ratio image
   &__gallery {
-    position: sticky;
-    top: 68px;
-    height: calc(100vh - 68px);
-    display: flex;
-    flex-direction: column;
-    background: #ede4d8;
-    overflow: hidden;
+    // intentionally empty — lg-image-gallery fills this cell naturally
   }
 
-  &__main-image {
-    position: relative;
-    flex: 1;
-    overflow: hidden;
-    min-height: 0;
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-  }
-
-  &__badge {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 300;
-    font-size: 9px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    padding: 6px 12px;
-
-    &--oos  { background: #e8e8e8; color: #7a6f65; }
-    &--sale { background: #b88e2f; color: #ffffff; }
-  }
-
-  &__thumbs {
-    display: flex;
-    height: 96px;
-    flex-shrink: 0;
-    gap: 2px;
-    background: #ede4d8;
-    padding: 2px;
-    box-sizing: border-box;
-  }
-
-  &__thumb {
-    flex: 1;
-    overflow: hidden;
-    cursor: pointer;
-    background: #d9cfc3;
-    border: 1.5px solid transparent;
-    padding: 0;
-    transition: border-color 150ms ease, opacity 150ms ease;
-    opacity: 0.55;
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    &--active {
-      border-color: #1c1917;
-      opacity: 1;
-    }
-
-    &:hover:not(&--active) {
-      opacity: 0.8;
-    }
-  }
-
-  // ── Right info panel ───────────────────────────────────────────────────
+  // ── Info panel wrapper ─────────────────────────────────────────────────
+  // Stitch: bg-[#F9F1E7] p-8 md:p-16 flex flex-col justify-center
+  // Contains lg-breadcrumb (mb-8) + lg-product-info
   &__panel {
-    background: #f9f1e7;
-    padding: 56px 56px 64px;
+    background: #F9F1E7;
+    padding: 64px;                      // Stitch: p-16 = 64px
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    justify-content: center;            // Stitch: justify-center
     box-sizing: border-box;
-  }
 
-  &__title {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 300;
-    font-size: 72px;
-    line-height: 1.0;
-    letter-spacing: 1px;
-    color: #1e1b15;
-    margin: 0;
-  }
-
-  &__rating {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  &__star {
-    font-size: 14px;
-    color: #d9cfc3;
-
-    &--filled { color: #b88e2f; }
-  }
-
-  &__reviews {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 300;
-    font-size: 9px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: #a8a29e;
-  }
-
-  // ── Pricing ────────────────────────────────────────────────────────────
-  &__price-block {
-    display: flex;
-    align-items: baseline;
-    gap: 16px;
-  }
-
-  &__price {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 300;
-
-    &--default,
-    &--discounted {
-      font-size: 36px;
-      letter-spacing: 0.5px;
-      color: #b88e2f;
-    }
-
-    &--original {
-      font-size: 24px;
-      color: #c4bdb5;
-      text-decoration: line-through;
-    }
-  }
-
-  // ── Description ────────────────────────────────────────────────────────
-  &__description {
-    font-family: 'Inter', sans-serif;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 1.8;
-    color: #57534e;
-    margin: 0;
-  }
-
-  // ── Availability ───────────────────────────────────────────────────────
-  &__availability {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 300;
-    font-size: 10px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: #57a37c;
-    margin: 0;
-
-    &--oos { color: #e97171; }
-  }
-
-  // ── Purchase row: stepper + button side by side ────────────────────────
-  &__purchase {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-
-    // Stepper keeps its natural width
-    lg-quantity-stepper { flex-shrink: 0; }
-
-    // Button fills remaining space
-    lg-button { flex: 1; min-width: 0; }
-  }
-
-  // ── Text-style CTAs ────────────────────────────────────────────────────
-  &__text-ctas {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  &__text-cta {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 300;
-    font-size: 10px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: #1c1917;
-    text-decoration: none;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    transition: color 150ms ease;
-
-    &:hover { color: #b88e2f; }
-  }
-
-  &__arrow {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 12px;
-    letter-spacing: 0;
-  }
-
-  // ── Trust strip ────────────────────────────────────────────────────────
-  &__trust {
-    display: flex;
-    align-items: center;
-    gap: 32px;
-    padding-top: 24px;
-    border-top: 1px solid rgba(210, 197, 177, 0.4);
-    margin-top: 8px;
-  }
-
-  &__trust-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-    text-align: center;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 300;
-    font-size: 9px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: #7a6f65;
-  }
-
-  &__trust-icon {
-    width: 20px;
-    height: 20px;
-    color: #7a6f65;
-  }
-
-  // ── Lifestyle section ──────────────────────────────────────────────────
-  &__lifestyle {
-    display: grid;
-    grid-template-columns: 45fr 55fr;
-    min-height: 520px;
-    background: #2a2520;
-  }
-
-  &__lifestyle-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 80px 56px;
-    gap: 24px;
-  }
-
-  &__lifestyle-quote {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 300;
-    font-size: 52px;
-    line-height: 1.1;
-    letter-spacing: 1px;
-    color: #f9f1e7;
-    margin: 0;
-    font-style: normal;
-  }
-
-  &__lifestyle-body {
-    font-family: 'Inter', sans-serif;
-    font-weight: 400;
-    font-size: 13px;
-    line-height: 1.8;
-    color: rgba(249, 241, 231, 0.6);
-    margin: 0;
-    max-width: 360px;
-  }
-
-  &__lifestyle-image {
-    overflow: hidden;
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+    // Breadcrumb sits above the info content with Stitch's mb-8 = 32px
+    lg-breadcrumb {
       display: block;
+      margin-bottom: 32px;             // Stitch: mb-8 = 32px
     }
-  }
-
-  // ── Craftsmanship section ──────────────────────────────────────────────
-  &__craft {
-    display: grid;
-    grid-template-columns: 50fr 50fr;
-    min-height: 520px;
-    background: #f9f1e7;
-  }
-
-  &__craft-image {
-    overflow: hidden;
-    background: #1c1917;
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      opacity: 0.85;
-    }
-  }
-
-  &__craft-info {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 80px 64px;
-    gap: 20px;
-  }
-
-  &__craft-label {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 300;
-    font-size: 9px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: #b88e2f;
-    margin: 0;
-  }
-
-  &__craft-heading {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 300;
-    font-size: 44px;
-    line-height: 1.1;
-    letter-spacing: 0.5px;
-    color: #1e1b15;
-    margin: 0;
-  }
-
-  &__craft-body {
-    font-family: 'Inter', sans-serif;
-    font-weight: 400;
-    font-size: 13px;
-    line-height: 1.8;
-    color: #57534e;
-    margin: 0;
-    max-width: 400px;
-  }
-
-  &__craft-stats {
-    display: flex;
-    gap: 40px;
-    padding-top: 8px;
-    border-top: 1px solid rgba(210, 197, 177, 0.5);
-    margin-top: 8px;
-  }
-
-  &__craft-stat {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-
-  &__craft-stat-value {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 300;
-    font-size: 32px;
-    color: #1e1b15;
-    line-height: 1;
-  }
-
-  &__craft-stat-label {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 300;
-    font-size: 9px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: #a8a29e;
-  }
-
-  // ── Related / Curated For You ──────────────────────────────────────────
-  &__related {
-    background: #f9f1e7;
-    padding: 80px 0;
-    border-top: 1px solid rgba(210, 197, 177, 0.4);
-  }
-
-  &__related-inner {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 0 48px;
-  }
-
-  &__related-header {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    margin-bottom: 48px;
-  }
-
-  &__related-label {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 300;
-    font-size: 9px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: #b88e2f;
-    margin: 0 0 8px;
-  }
-
-  &__related-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 300;
-    font-size: 44px;
-    letter-spacing: 1px;
-    color: #1e1b15;
-    margin: 0;
-  }
-
-  &__related-explore {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 300;
-    font-size: 9px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: #1c1917;
-    text-decoration: none;
-    border-bottom: 1px solid #1c1917;
-    padding-bottom: 2px;
-    white-space: nowrap;
-    transition: color 150ms ease, border-color 150ms ease;
-
-    &:hover {
-      color: #b88e2f;
-      border-color: #b88e2f;
-    }
-  }
-
-  &__related-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-  }
-
-  &__related-card {
-    display: block;
-    text-decoration: none;
-    color: inherit;
   }
 }

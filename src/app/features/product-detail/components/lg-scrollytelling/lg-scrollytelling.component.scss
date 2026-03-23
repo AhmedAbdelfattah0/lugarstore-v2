@@ -1,0 +1,225 @@
+// Scrollytelling — tokens from Stitch MCP (screen 6ef3ffb4cfd84747bba4a16d4d56455d)
+
+:host {
+  display: block;
+}
+
+// ── Lifestyle section ────────────────────────────────────────────────────────
+// Stitch: full-bleed h-screen with absolute image background + text overlay
+// Was: 45/55 grid with dark bg — STRUCTURAL CHANGE per Stitch
+
+.scrolly__lifestyle {
+  position: relative;
+  height: 80vh;                        // reduced height — matches screen proportion
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+
+  // dark overlay via pseudo-element
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(28, 25, 23, 0.25);
+    z-index: 0;
+  }
+}
+
+.scrolly__lifestyle-content {
+  position: absolute;
+  bottom: 80px;
+  left: 48px;
+  right: 48px;
+  z-index: 1;
+  max-width: 56rem;
+}
+
+.scrolly__lifestyle-quote {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: 96px;            // Stitch: text-8xl = 96px — was: 52px
+  line-height: 1;             // Stitch: leading-none
+  letter-spacing: 0.1em;     // Stitch: tracking-editorial = 0.1em
+  color: #ffffff;
+  margin: 0 0 32px;           // Stitch: mb-8 = 32px
+  font-style: normal;
+}
+
+.scrolly__lifestyle-glass {
+  background: rgba(255, 255, 255, 0.1);  // Stitch: bg-white/10
+  backdrop-filter: blur(24px);           // Stitch: backdrop-blur-lg
+  padding: 32px;                         // Stitch: p-8
+  border-left: 1px solid rgba(255, 255, 255, 0.3);  // Stitch: border-l white/30
+  max-width: 28rem;                      // Stitch: max-w-md
+}
+
+.scrolly__lifestyle-body {
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  font-size: 14px;            // Stitch: text-sm = 14px — was: 13px
+  line-height: 1.7;           // Stitch: leading-[1.7]
+  color: #ffffff;
+  margin: 0;
+}
+
+// ── Craft section ────────────────────────────────────────────────────────────
+
+.scrolly__craft {
+  display: grid;
+  grid-template-columns: 50% 50%;    // Stitch: grid-cols-2 ✓
+  min-height: 819px;                 // Stitch: min-h-[819px] — was: 520px
+}
+
+.scrolly__craft-image {
+  min-height: 500px;                 // Stitch: min-h-[500px]
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  filter: grayscale(30%);            // Stitch: grayscale-[30%]
+}
+
+.scrolly__craft-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 96px;                     // Stitch: p-24 = 96px — was: 80px 64px
+  gap: 20px;
+  background: #ffffff;               // Stitch: bg-white — was: inherited #f9f1e7
+}
+
+.scrolly__craft-label {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-size: 10px;                   // Stitch: text-[10px] — was: 9px
+  letter-spacing: 0.3em;            // Stitch: tracking-[0.3em] — was: 2px
+  text-transform: uppercase;
+  color: #b88e2f;
+  margin: 0 0 24px;                  // Stitch: mb-6 = 24px
+}
+
+.scrolly__craft-heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: 48px;                   // Stitch: text-5xl = 48px — was: 44px
+  line-height: 1.1;
+  letter-spacing: 0.1em;            // Stitch: tracking-editorial = 0.1em
+  color: #1e1b15;
+  margin: 0 0 32px;                  // Stitch: mb-8 = 32px
+}
+
+.scrolly__craft-body {
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;                  // Stitch: font-light = 300
+  font-size: 14px;                   // Stitch: body default
+  line-height: 1.7;                  // Stitch: leading-[1.7]
+  color: #57534e;
+  margin: 0 0 48px;                  // Stitch: mb-12 = 48px
+}
+
+.scrolly__craft-stats {
+  display: flex;
+  align-items: center;
+  gap: 32px;                         // Stitch: gap-8 = 32px — was: 40px
+  padding-top: 32px;                 // Stitch: pt-8 = 32px — was: 8px
+  border-top: 1px solid rgba(210, 197, 177, 0.3);  // Stitch: outline-variant/30 — was: 0.5
+}
+
+.scrolly__craft-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: center;
+}
+
+.scrolly__craft-stat-value {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: 30px;                   // Stitch: text-3xl = 30px — was: 32px
+  color: #b88e2f;                    // Stitch: text-[#B88E2F] — was: #1e1b15
+  line-height: 1;
+}
+
+.scrolly__craft-stat-label {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-size: 9px;
+  letter-spacing: 0.15em;           // Stitch: tracking-label = 0.15em — was: 1.5px
+  text-transform: uppercase;
+  color: #a8a29e;
+}
+
+// ── Related products section ─────────────────────────────────────────────────
+
+.scrolly__related {
+  background: #f9f1e7;               // Stitch: bg-[#F9F1E7] ✓
+  padding: 96px 32px;                // Stitch: py-24 px-8 = 96px / 32px — was: 80px 0
+
+  &--empty {
+    padding: 96px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.scrolly__related-inner {
+  max-width: 1920px;                 // Stitch: max-w-[1920px] — was: 1280px
+  margin: 0 auto;
+}
+
+.scrolly__related-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 64px;               // Stitch: mb-16 = 64px — was: 48px
+}
+
+.scrolly__related-label {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-size: 10px;                   // Stitch: text-[10px]
+  letter-spacing: 0.3em;            // Stitch: tracking-[0.3em] — was: 2px
+  text-transform: uppercase;
+  color: #b88e2f;
+  margin: 0 0 16px;                  // Stitch: mb-4 = 16px — was: 8px
+}
+
+.scrolly__related-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: 48px;                   // Stitch: text-5xl = 48px — was: 44px
+  letter-spacing: 0.1em;            // Stitch: tracking-editorial = 0.1em — was: 1px
+  color: #1e1b15;
+  margin: 0;
+}
+
+.scrolly__related-explore {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #1c1917;
+  text-decoration: none;
+  border-bottom: 1px solid #1c1917;
+  padding-bottom: 2px;
+  white-space: nowrap;
+  transition: color 150ms ease, border-color 150ms ease;
+
+  &:hover {
+    color: #b88e2f;
+    border-color: #b88e2f;
+  }
+}
+
+.scrolly__related-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;                              // Stitch: gap-8 = 32px — was: 24px
+}
+
+.scrolly__related-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}

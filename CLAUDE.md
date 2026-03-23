@@ -518,3 +518,10 @@ Design:
 □ No shadows, no gradients, no radius > 4px
 ```
 
+
+## Active Technologies
+- TypeScript 5.x / Angular 21 (zoneless, standalone) + Angular Signals, GSAP (ScrollTrigger), Tailwind CSS v4, Angular SSR (pre-render) (002-pdp-pixel-perfect)
+- localStorage via `StorageService` (cart + wishlist) (002-pdp-pixel-perfect)
+
+## Recent Changes
+- 002-pdp-pixel-perfect: Added TypeScript 5.x / Angular 21 (zoneless, standalone) + Angular Signals, GSAP (ScrollTrigger), Tailwind CSS v4, Angular SSR (pre-render)

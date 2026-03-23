@@ -1,0 +1,30 @@
+<div class="gallery">
+
+  <!-- Main image -->
+  <div class="gallery__main">
+    <img
+      [src]="images()[selectedIndex()]"
+      [alt]="'Product image ' + (selectedIndex() + 1)"
+      loading="eager"
+      class="gallery__main-img"
+    />
+  </div>
+
+  <!-- Thumbnail strip — only shown when more than 1 image -->
+  @if (images().length > 1) {
+    <div class="gallery__thumbs">
+      @for (img of images() | slice:0:4; track $index) {
+        <button
+          class="gallery__thumb"
+          [class.gallery__thumb--active]="selectedIndex() === $index"
+          (click)="selectImage.emit($index)"
+          type="button"
+          [attr.aria-label]="'View image ' + ($index + 1)"
+        >
+          <img [src]="img" alt="" loading="lazy" />
+        </button>
+      }
+    </div>
+  }
+
+</div>

@@ -1,0 +1,64 @@
+// Gallery — Stitch: screen 6ef3ffb4cfd84747bba4a16d4d56455d
+// Layout: p-8 flex-col gap-4, main image aspect-[4/5], thumbs grid-cols-4 gap-4
+
+:host {
+  display: block;   // block so the gallery cell determines its own height
+}
+
+.gallery {
+  background: #faf2e8;      // Stitch: surface-container-low
+  padding: 32px;            // Stitch: p-8 = 32px
+  display: flex;
+  flex-direction: column;
+  gap: 16px;                // Stitch: gap-4 = 16px
+
+  // ── Main image — aspect-[4/5] per Stitch ──────────────────────────────
+  &__main {
+    position: relative;
+    aspect-ratio: 4 / 5;   // Stitch: aspect-[4/5]
+    overflow: hidden;
+    background: #efe7dd;   // Stitch: surface-container-high (placeholder bg)
+  }
+
+  &__main-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: opacity 0.2s ease;
+  }
+
+  // ── Thumbnail strip — grid-cols-4 gap-4 per Stitch ───────────────────
+  &__thumbs {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);  // Stitch: grid-cols-4
+    gap: 16px;                               // Stitch: gap-4 = 16px
+  }
+
+  &__thumb {
+    aspect-ratio: 1 / 1;    // Stitch: aspect-square
+    overflow: hidden;
+    cursor: pointer;
+    background: #efe7dd;
+    border: 2px solid transparent;
+    padding: 0;
+    transition: border-color 150ms ease, opacity 150ms ease;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    // Active: gold border per spec FR-003
+    // (Stitch shows border-primary/20; spec overrides to 2px solid gold)
+    &--active {
+      border-color: #b88e2f;
+    }
+
+    &:hover:not(&--active) {
+      opacity: 0.8;    // Stitch: hover:opacity-80
+    }
+  }
+}
