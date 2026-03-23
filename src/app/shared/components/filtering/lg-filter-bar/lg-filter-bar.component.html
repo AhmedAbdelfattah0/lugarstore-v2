@@ -1,40 +1,49 @@
-<div class="sticky top-16 lg:top-20 z-20 bg-white border-b border-[#E8E8E8]">
-  <div class="max-w-[1280px] mx-auto px-6 py-4 flex flex-col sm:flex-row sm:items-center gap-4">
+<div class="filter-bar">
+  <div class="filter-bar__inner">
 
-    <!-- Category pills — horizontally scrollable on mobile -->
-    <div class="flex items-center gap-2 overflow-x-auto pb-1 sm:pb-0 flex-1 min-w-0 scrollbar-hide">
-      <!-- All pill -->
-      <lg-category-pill
-        label="All"
-        [active]="activeCategory() === null"
-        (pillClick)="selectCategory(null)"
-      />
+    <!-- Category pills -->
+    <div class="filter-bar__pills">
+      <button
+        class="filter-bar__pill"
+        [class.filter-bar__pill--active]="activeCategory() === null"
+        (click)="selectCategory(null)"
+        type="button"
+      >All</button>
 
-      @for (cat of categories(); track cat) {
-        <lg-category-pill
-          [label]="cat"
-          [active]="activeCategory() === cat"
-          (pillClick)="selectCategory(cat)"
-        />
+      @for (cat of categories(); track cat.id) {
+        <button
+          class="filter-bar__pill"
+          [class.filter-bar__pill--active]="activeCategory() === cat.id"
+          (click)="selectCategory(cat.id)"
+          type="button"
+        >{{ cat.title }}</button>
       }
     </div>
 
-    <!-- Sort + count -->
-    <div class="flex items-center gap-4 flex-shrink-0">
-      <span class="font-[Inter] text-xs text-[#7A6F65] whitespace-nowrap">
-        {{ productCount() }} {{ productCount() === 1 ? 'piece' : 'pieces' }}
+    <!-- Count + Sort -->
+    <div class="filter-bar__right">
+      <span class="filter-bar__count">
+        {{ productCount() }} {{ productCount() === 1 ? 'Object' : 'Objects' }}
       </span>
 
-      <select
-        class="font-[Montserrat] font-light text-xs uppercase tracking-[0.1em] text-[#333333] bg-transparent border border-[#E8E8E8] px-3 py-1.5 outline-none cursor-pointer hover:border-[#B88E2F] transition-colors duration-200"
-        [value]="sortValue()"
-        (change)="onSortChange($event)"
-        aria-label="Sort products"
-      >
-        @for (opt of sortOptions; track opt.value) {
-          <option [value]="opt.value">{{ opt.label }}</option>
-        }
-      </select>
+      <div class="filter-bar__sort-wrap">
+        <span class="filter-bar__sort-label">Sort By</span>
+        <div class="filter-bar__sort-select-wrap">
+          <select
+            class="filter-bar__sort-select"
+            [value]="sortValue()"
+            (change)="onSortChange($event)"
+            aria-label="Sort products"
+          >
+            @for (opt of sortOptions; track opt.value) {
+              <option [value]="opt.value">{{ opt.label }}</option>
+            }
+          </select>
+          <svg class="filter-bar__chevron" width="7" height="4" viewBox="0 0 7 4" fill="none" aria-hidden="true">
+            <path d="M1 1L3.5 3.5L6 1" stroke="#1c1917" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
     </div>
 
   </div>

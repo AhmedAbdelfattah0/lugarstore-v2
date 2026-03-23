@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, input, output, computed } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, output } from '@angular/core';
 
 @Component({
   selector: 'lg-category-pill',
@@ -12,10 +12,4 @@ export class LgCategoryPillComponent {
   readonly active = input<boolean>(false);
 
   readonly pillClick = output<void>();
-
-  readonly classes = computed(() =>
-    this.active()
-      ? 'bg-[#B88E2F] text-white border-[#B88E2F]'
-      : 'bg-transparent text-[#B88E2F] border-[#B88E2F] hover:bg-[#B88E2F] hover:text-white'
-  );
 }

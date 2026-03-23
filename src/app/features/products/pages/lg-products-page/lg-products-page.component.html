@@ -1,0 +1,123 @@
+<lg-navbar />
+
+<main class="products-page">
+
+  <!-- Editorial header -->
+  <lg-plp-header />
+
+  <!-- Sticky filter bar: category pills + sort -->
+  <lg-filter-bar
+    [categories]="plpState.categories()"
+    [activeCategory]="filterState.activeCategory()"
+    [sortValue]="filterState.sort()"
+    [productCount]="plpState.totalCount()"
+    (categoryChange)="onCategoryChange($event)"
+    (sortChange)="onSortChange($event)"
+  />
+
+  <!-- Products section -->
+  <section class="products-section">
+    <div class="products-container">
+
+      <!-- Loading -->
+      @if (plpState.isLoading()) {
+        <div class="loader-wrapper">
+          <lg-spinner />
+        </div>
+      }
+
+      <!-- Error -->
+      @else if (plpState.error()) {
+        <lg-empty-state
+          icon="!"
+          title="Something went wrong"
+          [message]="plpState.error()!"
+        />
+      }
+
+      <!-- Empty filter result -->
+      @else if (plpState.paginatedProducts().length === 0) {
+        <lg-empty-state
+          icon="o"
+          title="No pieces found"
+          message="Try a different category or clear your filters."
+          ctaLabel="Clear filters"
+          (ctaClick)="clearFilters()"
+        />
+      }
+
+      <!-- Product grid -->
+      @else {
+        @let products = plpState.paginatedProducts();
+
+        <!-- Bento layout: first 3 products -->
+        <div class="bento-grid">
+
+          <!-- Large card - left -->
+          @if (products[0]; as p0) {
+            <a class="bento-left" [routerLink]="['/products', p0.id]">
+              <lg-product-card
+                [product]="p0"
+                variant="featured"
+                (addToCart)="onAddToCart($event)"
+                (addToWishlist)="onAddToWishlist($event)"
+              />
+            </a>
+          }
+
+          <!-- Two stacked cards - right -->
+          <div class="bento-right">
+            @if (products[1]; as p1) {
+              <a class="bento-right-top" [routerLink]="['/products', p1.id]">
+                <lg-product-card
+                  [product]="p1"
+                  (addToCart)="onAddToCart($event)"
+                  (addToWishlist)="onAddToWishlist($event)"
+                />
+              </a>
+            }
+            @if (products[2]; as p2) {
+              <a class="bento-right-bottom" [routerLink]="['/products', p2.id]">
+                <lg-product-card
+                  [product]="p2"
+                  (addToCart)="onAddToCart($event)"
+                  (addToWishlist)="onAddToWishlist($event)"
+                />
+              </a>
+            }
+          </div>
+
+        </div>
+
+        <!-- Uniform 3-column grid: products[3+] -->
+        @if (products.length > 3) {
+          <div class="standard-grid">
+            @for (product of products.slice(3); track product.id) {
+              <a class="card-link" [routerLink]="['/products', product.id]">
+                <lg-product-card
+                  [product]="product"
+                  (addToCart)="onAddToCart($event)"
+                  (addToWishlist)="onAddToWishlist($event)"
+                />
+              </a>
+            }
+          </div>
+        }
+
+      }
+
+      <!-- Pagination -->
+      @if (!plpState.isLoading() && plpState.totalPages() > 1) {
+        <lg-pagination
+          [total]="plpState.totalCount()"
+          [page]="filterState.page()"
+          (pageChange)="onPageChange($event)"
+        />
+      }
+
+    </div>
+  </section>
+
+</main>
+
+<lg-footer />

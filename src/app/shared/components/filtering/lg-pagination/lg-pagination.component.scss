@@ -1,1 +1,72 @@
-// Pagination styles handled via Tailwind utilities
+:host {
+  display: block;
+}
+
+.pagination-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 48px 0;
+}
+
+.page-item {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  color: #333333;
+  cursor: pointer;
+  border: 1px solid transparent;
+  background: transparent;
+  transition: all 0.2s ease;
+
+  &:hover {
+    border-color: #b88e2f;
+    color: #b88e2f;
+  }
+
+  &.active {
+    background: #b88e2f;
+    color: #ffffff;
+    border-color: #b88e2f;
+  }
+}
+
+.page-dots {
+  color: #7a6f65;
+  cursor: default;
+  width: 24px;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+}
+
+.page-arrow {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #333333;
+  background: transparent;
+  border: 1px solid #e8e8e8;
+  transition: all 0.2s ease;
+
+  &:hover {
+    border-color: #b88e2f;
+    color: #b88e2f;
+  }
+
+  &.disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+}

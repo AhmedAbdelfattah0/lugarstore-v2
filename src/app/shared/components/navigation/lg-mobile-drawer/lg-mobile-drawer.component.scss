@@ -1,8 +1,10 @@
 .drawer-panel {
   transform: translateX(100%);
   transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none; // off-screen when closed — don't intercept page clicks
 }
 
 .drawer-panel.drawer-open {
   transform: translateX(0);
+  pointer-events: all; // fully interactive when open
 }

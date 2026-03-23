@@ -1,6 +1,6 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
+import { Observable, map, of, tap } from 'rxjs';
 import { Product, normalizeProduct } from '../../../shared/models';
 
 export interface FilterParams {
@@ -34,23 +34,27 @@ interface RawProductDetail {
 @Injectable({ providedIn: 'root' })
 export class ProductService {
   private readonly http = inject(HttpClient);
+  private readonly _productsCache = signal<Product[] | null>(null);
 
   getProducts(filters?: FilterParams): Observable<Product[]> {
-    return this.http.get<any[]>('/products/get_products.php').pipe(
-      map(raw => {
-  
+    const cached = this._productsCache();
 
-        let products = raw.map(normalizeProduct);
+    // Serve from cache only when no filters — PlpStateService filters via computed signals
+    if (cached && !filters?.category && !filters?.sort) {
+      return of(cached);
+    }
+
+    return this.http.get<any[]>('/products/get_products.php').pipe(
+      map(raw => raw.map(normalizeProduct)),
+      tap(products => this._productsCache.set(products)),
+      map(products => {
+        let result = products;
 
         if (filters?.category !== undefined) {
-          products = products.filter(p => p.categoryId === filters.category);
+          result = result.filter(p => p.categoryId === filters.category);
         }
 
-        if (filters?.sort) {
-          products = this.applySorting(products, filters.sort);
-        }
-
-        return products;
+        return filters?.sort ? this.applySorting(result, filters.sort) : result;
       }),
     );
   }
@@ -73,11 +77,15 @@ export class ProductService {
     );
   }
 
+  clearCache(): void {
+    this._productsCache.set(null);
+  }
+
   private applySorting(products: Product[], sort: NonNullable<FilterParams['sort']>): Product[] {
     const sorted = [...products];
     switch (sort) {
-      case 'newest':   return sorted.sort((a, b) => b.id - a.id);
-      case 'priceAsc': return sorted.sort((a, b) => a.price - b.price);
+      case 'newest':    return sorted.sort((a, b) => b.id - a.id);
+      case 'priceAsc':  return sorted.sort((a, b) => a.price - b.price);
       case 'priceDesc': return sorted.sort((a, b) => b.price - a.price);
     }
   }

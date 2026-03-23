@@ -4,6 +4,98 @@
 
 ---
 
+## Session: 2026-03-23
+
+**Project:** Lugar Store v2 — Luxury Furniture E-commerce (Angular 21 + SSR)
+**Feature:** PLP Header + Filter Bar redesign from Figma (frame 33:2/33:3/33:155)
+**Status:** 🟡 Partial (blocker: categories-not-loading bug unresolved)
+
+### What Was Done
+- Connected to Figma MCP, extracted exact design values from correct frame (33:2 "Curated Collections", not 34:6208)
+- Rewrote `lg-plp-header`: heading 96px with 9.6px letter-spacing, padding `pt-128 pb-80 px-48`, subtitle color `#57534e` max-width 576px, 32px flex gap between elements, Egyptian heritage subtitle copy
+- Rewrote `lg-filter-bar`: full-width white sticky bar, `padding: 16px 48px`, pill buttons `rounded-12px px-24 py-8`, active bg `#7a5900` white text, inactive `#57534e`, gap 16px, Montserrat Light 1.5px tracking, count before sort, "Sort By ▾" styled select
+- Updated `lg-breadcrumb`: Montserrat Light 300, 1.5px tracking, `·` separator, link `#78716c`, current page `#1c1917`
+- Added diagnostic `console.log` to `CategoryService` + `PlpStateService` to trace categories-not-loading bug — awaiting user console output
+
+### Files Changed
+- `src/app/shared/components/navigation/lg-breadcrumb/lg-breadcrumb.component.html` — `·` separator, BEM classes
+- `src/app/shared/components/navigation/lg-breadcrumb/lg-breadcrumb.component.scss` — Montserrat Light 1.5px tracking
+- `src/app/features/products/components/lg-plp-header/lg-plp-header.component.html` — subtitle copy
+- `src/app/features/products/components/lg-plp-header/lg-plp-header.component.scss` — 96px heading, 9.6px tracking, correct padding
+- `src/app/shared/components/filtering/lg-filter-bar/lg-filter-bar.component.ts` — removed LgCategoryPillComponent, sort labels "Newest First"
+- `src/app/shared/components/filtering/lg-filter-bar/lg-filter-bar.component.html` — inline pill buttons, count before sort
+- `src/app/shared/components/filtering/lg-filter-bar/lg-filter-bar.component.scss` — full-width, pill style, #7a5900 active
+- `src/app/features/products/services/category.service.ts` — diagnostic tap logs (TEMP — remove after fix)
+- `src/app/features/products/services/plp-state.service.ts` — diagnostic console.log (TEMP — remove after fix)
+
+### Key Decisions
+- Figma source of truth is frame 33:2 ("Curated Collections") not 34:6208 — the bento-grid PLP is the active design
+- Filter bar is full-width (not within 32px page margins) — padding 16px 48px handles inset
+- Active pill: `bg #7a5900` (dark gold), not underline tab style — reverted wrong earlier implementation
+- Heading: 96px fixed with 9.6px letter-spacing — not clamp/72px
+
+### Blockers
+Categories not loading in filter bar on PLP. Diagnostic logs added. Suspected: API returns category `id` as string `"1"` but comparisons use numbers — may cause active-state mismatch. Root cause of pills not rendering still unconfirmed (needs console output from user).
+
+### Next
+User shares DevTools console output for `[CategoryService]` and `[PlpStateService]` logs → identify root cause → fix → remove all console.logs. Also fix `id` type in `CategoryService` to parse `Number(c.id)` to prevent string/number comparison bugs.
+
+---
+
+## Session: 2026-03-22
+
+**Project:** Lugar Store v2 — Luxury Furniture E-commerce (Angular 21 + SSR)
+**Feature:** Phase 4 PLP — build, polish, bento grid fixes, filter bar active state
+**Status:** ✅ Completed
+
+### What Was Done
+- Built `FilterStateService` — `activeCategory/sort/page/searchQuery` signals + setters that reset page on change
+- Built `PlpStateService` — `forkJoin` products+categories, computed `filteredProducts/paginatedProducts/totalCount/totalPages`, `selectCategoryByName()`
+- Built `lg-plp-header` — Cormorant Garamond heading, breadcrumb (Home › Collections)
+- Built `lg-product-sort` — smart sort dropdown + piece count, injects `FilterStateService` + `PlpStateService`
+- Built `lg-products-page` — lazy-loaded, bento grid + 3-col grid, cart/wishlist/toast wired, `RouterLink` navigation
+- Fixed duplicate filter bar — removed standalone `lg-product-sort` from page; `lg-filter-bar` handles sort
+- Rewrote `lg-filter-bar` HTML+SCSS with BEM classes (sticky `top: 68px`, pills `gap: 12px`, sort-select)
+- Rewrote `lg-pagination` with `visiblePages` computed (smart truncation max 7 items with ellipsis) + BEM SCSS
+- Fixed `lg-plp-header` spacing (padding `60px 60px 40px`, `clamp(40px, 4vw, 64px)` font)
+- Fixed product grid padding (`products-container` `40px 60px 80px`, `standard-grid` 3-col 16px gap)
+- Fixed bento large card white space — replaced old `grid-row: 1/3` approach with fixed `700px` height grid
+- Rewrote bento in both `lg-products-page` and `lg-featured-collection`: `3fr 2fr` columns, `bento-left/bento-right/bento-right-top/bento-right-bottom`, `::ng-deep` pierces product card encapsulation to replace `padding-top` with flex-driven height
+- Fixed `lg-category-pill` active state — replaced Tailwind computed class string with BEM SCSS + `[class.active]="active()"`. Removed unused `computed` import and `classes` signal
+
+### Files Changed
+- `src/app/features/products/services/filter-state.service.ts` — new
+- `src/app/features/products/services/plp-state.service.ts` — new
+- `src/app/features/products/components/lg-plp-header/` — new component (3 files)
+- `src/app/features/products/components/lg-product-sort/` — new component (3 files)
+- `src/app/features/products/pages/lg-products-page/` — full rewrite (3 files)
+- `src/app/shared/components/filtering/lg-filter-bar/lg-filter-bar.component.html` — BEM rewrite
+- `src/app/shared/components/filtering/lg-filter-bar/lg-filter-bar.component.scss` — sticky `top: 68px` BEM
+- `src/app/shared/components/filtering/lg-category-pill/lg-category-pill.component.ts` — removed Tailwind computed
+- `src/app/shared/components/filtering/lg-category-pill/lg-category-pill.component.html` — `[class.active]` binding
+- `src/app/shared/components/filtering/lg-category-pill/lg-category-pill.component.scss` — full BEM SCSS with gold active
+- `src/app/shared/components/filtering/lg-pagination/lg-pagination.component.ts` — `visiblePages` computed
+- `src/app/shared/components/filtering/lg-pagination/lg-pagination.component.html` — BEM rewrite with SVG arrows
+- `src/app/shared/components/filtering/lg-pagination/lg-pagination.component.scss` — gold active state
+- `src/app/features/home/components/lg-featured-collection/lg-featured-collection.component.html` — bento rewrite
+- `src/app/features/home/components/lg-featured-collection/lg-featured-collection.component.scss` — bento-grid `700px 3fr 2fr`
+- `src/app/app.routes.ts` — `/products` lazy via `loadComponent`
+
+### Key Decisions
+- `3fr 2fr` instead of `60% 40%` — percentage columns with pixel gap overflows grid container; `fr` units share remaining space after gaps
+- `::ng-deep` used to pierce product card `ViewEncapsulation` for bento flex overrides — `padding-top: 0` on `.card-img` replaced by `flex: 1`
+- Fixed `700px` height on bento grid — cleaner than `grid-row: 1/3` spanning approach; no whitespace ambiguity
+- `visiblePages` computed in pagination — max 7 indicators with ellipsis gaps, always shows first/last/current ± 1
+- `lg-category-pill` BEM SCSS with `[class.active]` — replaces unreliable Tailwind class-string concatenation computed
+
+### Blockers
+None
+
+### Next
+Begin Phase 4 continued — PDP (Product Detail Page): single product view, image gallery, add to cart, related products
+
+---
+
 ## Session: 2026-03-19 | 12:00
 
 **Project:** Lugar Store — Luxury Furniture E-commerce (Angular 20 + SSR)
@@ -445,3 +537,76 @@ Diagnostic console.log still present in product.service.ts getProducts() — sho
 
 ### Next Step
 > Remove the two diagnostic console.logs (product.service.ts and home-state.service.ts), then begin Phase 4 — Products List Page (PLP)
+
+---
+
+## Session: 2026-03-22 | 02:00
+
+**Project:** Lugar Store v2
+**Feature:** Homepage polish — footer fix, image paths, final audit, production build
+**Status:** ✅ Completed
+
+### What Was Done
+- Fixed lg-footer full-width: added `width:100%` to `:host` and `.footer`; moved dark background from `.footer__inner` (max-width constrained) to `.footer` (full-width wrapper); restructured HTML to remove separate `footer__top` row and put brand+tagline+socials all in column 1 of the 5-column grid; grid updated to `2fr 1fr 1fr 1fr 1.5fr`
+- Updated all image paths from `assets/images/` → `public/` root (no prefix); corrected `room-1` extension from `.jpg` → `.png`; updated lg-hero fallback, lg-room-slider static slides, lg-promo-banner static slides, lg-categories-section onerror fallback
+- Homepage final audit: confirmed zero console.logs in source; removed `LgSocialGalleryComponent` import from lg-home-page (was commented out in template, causing NG8113 warning); replaced last external Unsplash URL in lg-atelier-section with local `hero-lifestyle.jpg`
+- Production build: `ng build --configuration=production` — zero errors, zero warnings; 400KB initial JS, 22KB CSS
+
+### Files Touched
+- `src/app/shared/components/navigation/lg-footer/lg-footer.component.scss` — `:host width:100%`, `.footer width:100%`, grid `2fr 1fr 1fr 1fr 1.5fr`, removed `.footer__top` styles
+- `src/app/shared/components/navigation/lg-footer/lg-footer.component.html` — removed separate top row; brand+tagline+socials now in grid col 1
+- `src/app/features/home/components/lg-hero/lg-hero.component.ts` — fallback `assets/images/hero-lifestyle.jpg` → `hero-lifestyle.jpg`
+- `src/app/features/home/components/lg-room-slider/lg-room-slider.component.ts` — all slide imageUrls updated to root-relative paths; `room-1.png` (was .jpg)
+- `src/app/features/home/components/lg-promo-banner/lg-promo-banner.component.ts` — slide imageUrls updated to root-relative; `room-1.png`
+- `src/app/features/home/components/lg-categories-section/lg-categories-section.component.ts` — onerror fallback updated to `room-1.png`
+- `src/app/features/home/pages/lg-home-page/lg-home-page.component.ts` — removed `LgSocialGalleryComponent` import + array entry (fixes NG8113)
+- `src/app/features/home/components/lg-atelier-section/lg-atelier-section.component.html` — replaced Unsplash URL with `hero-lifestyle.jpg`
+
+### Key Decisions
+- `public/` folder maps to root URL with no prefix per angular.json `assets: [{ glob:"**/*", input:"public" }]` — files served as `/filename` not `/assets/filename`
+- `room-1` is `.png` in public/ while rooms 2-6 are `.jpg` — matched exactly
+- Social gallery stays commented out (no local images for gallery grid yet) — import removed to silence NG8113
+- Atelier workshop image uses `hero-lifestyle.jpg` as stand-in until a dedicated workshop photo is added to `public/`
+
+### Blockers / Open Questions
+- Social gallery (`lg-social-gallery`) still commented out — needs local gallery images before it can be enabled
+- Atelier section uses `hero-lifestyle.jpg` as workshop stand-in — replace with a real workshop photo when available
+
+### Next Step
+> Begin Phase 4 — Products List Page (PLP): filter sidebar, sort controls, pagination, product grid wired to ProductService
+
+---
+
+## Session: 2026-03-23
+
+**Project:** Lugar Store v2 — Luxury Furniture E-commerce (Angular 21 + SSR)
+**Feature:** PLP filter bar active state fix + PLP header & filter bar redesign
+**Status:** done
+
+### Done
+- Fixed `lg-filter-bar` active pill bug: switched from fragile string-name round-trip to ID-based comparison (`Category[]` input + `number|null` for `activeCategory` and `categoryChange`)
+- Updated `lg-products-page` to pass `plpState.categories()` + `filterState.activeCategory()` directly — no intermediate `activeCategoryName` conversion
+- `onCategoryChange(id)` now calls `filterState.setCategory(id)` directly — string lookup removed
+- Rewrote `lg-plp-header` SCSS: `clamp(64px, 8vw, 120px)` editorial title, `line-height: 0.95`, `80px` top padding, updated subtitle copy to heirloom text
+- Rewrote `lg-filter-bar` SCSS: `border-top + border-bottom`, `.filter-bar-inner` max-width 1280px wrapper, `.sort-right` layout, `letter-spacing: 0.15em` on count
+- Configured Stitch MCP with API key via `claude mcp add --transport http`
+- All builds: zero errors, zero warnings
+
+### Files Changed
+- `src/app/shared/components/filtering/lg-filter-bar/lg-filter-bar.component.ts` — `Category[]` input, `number|null` active + output
+- `src/app/shared/components/filtering/lg-filter-bar/lg-filter-bar.component.html` — `cat.id` bindings, `filter-bar-inner` wrapper
+- `src/app/shared/components/filtering/lg-filter-bar/lg-filter-bar.component.scss` — full rewrite: border-top+bottom, inner wrapper, sort-right
+- `src/app/features/products/components/lg-plp-header/lg-plp-header.component.html` — new wrapper structure, updated subtitle copy
+- `src/app/features/products/components/lg-plp-header/lg-plp-header.component.scss` — full rewrite: large editorial title, correct padding
+- `src/app/features/products/pages/lg-products-page/lg-products-page.component.html` — `plpState.categories()` + `filterState.activeCategory()`
+- `src/app/features/products/pages/lg-products-page/lg-products-page.component.ts` — `onCategoryChange(id)` calls `filterState.setCategory(id)` directly
+
+### Decisions
+- Filter bar now uses `Category[]` not `string[]` — cleaner, avoids name-to-id-to-name round-trip that was the root cause of the active state bug
+- Stitch MCP re-registered with correct API key; requires session restart to activate
+
+### Blockers
+- Stitch MCP authenticated but requires session restart — design values from frame `b4c6ec74762143e28889a07eaedac092` not yet verified against actual screenshot
+
+### Next Step
+> Restart Claude Code session, then re-run PLP header/filter-bar redesign task using Stitch frame `b4c6ec74762143e28889a07eaedac092` as source of truth for exact design values

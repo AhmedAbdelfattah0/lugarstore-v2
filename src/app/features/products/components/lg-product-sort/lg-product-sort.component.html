@@ -1,0 +1,16 @@
+<div class="product-sort">
+  <span class="product-sort__count">
+    {{ plpState.totalCount() }} {{ plpState.totalCount() === 1 ? 'piece' : 'pieces' }}
+  </span>
+
+  <select
+    class="product-sort__select"
+    [value]="filterState.sort()"
+    (change)="onSortChange($event)"
+    aria-label="Sort products"
+  >
+    @for (opt of sortOptions; track opt.value) {
+      <option [value]="opt.value">{{ opt.label }}</option>
+    }
+  </select>
+</div>

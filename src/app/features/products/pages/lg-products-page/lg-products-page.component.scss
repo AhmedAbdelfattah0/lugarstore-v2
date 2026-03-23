@@ -1,0 +1,182 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.products-page {
+  min-height: 100vh;
+  background: var(--color-bg-primary);
+}
+
+// ── Products section ─────────────────────────────────────────────────────────
+
+.products-section {
+  background: var(--color-bg-primary);
+}
+
+.products-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 40px 60px 80px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+// ── Loading ───────────────────────────────────────────────────────────────────
+
+.loader-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 80px 0;
+}
+
+// ── Bento grid ───────────────────────────────────────────────────────────────
+// Fixed 700px height. 3fr 2fr gives 60/40 split without % overflow.
+// ::ng-deep pierces product card encapsulation to replace the padding-top
+// aspect-ratio trick with flex-driven height that fills the grid cell.
+
+.bento-grid {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 16px;
+  height: 700px;
+  margin-bottom: 16px;
+}
+
+// ── Large left card ───────────────────────────────────────────────────────────
+
+.bento-left {
+  display: block;
+  height: 100%;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+
+  lg-product-card {
+    display: block;
+    height: 100%;
+
+    ::ng-deep .product-card {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    // Replace padding-top aspect-ratio trick with flex growth.
+    // Images are position:absolute;inset:0 inside card-img so they
+    // correctly fill whatever height the flex layout gives card-img.
+    ::ng-deep .card-img {
+      flex: 1;
+      min-height: 0;
+      overflow: hidden;
+      padding-top: 0;
+      position: relative;
+    }
+
+    ::ng-deep .card-body {
+      flex-shrink: 0;
+    }
+  }
+}
+
+// ── Right column: two stacked cards ──────────────────────────────────────────
+
+.bento-right {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: 100%;
+}
+
+.bento-right-top,
+.bento-right-bottom {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  display: block;
+  text-decoration: none;
+  color: inherit;
+
+  lg-product-card {
+    display: block;
+    height: 100%;
+
+    ::ng-deep .product-card {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    ::ng-deep .card-img {
+      flex: 1;
+      min-height: 0;
+      overflow: hidden;
+      padding-top: 0;
+      position: relative;
+    }
+
+    ::ng-deep .card-body {
+      flex-shrink: 0;
+    }
+  }
+}
+
+// ── Card link wrapper (standard grid) ────────────────────────────────────────
+
+.card-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+// ── Regular 3-column grid: products 4+ ───────────────────────────────────────
+
+.standard-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 48px;
+}
+
+// ── Responsive ───────────────────────────────────────────────────────────────
+
+@media (max-width: 1024px) {
+  .products-container {
+    padding: 32px 24px 60px;
+  }
+
+  .bento-grid {
+    height: 560px;
+  }
+
+  .standard-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .bento-grid {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+
+  .bento-left {
+    height: 400px;
+  }
+
+  .bento-right {
+    height: auto;
+  }
+
+  .bento-right-top,
+  .bento-right-bottom {
+    height: 300px;
+    flex: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .standard-grid {
+    grid-template-columns: 1fr;
+  }
+}
