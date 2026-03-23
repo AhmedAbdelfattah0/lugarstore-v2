@@ -17,7 +17,6 @@ import { LgFeaturedCollectionComponent } from '../../components/lg-featured-coll
 import { LgRoomSliderComponent } from '../../components/lg-room-slider/lg-room-slider.component';
 import { LgTrustSectionComponent } from '../../components/lg-trust-section/lg-trust-section.component';
 import { LgAtelierSectionComponent } from '../../components/lg-atelier-section/lg-atelier-section.component';
-import { LgSocialGalleryComponent } from '../../components/lg-social-gallery/lg-social-gallery.component';
 import { LgSpinnerComponent } from '../../../../shared/components/ui/lg-spinner/lg-spinner.component';
 import { LgQuickViewModalComponent } from '../../../../shared/components/product/lg-quick-view-modal/lg-quick-view-modal.component';
 
@@ -36,7 +35,6 @@ import { LgQuickViewModalComponent } from '../../../../shared/components/product
     LgRoomSliderComponent,
     LgTrustSectionComponent,
     LgAtelierSectionComponent,
-    LgSocialGalleryComponent,
     LgSpinnerComponent,
     LgQuickViewModalComponent,
   ],

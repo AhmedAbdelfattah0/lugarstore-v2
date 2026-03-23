@@ -1,22 +1,14 @@
-<nav aria-label="Breadcrumb" class="flex items-center gap-2">
+<nav class="breadcrumb" aria-label="Breadcrumb">
   @for (link of links(); track link.label) {
     @if (link.route) {
-      <a
-        [routerLink]="link.route"
-        class="font-[Montserrat] font-light text-xs uppercase tracking-[0.12em] text-[#7A6F65] hover:text-[#333333] transition-colors duration-200"
-      >{{ link.label }}</a>
+      <a [routerLink]="link.route" class="breadcrumb__link">{{ link.label }}</a>
     } @else {
-      <span class="font-[Montserrat] font-light text-xs uppercase tracking-[0.12em] text-[#7A6F65]">
-        {{ link.label }}
-      </span>
+      <span class="breadcrumb__link">{{ link.label }}</span>
     }
-    <span class="text-[#7A6F65] text-xs select-none" aria-hidden="true">›</span>
+    <span class="breadcrumb__sep" aria-hidden="true">{{ separator() }}</span>
   }
 
   @if (current(); as curr) {
-    <span
-      class="font-[Montserrat] font-light text-xs uppercase tracking-[0.12em] text-[#333333]"
-      aria-current="page"
-    >{{ curr.label }}</span>
+    <span class="breadcrumb__current" aria-current="page">{{ curr.label }}</span>
   }
 </nav>

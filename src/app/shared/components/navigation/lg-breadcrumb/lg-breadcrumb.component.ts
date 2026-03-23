@@ -11,8 +11,9 @@ import { BreadcrumbItem } from '../../../models';
   styleUrl: './lg-breadcrumb.component.scss',
 })
 export class LgBreadcrumbComponent {
-  readonly items = input.required<BreadcrumbItem[]>();
+  readonly items     = input.required<BreadcrumbItem[]>();
+  readonly separator = input<string>('·');
 
-  readonly links = computed(() => this.items().slice(0, -1));
+  readonly links   = computed(() => this.items().slice(0, -1));
   readonly current = computed(() => this.items().at(-1) ?? null);
 }

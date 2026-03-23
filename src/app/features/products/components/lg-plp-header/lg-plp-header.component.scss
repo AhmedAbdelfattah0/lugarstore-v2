@@ -1,0 +1,41 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.plp-header {
+  width: 100%;
+  background: #f9f1e7;
+  padding: 128px 48px 80px;
+  box-sizing: border-box;
+  pointer-events: none; // wrapper is non-interactive; children opt back in
+
+  &__inner {
+    max-width: 1600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    pointer-events: all; // re-enable for all actual content
+  }
+
+  &__title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 96px;
+    line-height: 96px;
+    color: #1e1b15;
+    letter-spacing: 9.6px;
+    margin: 0;
+  }
+
+  &__subtitle {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 25.2px;
+    color: #57534e;
+    max-width: 576px;
+    margin: 0;
+  }
+}

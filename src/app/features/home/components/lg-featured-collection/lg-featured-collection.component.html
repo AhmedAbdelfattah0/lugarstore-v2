@@ -32,12 +32,12 @@
       </div>
     }
 
-    <!-- Bento: index 0 (large left, spans 2 rows) + index 1 (top right) + index 2 (bottom right) -->
+    <!-- Bento: index 0 (large left) + index 1 (top right) + index 2 (bottom right) -->
     @if (filteredProducts().length > 0) {
-      <div class="featured__bento">
+      <div class="bento-grid">
 
-        <!-- Large card: left column, spans both rows -->
-        <div class="bento__card-large">
+        <!-- Large card - left -->
+        <div class="bento-left">
           <lg-product-card
             [product]="filteredProducts()[0]"
             variant="featured"
@@ -46,29 +46,27 @@
           />
         </div>
 
-        <!-- Small top: right column, row 1 -->
-        @if (filteredProducts().length > 1) {
-          <div class="bento__card-small-top">
-            <lg-product-card
-              [product]="filteredProducts()[1]"
-              variant="default"
-              (addToCart)="addToCart($event)"
-              (addToWishlist)="addToWishlist($event)"
-            />
-          </div>
-        }
-
-        <!-- Small bottom: right column, row 2 -->
-        @if (filteredProducts().length > 2) {
-          <div class="bento__card-small-bottom">
-            <lg-product-card
-              [product]="filteredProducts()[2]"
-              variant="default"
-              (addToCart)="addToCart($event)"
-              (addToWishlist)="addToWishlist($event)"
-            />
-          </div>
-        }
+        <!-- Two stacked cards - right -->
+        <div class="bento-right">
+          @if (filteredProducts().length > 1) {
+            <div class="bento-right-top">
+              <lg-product-card
+                [product]="filteredProducts()[1]"
+                (addToCart)="addToCart($event)"
+                (addToWishlist)="addToWishlist($event)"
+              />
+            </div>
+          }
+          @if (filteredProducts().length > 2) {
+            <div class="bento-right-bottom">
+              <lg-product-card
+                [product]="filteredProducts()[2]"
+                (addToCart)="addToCart($event)"
+                (addToWishlist)="addToWishlist($event)"
+              />
+            </div>
+          }
+        </div>
 
       </div>
     }
