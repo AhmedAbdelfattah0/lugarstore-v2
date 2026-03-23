@@ -2,6 +2,7 @@
 SYNC IMPACT REPORT
 ==================
 Version change: 1.0.0 → 1.0.1  (patch — hosting clarified; SSR rationale updated)
+Last validation: 2026-03-23  (no version bump — validation-only pass)
 
 Modified principles:
   - Principle II (SSR Safety): rationale updated to reflect build-time pre-rendering only,
@@ -15,9 +16,14 @@ Added sections: N/A
 Removed sections: N/A
 
 Templates reviewed:
-  - .specify/templates/plan-template.md         ✅ no change required
-  - .specify/templates/spec-template.md         ✅ no change required
-  - .specify/templates/tasks-template.md        ✅ no change required
+  - .specify/templates/plan-template.md         ✅ aligned
+  - .specify/templates/spec-template.md         ✅ aligned
+  - .specify/templates/tasks-template.md        ✅ aligned
+
+Runtime guidance reviewed:
+  - CLAUDE.md                                   ✅ cleaned (removed stale agent-script artifact:
+    unfilled "Recent Changes" placeholder appended by update-agent-context.sh after
+    001-fix-pagination-truncation implementation run)
 
 Deferred TODOs: None.
 -->

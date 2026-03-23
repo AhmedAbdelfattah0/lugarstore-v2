@@ -518,5 +518,3 @@ Design:
 □ No shadows, no gradients, no radius > 4px
 ```
 
-## Recent Changes
-- 001-fix-pagination-truncation: Added [if applicable, e.g., PostgreSQL, CoreData, files or N/A]
