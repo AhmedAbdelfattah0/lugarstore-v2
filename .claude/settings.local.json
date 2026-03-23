@@ -67,7 +67,10 @@
       "Bash(grep -r \"whatsapp\\\\|wa.me\\\\|20100\\\\|20101\\\\|20102\\\\|20103\\\\|phone\" /Users/ahmedabdelfatah/Documents/personal-projects/Lugar-Store-v2/lugar-store/src --include=*.ts --include=*.html -l)",
       "Bash(grep -r \"whatsapp\\\\|wa.me\" /Users/ahmedabdelfatah/Documents/personal-projects/Lugar-Store-v2/lugar-store/src --include=*.html -h)",
       "Bash(grep -r \"wa.me\\\\|whatsappUrl\\\\|whatsapp_url\\\\|WHATSAPP\" /Users/ahmedabdelfatah/Documents/personal-projects/Lugar-Store-v2/lugar-store/src --include=*.ts -h)",
-      "Bash(.specify/scripts/bash/create-new-feature.sh \"Fix lg-pagination smart truncation\" --json --short-name \"fix-pagination-truncation\" 2>&1)"
+      "Bash(.specify/scripts/bash/create-new-feature.sh \"Fix lg-pagination smart truncation\" --json --short-name \"fix-pagination-truncation\" 2>&1)",
+      "Bash(.specify/scripts/bash/update-agent-context.sh claude:*)",
+      "Bash(.specify/scripts/bash/check-prerequisites.sh --json 2>&1)",
+      "Bash(ng build:*)"
     ]
   }
 }

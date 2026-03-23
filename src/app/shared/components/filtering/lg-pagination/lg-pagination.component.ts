@@ -24,7 +24,7 @@ export class LgPaginationComponent {
     const total = this.totalPages();
     const current = this.page();
 
-    if (total <= 7) {
+    if (total <= 5) {
       return Array.from({ length: total }, (_, i) => i + 1);
     }
 
