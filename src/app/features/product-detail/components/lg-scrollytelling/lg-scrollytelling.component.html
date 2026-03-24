@@ -59,7 +59,7 @@
           <p class="scrolly__related-label">The Ensemble</p>
           <h2 class="scrolly__related-title">You Might Also Like</h2>
         </div>
-        <a class="scrolly__related-explore" routerLink="/products">Explore Collection →</a>
+        <a class="scrolly__related-explore" [routerLink]="['/products']" [queryParams]="{ category: categoryId() }">Explore Collection &#x2192;</a>
       </div>
       <div class="scrolly__related-grid">
         @for (p of relatedProducts(); track p.id) {

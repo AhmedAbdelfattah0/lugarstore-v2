@@ -8,6 +8,13 @@ export interface FilterParams {
   sort?: 'newest' | 'priceAsc' | 'priceDesc';
 }
 
+// Category endpoint response is wrapped: { success, message, data: RawProduct[] }
+interface CategoryProductsResponse {
+  success: boolean;
+  message: string;
+  data: any[];
+}
+
 // Detail endpoint returns images[] array instead of imgOne/imgTwo/imgThree/imgFour
 interface RawProductDetail {
   id: number;
@@ -72,9 +79,9 @@ export class ProductService {
   }
 
   getProductsByCategory(categoryId: number): Observable<Product[]> {
-    return this.http.get<any[]>(`/products/get_products_by_categoryId.php/?categoryId=${categoryId}`).pipe(
-      map(raw => raw.map(normalizeProduct)),
-    );
+    return this.http
+      .get<CategoryProductsResponse>(`/products/get_products_by_categoryId.php/?categoryId=${categoryId}`)
+      .pipe(map(res => res.data.map(item => this.normalizeProductDetail(item as RawProductDetail))));
   }
 
   clearCache(): void {

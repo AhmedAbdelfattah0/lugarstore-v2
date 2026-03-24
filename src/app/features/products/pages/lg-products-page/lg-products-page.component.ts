@@ -3,9 +3,11 @@ import {
   ChangeDetectionStrategy,
   inject,
   PLATFORM_ID,
+  effect,
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { RouterLink, Router } from '@angular/router';
+import { RouterLink, Router, ActivatedRoute } from '@angular/router';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { Title, Meta } from '@angular/platform-browser';
 
 import { PlpStateService } from '../../services/plp-state.service';
@@ -47,6 +49,7 @@ import { LgPaginationComponent } from '../../../../shared/components/filtering/l
 export class LgProductsPageComponent {
   private readonly platformId = inject(PLATFORM_ID);
   private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
   private readonly titleService = inject(Title);
   private readonly meta = inject(Meta);
   private readonly cart = inject(CartService);
@@ -56,9 +59,17 @@ export class LgProductsPageComponent {
   protected readonly plpState = inject(PlpStateService);
   protected readonly filterState = inject(FilterStateService);
 
+  private readonly queryParamMap = toSignal(this.route.queryParamMap);
+
   constructor() {
     this.titleService.setTitle('Collections — Lugar Furniture');
     this.meta.updateTag({ name: 'description', content: 'Shop luxury handcrafted furniture from Cairo.' });
+
+    // Sync ?category= query param → FilterStateService on every navigation
+    effect(() => {
+      const raw = this.queryParamMap()?.get('category');
+      this.filterState.setCategory(raw ? Number(raw) : null);
+    });
   }
 
   protected navigateToProduct(id: number): void {

@@ -1,15 +1,20 @@
 <div class="gallery">
 
-  <!-- Main image -->
-  <div class="gallery__main">
+  <!-- Main image — click anywhere to open zoom -->
+  <div class="gallery__main" (click)="openZoom(selectedIndex())" role="button" [attr.aria-label]="'Zoom image ' + (selectedIndex() + 1)" tabindex="0" (keydown.enter)="openZoom(selectedIndex())">
     <img
       [src]="images()[selectedIndex()]"
       [alt]="'Product image ' + (selectedIndex() + 1)"
       loading="eager"
       class="gallery__main-img"
     />
-    <!-- Zoom button — presentational, zoom lightbox out of scope -->
-    <button class="gallery__zoom" type="button" aria-label="Zoom image">
+    <!-- Zoom button — stopPropagation prevents double-fire from parent click -->
+    <button
+      class="gallery__zoom"
+      type="button"
+      aria-label="Zoom image"
+      (click)="$event.stopPropagation(); openZoom(selectedIndex())"
+    >
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
         <circle cx="11" cy="11" r="8"/>
         <path d="M21 21l-4.35-4.35"/>
@@ -32,6 +37,68 @@
           <img [src]="img" alt="" loading="lazy" />
         </button>
       }
+    </div>
+  }
+
+  <!-- Fullscreen zoom modal — browser-only, gated by isBrowser + isZoomed signal -->
+  @if (isBrowser && isZoomed()) {
+    <div
+      class="zoom-overlay"
+      (click)="closeZoom()"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Full-screen product image"
+    >
+
+      <!-- Close button -->
+      <button
+        class="zoom-close"
+        type="button"
+        aria-label="Close full-screen view"
+        (click)="$event.stopPropagation(); closeZoom()"
+      >&#10005;</button>
+
+      <!-- Main zoomed image — stopPropagation so clicking image does not close modal -->
+      <img
+        class="zoom-img"
+        [src]="images()[zoomIndex()]"
+        [alt]="'Product image ' + (zoomIndex() + 1)"
+        (click)="$event.stopPropagation()"
+      />
+
+      <!-- Navigation + thumbnails — only when multiple images exist -->
+      @if (images().length > 1) {
+
+        <button
+          class="zoom-nav zoom-nav--prev"
+          type="button"
+          aria-label="Previous image"
+          (click)="$event.stopPropagation(); navigate(-1)"
+        >&#8249;</button>
+
+        <button
+          class="zoom-nav zoom-nav--next"
+          type="button"
+          aria-label="Next image"
+          (click)="$event.stopPropagation(); navigate(1)"
+        >&#8250;</button>
+
+        <div class="zoom-thumbs" (click)="$event.stopPropagation()">
+          @for (img of images(); track $index) {
+            <button
+              class="zoom-thumb"
+              [class.zoom-thumb--active]="zoomIndex() === $index"
+              (click)="setZoomImage($index)"
+              type="button"
+              [attr.aria-label]="'View image ' + ($index + 1)"
+            >
+              <img [src]="img" alt="" loading="lazy" />
+            </button>
+          }
+        </div>
+
+      }
+
     </div>
   }
 

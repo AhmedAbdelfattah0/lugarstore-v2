@@ -1,1 +1,43 @@
-// Stepper styles handled via Tailwind utilities
+$stepper-border: rgba(210, 197, 177, 0.5);
+
+.stepper {
+  display: flex;
+  align-items: center;
+  border: 1px solid $stepper-border;
+  border-radius: 0;
+
+  &__btn {
+    padding: 16px 12px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 14px;
+    color: #57534e;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s;
+
+    &:hover:not(:disabled) {
+      color: #b88e2f;
+    }
+
+    &:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+  }
+
+  &__value {
+    padding: 0 16px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 14px;
+    color: #1e1b15;
+    border-left: 1px solid $stepper-border;
+    border-right: 1px solid $stepper-border;
+    min-width: 48px;
+    text-align: center;
+    user-select: none;
+  }
+}

@@ -1,10 +1,27 @@
+// Hidden on desktop — hamburger button is also hidden above 1023px (same breakpoint)
+// display:none propagates to all children including position:fixed, so no whitespace
+:host {
+  display: none;
+
+  @media (max-width: 1023px) {
+    display: block;
+  }
+}
+
 .drawer-panel {
   transform: translateX(100%);
-  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-  pointer-events: none; // off-screen when closed — don't intercept page clicks
+  visibility: hidden;
+  pointer-events: none;
+  // delay visibility:hidden until after the 0.35s slide-out finishes
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              visibility 0s linear 0.35s;
 }
 
 .drawer-panel.drawer-open {
   transform: translateX(0);
-  pointer-events: all; // fully interactive when open
+  visibility: visible;
+  pointer-events: auto;
+  // no delay on open — become visible immediately as slide-in starts
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              visibility 0s linear 0s;
 }
