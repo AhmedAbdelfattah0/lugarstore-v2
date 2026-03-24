@@ -1,0 +1,104 @@
+<div class="info">
+
+  <!-- 2. Product title -->
+  <h1 class="info__title">{{ product().title }}</h1>
+
+  <!-- 3. Star rating + review count -->
+  @if (product().rating) {
+    <div class="info__rating">
+      @for (i of [1,2,3,4,5]; track i) {
+        <span class="info__star" [class.info__star--filled]="i <= product().rating">★</span>
+      }
+      @if (product().reviews) {
+        <span class="info__reviews">({{ product().reviews }} Reviews)</span>
+      }
+    </div>
+  }
+
+  <!-- 4. Price -->
+  <div class="info__price-block">
+    @if (product().hasDiscount) {
+      <span class="info__price info__price--discounted">
+        {{ product().discountedPrice | lgCurrencyEgp }}
+      </span>
+      <span class="info__price info__price--original">
+        {{ product().price | lgCurrencyEgp }}
+      </span>
+    } @else {
+      <span class="info__price info__price--default">
+        {{ product().price | lgCurrencyEgp }}
+      </span>
+    }
+  </div>
+
+  <!-- 5. Description -->
+  @if (product().description) {
+    <p class="info__description">{{ product().description }}</p>
+  }
+
+  <!-- 6. Materials + Dimensions block -->
+  <div class="info__mat-dims">
+    <div class="info__mat-dims-item">
+      <span class="info__mat-dims-label">Material</span>
+      <span class="info__mat-dims-value">{{ product().badge || 'Premium Egyptian Linen' }}</span>
+    </div>
+    <div class="info__mat-dims-item">
+      <span class="info__mat-dims-label">Dimensions</span>
+      <span class="info__mat-dims-value">{{ product().subtitle || '240W × 105D × 75H cm' }}</span>
+    </div>
+  </div>
+
+  <!-- 7. Quantity stepper + ADD TO CART -->
+  <div class="info__purchase">
+    <lg-quantity-stepper
+      [value]="qty()"
+      [max]="product().qty || 99"
+      (valueChange)="qtyChange.emit($event)"
+    />
+    <button
+      class="info__cta"
+      type="button"
+      [disabled]="product().isOutOfStock"
+      (click)="addToCart.emit()"
+    >
+      {{ product().isOutOfStock ? 'Out of Stock' : 'Add to Cart' }}
+    </button>
+  </div>
+
+  <!-- 8. Add to Wishlist + Commission links -->
+  <div class="info__text-ctas">
+    <button class="info__text-cta info__text-cta--wishlist" type="button" (click)="wishlistToggle.emit()">
+      {{ isWishlisted() ? 'Wishlisted' : 'Add to Wishlist' }}
+    </button>
+    <button class="info__text-cta info__text-cta--commission" type="button" (click)="commissionCustom.emit()">
+      Commission a Custom Version
+    </button>
+  </div>
+
+  <!-- 9. Trust row -->
+  <div class="info__trust">
+    <div class="info__trust-item">
+      <svg class="info__trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
+        <rect x="1" y="3" width="15" height="13" rx="0"/>
+        <path d="M16 8h5l3 5v3h-8V8z"/>
+        <circle cx="5.5" cy="18.5" r="2.5"/>
+        <circle cx="18.5" cy="18.5" r="2.5"/>
+      </svg>
+      <span>Free Delivery</span>
+    </div>
+    <div class="info__trust-item">
+      <svg class="info__trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+      </svg>
+      <span>2-Year Warranty</span>
+    </div>
+    <div class="info__trust-item">
+      <svg class="info__trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
+        <polyline points="1 4 1 10 7 10"/>
+        <path d="M3.51 15a9 9 0 1 0 .49-4.5"/>
+      </svg>
+      <span>Easy Returns</span>
+    </div>
+  </div>
+
+</div>

@@ -3,13 +3,14 @@ import {
   ChangeDetectionStrategy,
   inject,
   effect,
-  OnInit,
-  OnDestroy,
+  PLATFORM_ID,
 } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { Subject, takeUntil } from 'rxjs';
+import { isPlatformBrowser } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { Title, Meta } from '@angular/platform-browser';
 
+import { environment } from '../../../../../environments/environment';
 import { PdpStateService } from '../../services/pdp-state.service';
 import { CartService } from '../../../../core/services/cart.service';
 import { WishlistService } from '../../../../core/services/wishlist.service';
@@ -21,48 +22,54 @@ import { LgFooterComponent } from '../../../../shared/components/navigation/lg-f
 import { LgBreadcrumbComponent } from '../../../../shared/components/navigation/lg-breadcrumb/lg-breadcrumb.component';
 import { LgSpinnerComponent } from '../../../../shared/components/ui/lg-spinner/lg-spinner.component';
 import { LgEmptyStateComponent } from '../../../../shared/components/feedback/lg-empty-state/lg-empty-state.component';
-import { LgButtonComponent } from '../../../../shared/components/ui/lg-button/lg-button.component';
-import { LgQuantityStepperComponent } from '../../../../shared/components/commerce/lg-quantity-stepper/lg-quantity-stepper.component';
-import { LgDividerComponent } from '../../../../shared/components/ui/lg-divider/lg-divider.component';
-import { LgProductCardComponent } from '../../../../shared/components/product/lg-product-card/lg-product-card.component';
-import { CurrencyEgpPipe } from '../../../../shared/pipes/currency-egp.pipe';
 
-const WHATSAPP_NUMBER = '201234567890';
+import { LgImageGalleryComponent } from '../../components/lg-image-gallery/lg-image-gallery.component';
+import { LgProductInfoComponent } from '../../components/lg-product-info/lg-product-info.component';
+import { LgScrollytellingComponent } from '../../components/lg-scrollytelling/lg-scrollytelling.component';
 
 @Component({
   selector: 'lg-product-detail-page',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    RouterLink,
     LgNavbarComponent,
     LgFooterComponent,
     LgBreadcrumbComponent,
     LgSpinnerComponent,
     LgEmptyStateComponent,
-    LgButtonComponent,
-    LgQuantityStepperComponent,
-    LgDividerComponent,
-    LgProductCardComponent,
-    CurrencyEgpPipe,
+    LgImageGalleryComponent,
+    LgProductInfoComponent,
+    LgScrollytellingComponent,
   ],
   templateUrl: './lg-product-detail-page.component.html',
   styleUrl: './lg-product-detail-page.component.scss',
 })
-export class LgProductDetailPageComponent implements OnInit, OnDestroy {
-  private readonly route          = inject(ActivatedRoute);
-  protected readonly router       = inject(Router);
-  private readonly titleService = inject(Title);
-  private readonly meta         = inject(Meta);
-  private readonly cart         = inject(CartService);
-  private readonly wishlist     = inject(WishlistService);
-  private readonly toast        = inject(ToastService);
+export class LgProductDetailPageComponent {
+  private readonly platformId    = inject(PLATFORM_ID);
+  private readonly route         = inject(ActivatedRoute);
+  protected readonly router      = inject(Router);
+  private readonly titleService  = inject(Title);
+  private readonly meta          = inject(Meta);
+  private readonly cart          = inject(CartService);
+  private readonly wishlist      = inject(WishlistService);
+  private readonly toast         = inject(ToastService);
 
-  protected readonly pdpState = inject(PdpStateService);
+  protected readonly pdpState    = inject(PdpStateService);
 
-  private readonly ngUnsubscribe = new Subject<void>();
+  private readonly paramMap = toSignal(this.route.paramMap); // FR-021
 
   constructor() {
+    // Route param change detection — signals-first, no subscription (FR-021)
+    effect(() => {
+      const id = this.paramMap()?.get('id');
+      if (id) {
+        this.pdpState.loadProduct(+id);
+      } else {
+        this.router.navigate(['/products']);
+      }
+    });
+
+    // Meta tags — updated whenever product signal changes
     effect(() => {
       const product = this.pdpState.product();
       if (!product) return;
@@ -70,23 +77,6 @@ export class LgProductDetailPageComponent implements OnInit, OnDestroy {
       this.meta.updateTag({ name: 'description', content: product.description?.substring(0, 160) ?? '' });
       this.meta.updateTag({ property: 'og:image', content: product.primaryImage });
     });
-  }
-
-  ngOnInit(): void {
-    this.route.paramMap.pipe(takeUntil(this.ngUnsubscribe)).subscribe(params => {
-      const id = Number(params.get('id'));
-      if (id) {
-        this.pdpState.loadProduct(id);
-      } else {
-        this.router.navigate(['/products']);
-      }
-    });
-  }
-
-  ngOnDestroy(): void {
-    this.ngUnsubscribe.next();
-    this.ngUnsubscribe.complete();
-    this.pdpState.reset();
   }
 
   protected isWishlisted(id: number): boolean {
@@ -114,6 +104,19 @@ export class LgProductDetailPageComponent implements OnInit, OnDestroy {
     this.toast.show(added ? 'Added to wishlist' : 'Removed from wishlist', 'wishlist');
   }
 
+  protected onWhatsappEnquire(): void {
+    const product = this.pdpState.product();
+    if (!product) return;
+    const url = this.buildWhatsAppUrl(product.title);
+    if (isPlatformBrowser(this.platformId)) {
+      window.open(url, '_blank', 'noopener,noreferrer');
+    }
+  }
+
+  protected onCommissionCustom(): void {
+    this.router.navigate(['/custom-order']);
+  }
+
   protected onRelatedAddToCart(product: Product): void {
     this.cart.add({
       id:    product.id,
@@ -133,6 +136,6 @@ export class LgProductDetailPageComponent implements OnInit, OnDestroy {
 
   protected buildWhatsAppUrl(title: string): string {
     const text = encodeURIComponent(`Hello, I'm interested in: ${title}`);
-    return `https://wa.me/${WHATSAPP_NUMBER}?text=${text}`;
+    return `https://wa.me/${environment.whatsappPhone}?text=${text}`;
   }
 }

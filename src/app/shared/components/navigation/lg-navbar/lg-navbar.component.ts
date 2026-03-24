@@ -11,7 +11,6 @@ import { RouterLink } from '@angular/router';
 import { DrawerService } from '../../../../core/services/drawer.service';
 import { CartService } from '../../../../core/services/cart.service';
 import { WishlistService } from '../../../../core/services/wishlist.service';
-import { LgMobileDrawerComponent } from '../lg-mobile-drawer/lg-mobile-drawer.component';
 
 interface NavLink {
   label: string;
@@ -22,7 +21,7 @@ interface NavLink {
   selector: 'lg-navbar',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, LgMobileDrawerComponent],
+  imports: [RouterLink],
   templateUrl: './lg-navbar.component.html',
   styleUrl: './lg-navbar.component.scss',
 })

@@ -1,0 +1,279 @@
+// Scrollytelling — Stitch MCP screen 6ef3ffb4cfd84747bba4a16d4d56455d
+
+:host { display: block; }
+
+// ── SECTION A: Lifestyle ──────────────────────────────────────────────────────
+
+.scrolly__lifestyle {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.scrolly__lifestyle-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.scrolly__lifestyle-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(28, 25, 21, 0.2);
+  z-index: 1;
+}
+
+.scrolly__lifestyle-content {
+  position: relative;
+  z-index: 10;
+  padding: 0 96px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  max-width: 896px;
+}
+
+.scrolly__lifestyle-quote {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: 96px;
+  line-height: 1;
+  letter-spacing: 0.1em;
+  color: #ffffff;
+  margin: 0 0 32px;
+  font-style: normal;
+}
+
+.scrolly__lifestyle-glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(16px);
+  padding: 32px;
+  border-left: 1px solid rgba(255, 255, 255, 0.3);
+  max-width: 448px;
+}
+
+.scrolly__lifestyle-body {
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #ffffff;
+  margin: 0;
+}
+
+// ── SECTION B: Craft / Heritage ───────────────────────────────────────────────
+
+.scrolly__craft {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 819px;
+}
+
+.scrolly__craft-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: grayscale(30%);
+  display: block;
+}
+
+.scrolly__craft-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 96px;
+  background: #ffffff;
+}
+
+.scrolly__craft-label {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #b88e2f;
+  margin: 0 0 24px;
+}
+
+.scrolly__craft-heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: 48px;
+  line-height: 1.1;
+  letter-spacing: 0.1em;
+  color: #1e1b15;
+  margin: 0 0 32px;
+}
+
+.scrolly__craft-body {
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #57534e;
+  margin: 0 0 48px;
+}
+
+.scrolly__craft-stats {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  padding-top: 32px;
+  border-top: 1px solid rgba(210, 197, 177, 0.3);
+}
+
+.scrolly__craft-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.scrolly__craft-stat-value {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: 30px;
+  color: #b88e2f;
+  line-height: 1;
+}
+
+.scrolly__craft-stat-label {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #78716c;
+}
+
+// ── SECTION C: Related Products ───────────────────────────────────────────────
+
+.scrolly__related {
+  background: #f9f1e7;
+  padding: 96px 48px;
+}
+
+.scrolly__related-inner {
+  max-width: 1920px;
+  margin: 0 auto;
+}
+
+.scrolly__related-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 64px;
+}
+
+.scrolly__related-label {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #b88e2f;
+  margin: 0 0 16px;
+}
+
+.scrolly__related-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: 48px;
+  letter-spacing: 0.1em;
+  color: #1e1b15;
+  margin: 0;
+}
+
+.scrolly__related-explore {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #1e1b15;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 150ms ease;
+
+  &:hover { color: #b88e2f; }
+}
+
+.scrolly__related-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+// Inline editorial card — FR-022: NOT lg-product-card
+.scrolly__related-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  background: #ffffff;
+  padding: 24px;
+  border-radius: 2px;
+  overflow: hidden;
+  transition: box-shadow 400ms ease;
+
+  &:hover {
+    box-shadow: 0 25px 50px -12px rgba(28, 25, 21, 0.05);
+
+    .scrolly__related-card-img img { transform: scale(1.1); }
+  }
+}
+
+.scrolly__related-card-img {
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  margin-bottom: 24px;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 700ms ease;
+  }
+}
+
+.scrolly__related-card-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.scrolly__related-card-left {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.scrolly__related-card-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: 24px;
+  color: #1e1b15;
+  line-height: 1.2;
+}
+
+.scrolly__related-card-category {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #a8a29e;
+}
+
+.scrolly__related-card-price {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: 18px;
+  color: #7a5900;
+  white-space: nowrap;
+}

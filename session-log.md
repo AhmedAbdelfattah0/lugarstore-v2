@@ -4,6 +4,86 @@
 
 ---
 
+## Session: 2026-03-24 (part 2)
+
+**Project:** Lugar Store v2 — Luxury Furniture E-commerce (Angular 21 + SSR)
+**Feature:** 003-pdp-stitch-rebuild — PDP bug fixes (related products, navigation, drawer)
+**Status:** done
+
+### Done
+- Fixed `getProductsByCategory()` unwrapping the `{ success, message, data[] }` envelope — related products section now renders
+- Fixed related product images: category endpoint returns `images[]` not `imgOne/imgTwo/imgThree/imgFour` — switched to `normalizeProductDetail()`
+- Added `withInMemoryScrolling({ scrollPositionRestoration: 'top' })` to `provideRouter` — all navigation now scrolls to top
+- Fixed "Explore Collection →" link: changed to `[routerLink]` property binding + added `cursor: pointer`
+- Wired `?category=` query param → `FilterStateService.setCategory()` in `LgProductsPageComponent` — "Explore Collection" now lands on PLP pre-filtered by product's category
+- Fixed `lg-mobile-drawer` blocking all page interactions: added `visibility: hidden` with delayed transition, corrected `pointer-events: all` → `pointer-events: auto`
+
+### Files Changed
+| File | Change |
+|---|---|
+| `src/app/features/products/services/product.service.ts` | Added `CategoryProductsResponse` interface; unwrap `res.data`; use `normalizeProductDetail` for `images[]` shape |
+| `src/app/app.config.ts` | Added `withInMemoryScrolling({ scrollPositionRestoration: 'top' })` to `provideRouter` |
+| `src/app/features/product-detail/components/lg-scrollytelling/lg-scrollytelling.component.html` | `[routerLink]` property binding + `[queryParams]="{ category: categoryId() }"` on Explore Collection link |
+| `src/app/features/product-detail/components/lg-scrollytelling/lg-scrollytelling.component.scss` | Added `cursor: pointer` to `.scrolly__related-explore` |
+| `src/app/features/products/pages/lg-products-page/lg-products-page.component.ts` | `ActivatedRoute` + `toSignal(queryParamMap)` + `effect` to sync `?category=` param → `FilterStateService` |
+| `src/app/shared/components/navigation/lg-mobile-drawer/lg-mobile-drawer.component.scss` | `visibility: hidden` closed / `visible` open; delayed 0.35s transition; `pointer-events: auto` |
+
+### Decisions
+- **`normalizeProductDetail` reuse:** category and detail endpoints both return `images[]` — reusing avoids duplicating logic
+- **`withInMemoryScrolling` at router level:** global scroll-to-top correct for this app
+- **`visibility: hidden` + delayed transition:** `pointer-events: none` alone doesn't remove element from browser hit-test tree; delay matches 0.35s slide-out so animation isn't clipped
+
+### Blockers
+None
+
+### Next
+Continue Phase 5 — Commerce Pages (Cart, Wishlist, Checkout)
+
+---
+
+## Session: 2026-03-24 (part 1)
+
+**Project:** Lugar Store v2 — Luxury Furniture E-commerce (Angular 21 + SSR)
+**Feature:** 003-pdp-stitch-rebuild — lg-quantity-stepper Stitch spec fix
+**Status:** done
+
+### Done
+- Rewrote `lg-quantity-stepper` template and SCSS to match Stitch spec exactly
+- Replaced SVG icon buttons with text character buttons (`−` / `+`)
+- Migrated from Tailwind utilities to BEM SCSS for pixel-precise spec compliance
+- Build passes clean: zero errors, zero warnings, 9 static routes prerendered
+
+### Files Changed
+| File | Change |
+|---|---|
+| `src/app/shared/components/commerce/lg-quantity-stepper/lg-quantity-stepper.component.html` | Replaced SVG icon buttons with BEM-classed text char buttons |
+| `src/app/shared/components/commerce/lg-quantity-stepper/lg-quantity-stepper.component.scss` | Full BEM rewrite per Stitch spec |
+
+### Decisions
+- **BEM SCSS over Tailwind utilities:** Stitch spec uses `rgba(210,197,177,0.5)` borders and exact pixel paddings — cleaner in SCSS than Tailwind arbitrary values
+- **Text chars `−`/`+` over SVG:** Stitch spec describes font properties on button, implying text content not icons
+- **`:disabled` pseudo-class over `pointer-events-none`:** Native disabled state is semantically correct and matches `cursor: not-allowed` spec requirement
+
+### Spec Values Applied
+| Element | Value |
+|---|---|
+| Container border | `1px solid rgba(210,197,177,0.5)`, border-radius: 0 |
+| Button padding | `16px 12px` |
+| Button font | Inter 300 14px, color `#57534e` |
+| Button hover | color `#B88E2F` |
+| Value padding | `0 16px`, min-width `48px` |
+| Value font | Inter 300 14px, color `#1e1b15` |
+| Value borders | `1px solid rgba(210,197,177,0.5)` left + right |
+| Disabled | opacity `0.3`, cursor `not-allowed` |
+
+### Blockers
+None
+
+### Next
+Continue Phase 5 — Commerce Pages (Cart, Wishlist, Checkout)
+
+---
+
 ## Session: 2026-03-23
 
 **Project:** Lugar Store v2 — Luxury Furniture E-commerce (Angular 21 + SSR)
@@ -610,3 +690,62 @@ Diagnostic console.log still present in product.service.ts getProducts() — sho
 
 ### Next Step
 > Restart Claude Code session, then re-run PLP header/filter-bar redesign task using Stitch frame `b4c6ec74762143e28889a07eaedac092` as source of truth for exact design values
+
+---
+
+## Session: 2026-03-24 | 13:42
+
+**Project:** Lugar Store v2
+**Feature:** 003-pdp-stitch-rebuild: PDP pixel-perfect refactor
+**Status:** ✅ Completed
+
+### What Was Done
+Completed /speckit.plan Phase 1 artifacts (quickstart.md + 4 component contracts + agent context update); Generated tasks.md with 21 tasks across 9 phases; Executed /speckit.implement — all 21 tasks complete; Refactored PdpStateService: _cancel$ Subject + switchMap + takeUntil HTTP cancellation; Refactored page component: toSignal(paramMap) + effect() route detection; Added padding-top 96px to page SCSS; Rebuilt lg-product-info: 9-element order + Materials/Dimensions block + native ADD TO CART button; Fixed gallery active border to Stitch value rgba(122,89,0,0.2) + added zoom button; Rebuilt lg-scrollytelling: img tag lifestyle + craft sections + inline editorial related cards + 3 correct stats; Raised angular.json anyComponentStyle budget 4kB→5kB; Fixed Product Not Found bug: catchError on getProductsByCategory so related failure never blocks product display
+
+### Files Touched
+specs/003-pdp-stitch-rebuild/quickstart.md: manual verification checklist; specs/003-pdp-stitch-rebuild/contracts/lg-image-gallery.contract.md: Input/Output API contract; specs/003-pdp-stitch-rebuild/contracts/lg-product-info.contract.md: Input/Output API contract; specs/003-pdp-stitch-rebuild/contracts/lg-scrollytelling.contract.md: Input/Output API contract; specs/003-pdp-stitch-rebuild/contracts/lg-product-detail-page.contract.md: page orchestration contract; specs/003-pdp-stitch-rebuild/tasks.md: 21 tasks all marked [x] complete; src/app/features/product-detail/services/pdp-state.service.ts: _cancel$ Subject + switchMap + catchError fix; src/app/features/product-detail/pages/lg-product-detail-page/lg-product-detail-page.component.ts: toSignal+effect route detection; src/app/features/product-detail/pages/lg-product-detail-page/lg-product-detail-page.component.scss: padding-top 96px added; src/app/features/product-detail/components/lg-product-info/lg-product-info.component.ts: removed LgButtonComponent+LgDividerComponent; src/app/features/product-detail/components/lg-product-info/lg-product-info.component.html: 9-element order + mat-dims block + native button; src/app/features/product-detail/components/lg-product-info/lg-product-info.component.scss: full Stitch token rewrite; src/app/features/product-detail/components/lg-image-gallery/lg-image-gallery.component.html: zoom button added; src/app/features/product-detail/components/lg-image-gallery/lg-image-gallery.component.scss: active border Stitch value; src/app/features/product-detail/components/lg-scrollytelling/lg-scrollytelling.component.ts: removed LgProductCardComponent + added DecimalPipe; src/app/features/product-detail/components/lg-scrollytelling/lg-scrollytelling.component.html: img lifestyle+craft + inline editorial cards + correct stats; src/app/features/product-detail/components/lg-scrollytelling/lg-scrollytelling.component.scss: full Stitch token rewrite; angular.json: anyComponentStyle budget 4kB→5kB
+
+### Key Decisions
+catchError on getProductsByCategory: related products failure must not block product display — outer error handler now only fires when getProductById itself fails; toSignal+effect over paramMap.subscribe: signals-first Angular 21 pattern, no OnInit/OnDestroy boilerplate; inline editorial cards not lg-product-card: FR-022 YAGNI, structurally different layout; img tag not CSS background-image for lifestyle section: matches Stitch HTML exactly per Decision 3; split PdpStateService from 2 raw subscriptions to switchMap+takeUntil+catchError chain
+
+### Blockers / Open Questions
+lg-quantity-stepper Stitch tokens not yet applied (interrupted before fix)
+
+### Next Step
+> Fix lg-quantity-stepper SCSS to match Stitch spec: border 1px solid rgba(210,197,177,0.5), no border-radius, button padding 16px 12px, value padding 0 16px with border separators
+
+---
+
+## Session: 2026-03-24 | 16:00
+
+**Project:** Lugar Store v2
+**Feature:** PDP zoom modal + lg-mobile-drawer click-blocking fix
+**Status:** ✅ Completed
+
+### What Was Done
+- Implemented fullscreen zoom modal inside `lg-image-gallery` (no separate component): private `_isZoomed`/`_zoomIndex` signals, `openZoom`/`closeZoom`/`navigate`/`setZoomImage` methods, keyboard listener (Escape/ArrowLeft/ArrowRight) with `isPlatformBrowser` guard, body scroll lock with `isPlatformBrowser` guard, `ngOnDestroy` cleanup
+- Modal HTML: `gallery__main` click opens zoom, zoom button `stopPropagation`, modal gated with `@if(isBrowser && isZoomed())`, overlay click closes, image/nav/thumbs `stopPropagation`, nav+thumbs in single `@if(images().length > 1)`
+- Modal SCSS: `@keyframes zoom-overlay-in` + `zoom-img-in`, all fixed-position elements at z-301 above z-300 overlay, gold `#B88E2F` active thumb border, 60×60px thumbnail strip, Montserrat Light nav arrows
+- Fixed lg-mobile-drawer click-blocking bug: moved `<lg-mobile-drawer />` from `lg-navbar` template into `app.html` (root-level alongside `lg-toast` and `lg-quick-view-modal`)
+- Fixed desktop whitespace-below-footer bug: replaced `display:contents` (unreliable across browsers) with `display:none` on `:host` + `display:block` at `max-width: 1023px` breakpoint
+
+### Files Touched
+- `src/app/features/product-detail/components/lg-image-gallery/lg-image-gallery.component.ts` — added PLATFORM_ID/signal/OnDestroy, `_isZoomed`/`_zoomIndex` signals, `openZoom`/`closeZoom`/`navigate`/`setZoomImage`, arrow-fn `_keyHandler`
+- `src/app/features/product-detail/components/lg-image-gallery/lg-image-gallery.component.html` — `gallery__main` click, zoom button stopPropagation, fullscreen zoom modal block
+- `src/app/features/product-detail/components/lg-image-gallery/lg-image-gallery.component.scss` — `@keyframes` + zoom overlay/img/close/nav/thumbs styles
+- `src/app/shared/components/navigation/lg-navbar/lg-navbar.component.html` — removed `<lg-mobile-drawer />`
+- `src/app/shared/components/navigation/lg-navbar/lg-navbar.component.ts` — removed `LgMobileDrawerComponent` import
+- `src/app/app.html` — added `<lg-mobile-drawer />`
+- `src/app/app.ts` — added `LgMobileDrawerComponent` import
+- `src/app/shared/components/navigation/lg-mobile-drawer/lg-mobile-drawer.component.scss` — `display:none` host + `display:block` at `max-width: 1023px`
+
+### Key Decisions
+- Zoom modal kept inside `lg-image-gallery` (no separate component) — local UI state signals in a component are appropriate for pure micro-interaction state (not business state)
+- `display:contents` on Angular host elements proved unreliable across browsers — `display:none` + media query is the correct pattern for mobile-only overlay components
+- `lg-mobile-drawer` belongs at `app-root` level (like `lg-toast` and `lg-quick-view-modal`), not inside `lg-navbar` fixed host — the navbar's `position:fixed; z-index:50; no explicit height` host was the root cause of click-blocking; `DrawerService` is root-scoped so hamburger toggle still works
+
+### Blockers / Open Questions
+- None
+
+### Next Step
+> Fix lg-quantity-stepper SCSS to match Stitch spec: border 1px solid rgba(210,197,177,0.5), no border-radius, button padding 16px 12px, value padding 0 16px with border separators
