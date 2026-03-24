@@ -6,8 +6,6 @@ import {
 } from '@angular/core';
 import { Product } from '../../../../shared/models';
 import { LgQuantityStepperComponent } from '../../../../shared/components/commerce/lg-quantity-stepper/lg-quantity-stepper.component';
-import { LgButtonComponent } from '../../../../shared/components/ui/lg-button/lg-button.component';
-import { LgDividerComponent } from '../../../../shared/components/ui/lg-divider/lg-divider.component';
 import { CurrencyEgpPipe } from '../../../../shared/pipes/currency-egp.pipe';
 
 @Component({
@@ -16,8 +14,6 @@ import { CurrencyEgpPipe } from '../../../../shared/pipes/currency-egp.pipe';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     LgQuantityStepperComponent,
-    LgButtonComponent,
-    LgDividerComponent,
     CurrencyEgpPipe,
   ],
   templateUrl: './lg-product-info.component.html',

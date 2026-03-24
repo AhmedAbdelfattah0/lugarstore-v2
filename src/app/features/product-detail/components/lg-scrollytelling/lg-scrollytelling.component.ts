@@ -8,10 +8,9 @@ import {
   inject,
   AfterViewInit,
 } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser, DecimalPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Product } from '../../../../shared/models';
-import { LgProductCardComponent } from '../../../../shared/components/product/lg-product-card/lg-product-card.component';
 import { getLifestyleImages } from '../../data/category-lifestyle-images';
 
 @Component({
@@ -20,7 +19,7 @@ import { getLifestyleImages } from '../../data/category-lifestyle-images';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     RouterLink,
-    LgProductCardComponent,
+    DecimalPipe,
   ],
   templateUrl: './lg-scrollytelling.component.html',
   styleUrl: './lg-scrollytelling.component.scss',
@@ -45,7 +44,7 @@ export class LgScrollytellingComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     if (!isPlatformBrowser(this.platformId)) return;
 
-    // Lazy-import GSAP + ScrollTrigger only in the browser
+    // Lazy-import GSAP + ScrollTrigger only in the browser (FR-015)
     import('gsap').then(({ gsap }) =>
       import('gsap/ScrollTrigger').then(({ ScrollTrigger }) => {
         gsap.registerPlugin(ScrollTrigger);

@@ -79,7 +79,10 @@
       "mcp__stitch__get_screen",
       "Bash(curl -s \"https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ8Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpbCiVodG1sX2UxMWRkMWFlN2EyZTRlYWRhZTBhYzNhZmIxYTk0ZjdjEgsSBxDov4KIlAgYAZIBJAoKcHJvamVjdF9pZBIWQhQxODE2NDU4MDAyMDk5NzgyODA2NA&filename=&opi=89354086\")",
       "WebFetch(domain:lh3.googleusercontent.com)",
-      "Bash(curl -s \"https://lugarstore.net/api/categories/get_categories.php\")"
+      "Bash(curl -s \"https://lugarstore.net/api/categories/get_categories.php\")",
+      "Bash(curl -sL \"https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ8Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpbCiVodG1sX2UxMWRkMWFlN2EyZTRlYWRhZTBhYzNhZmIxYTk0ZjdjEgsSBxDov4KIlAgYAZIBJAoKcHJvamVjdF9pZBIWQhQxODE2NDU4MDAyMDk5NzgyODA2NA&filename=&opi=89354086\")",
+      "Bash(.specify/scripts/bash/setup-plan.sh --json 2>&1)",
+      "Bash(.specify/scripts/bash/check-prerequisites.sh --json --require-tasks --include-tasks 2>&1)"
     ]
   },
   "mcpServers": {

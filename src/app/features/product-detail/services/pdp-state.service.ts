@@ -1,4 +1,5 @@
 import { Injectable, inject, signal, computed } from '@angular/core';
+import { Subject, switchMap, takeUntil, catchError, of } from 'rxjs';
 import { ProductService } from '../../products/services/product.service';
 import { Product, BreadcrumbItem } from '../../../shared/models';
 
@@ -14,6 +15,7 @@ export class PdpStateService {
   private readonly _error            = signal<string | null>(null);
   private readonly _qty              = signal<number>(1);
   private readonly _selectedImageIdx = signal<number>(0);
+  private readonly _cancel$          = new Subject<void>();
 
   readonly product          = this._product.asReadonly();
   readonly relatedProducts  = this._relatedProducts.asReadonly();
@@ -48,6 +50,7 @@ export class PdpStateService {
   });
 
   loadProduct(id: number): void {
+    this._cancel$.next(); // cancel any in-flight request (FR-019)
     this._isLoading.set(true);
     this._error.set(null);
     this._product.set(null);
@@ -55,10 +58,20 @@ export class PdpStateService {
     this._qty.set(1);
     this._selectedImageIdx.set(0);
 
-    this.productService.getProductById(id).subscribe({
-      next: (product) => {
+    this.productService.getProductById(id).pipe(
+      switchMap(product => {
         this._product.set(product);
-        this.loadRelated(product.categoryId, product.id);
+        return this.productService.getProductsByCategory(product.categoryId).pipe(
+          catchError(() => of([])), // related products failure must never block the product
+        );
+      }),
+      takeUntil(this._cancel$),
+    ).subscribe({
+      next: (related) => {
+        this._relatedProducts.set(
+          related.filter(p => p.id !== this._product()?.id).slice(0, RELATED_LIMIT),
+        );
+        this._isLoading.set(false);
       },
       error: () => {
         this._error.set('Failed to load product. Please try again.');
@@ -76,25 +89,12 @@ export class PdpStateService {
   }
 
   reset(): void {
+    this._cancel$.next();
     this._product.set(null);
     this._relatedProducts.set([]);
     this._isLoading.set(false);
     this._error.set(null);
     this._qty.set(1);
     this._selectedImageIdx.set(0);
-  }
-
-  private loadRelated(categoryId: number, excludeId: number): void {
-    this.productService.getProductsByCategory(categoryId).subscribe({
-      next: (products) => {
-        this._relatedProducts.set(
-          products.filter(p => p.id !== excludeId).slice(0, RELATED_LIMIT),
-        );
-        this._isLoading.set(false);
-      },
-      error: () => {
-        this._isLoading.set(false);
-      },
-    });
   }
 }

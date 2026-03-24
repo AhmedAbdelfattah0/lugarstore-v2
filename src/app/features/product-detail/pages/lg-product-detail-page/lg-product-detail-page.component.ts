@@ -3,13 +3,11 @@ import {
   ChangeDetectionStrategy,
   inject,
   effect,
-  OnInit,
-  OnDestroy,
   PLATFORM_ID,
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subject, takeUntil } from 'rxjs';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { Title, Meta } from '@angular/platform-browser';
 
 import { environment } from '../../../../../environments/environment';
@@ -46,21 +44,32 @@ import { LgScrollytellingComponent } from '../../components/lg-scrollytelling/lg
   templateUrl: './lg-product-detail-page.component.html',
   styleUrl: './lg-product-detail-page.component.scss',
 })
-export class LgProductDetailPageComponent implements OnInit, OnDestroy {
-  private readonly platformId   = inject(PLATFORM_ID);
-  private readonly route        = inject(ActivatedRoute);
-  protected readonly router     = inject(Router);
-  private readonly titleService = inject(Title);
-  private readonly meta         = inject(Meta);
-  private readonly cart         = inject(CartService);
-  private readonly wishlist     = inject(WishlistService);
-  private readonly toast        = inject(ToastService);
+export class LgProductDetailPageComponent {
+  private readonly platformId    = inject(PLATFORM_ID);
+  private readonly route         = inject(ActivatedRoute);
+  protected readonly router      = inject(Router);
+  private readonly titleService  = inject(Title);
+  private readonly meta          = inject(Meta);
+  private readonly cart          = inject(CartService);
+  private readonly wishlist      = inject(WishlistService);
+  private readonly toast         = inject(ToastService);
 
-  protected readonly pdpState = inject(PdpStateService);
+  protected readonly pdpState    = inject(PdpStateService);
 
-  private readonly ngUnsubscribe = new Subject<void>();
+  private readonly paramMap = toSignal(this.route.paramMap); // FR-021
 
   constructor() {
+    // Route param change detection — signals-first, no subscription (FR-021)
+    effect(() => {
+      const id = this.paramMap()?.get('id');
+      if (id) {
+        this.pdpState.loadProduct(+id);
+      } else {
+        this.router.navigate(['/products']);
+      }
+    });
+
+    // Meta tags — updated whenever product signal changes
     effect(() => {
       const product = this.pdpState.product();
       if (!product) return;
@@ -68,23 +77,6 @@ export class LgProductDetailPageComponent implements OnInit, OnDestroy {
       this.meta.updateTag({ name: 'description', content: product.description?.substring(0, 160) ?? '' });
       this.meta.updateTag({ property: 'og:image', content: product.primaryImage });
     });
-  }
-
-  ngOnInit(): void {
-    this.route.paramMap.pipe(takeUntil(this.ngUnsubscribe)).subscribe(params => {
-      const id = Number(params.get('id'));
-      if (id) {
-        this.pdpState.loadProduct(id);
-      } else {
-        this.router.navigate(['/products']);
-      }
-    });
-  }
-
-  ngOnDestroy(): void {
-    this.ngUnsubscribe.next();
-    this.ngUnsubscribe.complete();
-    this.pdpState.reset();
   }
 
   protected isWishlisted(id: number): boolean {

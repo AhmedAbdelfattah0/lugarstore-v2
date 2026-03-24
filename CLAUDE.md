@@ -522,6 +522,8 @@ Design:
 ## Active Technologies
 - TypeScript 5.x / Angular 21 (zoneless, standalone) + Angular Signals, GSAP (ScrollTrigger), Tailwind CSS v4, Angular SSR (pre-render) (002-pdp-pixel-perfect)
 - localStorage via `StorageService` (cart + wishlist) (002-pdp-pixel-perfect)
+- TypeScript 5.x / Angular 21 (zoneless, standalone) + Angular 21 Signals + Router + SSR, RxJS (switchMap, Subject, takeUntil), GSAP + ScrollTrigger (003-pdp-stitch-rebuild)
+- `StorageService` → `CartService` + `WishlistService` (localStorage); no direct access (003-pdp-stitch-rebuild)
 
 ## Recent Changes
 - 002-pdp-pixel-perfect: Added TypeScript 5.x / Angular 21 (zoneless, standalone) + Angular Signals, GSAP (ScrollTrigger), Tailwind CSS v4, Angular SSR (pre-render)

@@ -1,12 +1,15 @@
-<!-- LIFESTYLE section — category-curated image via CSS background-image -->
-<section
-  class="scrolly__lifestyle"
-  [style.background-image]="'url(' + lifestyleImage() + ')'"
->
+<!-- LIFESTYLE section — h-screen with real <img> tag per Stitch Decision 3 -->
+<section class="scrolly__lifestyle">
+  <img
+    [src]="lifestyleImage()"
+    alt=""
+    class="scrolly__lifestyle-img"
+  />
+  <div class="scrolly__lifestyle-overlay"></div>
   <div class="scrolly__lifestyle-content">
-    <blockquote class="scrolly__lifestyle-quote">
+    <h2 class="scrolly__lifestyle-quote">
       Defined by the<br>rhythm of light.
-    </blockquote>
+    </h2>
     <div class="scrolly__lifestyle-glass">
       <p class="scrolly__lifestyle-body">
         Each piece in the collection captures the transient beauty of
@@ -16,12 +19,13 @@
   </div>
 </section>
 
-<!-- CRAFT section — CSS background-image for quality control -->
+<!-- CRAFT section — 50/50 grid with real <img> tag -->
 <section class="scrolly__craft">
-  <div
-    class="scrolly__craft-image"
-    [style.background-image]="'url(' + craftImage() + ')'"
-  ></div>
+  <img
+    [src]="craftImage()"
+    alt="Craft photography"
+    class="scrolly__craft-img"
+  />
   <div class="scrolly__craft-info">
     <p class="scrolly__craft-label">Master Craftsmanship</p>
     <h2 class="scrolly__craft-heading">Heritage in every stitch</h2>
@@ -32,35 +36,46 @@
     <div class="scrolly__craft-stats">
       <div class="scrolly__craft-stat">
         <span class="scrolly__craft-stat-value">60+</span>
-        <span class="scrolly__craft-stat-label">Hours of Craft</span>
+        <span class="scrolly__craft-stat-label">Hours Per Piece</span>
       </div>
       <div class="scrolly__craft-stat">
-        <span class="scrolly__craft-stat-value">12</span>
-        <span class="scrolly__craft-stat-label">Quality Checks</span>
+        <span class="scrolly__craft-stat-value">15+</span>
+        <span class="scrolly__craft-stat-label">Years of Craft</span>
+      </div>
+      <div class="scrolly__craft-stat">
+        <span class="scrolly__craft-stat-value">500+</span>
+        <span class="scrolly__craft-stat-label">Bespoke Works</span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- RELATED PRODUCTS section -->
+<!-- RELATED PRODUCTS section — inline editorial cards (FR-022: NOT lg-product-card) -->
 @if (relatedProducts().length > 0) {
   <section class="scrolly__related">
     <div class="scrolly__related-inner">
       <div class="scrolly__related-header">
         <div>
           <p class="scrolly__related-label">The Ensemble</p>
-          <h2 class="scrolly__related-title">Curated For You</h2>
+          <h2 class="scrolly__related-title">You Might Also Like</h2>
         </div>
-        <a class="scrolly__related-explore" routerLink="/products">Explore Collection</a>
+        <a class="scrolly__related-explore" routerLink="/products">Explore Collection →</a>
       </div>
       <div class="scrolly__related-grid">
         @for (p of relatedProducts(); track p.id) {
           <a class="scrolly__related-card" [routerLink]="['/products', p.id]">
-            <lg-product-card
-              [product]="p"
-              (addToCart)="addRelatedToCart.emit($event)"
-              (addToWishlist)="addRelatedToWishlist.emit($event)"
-            />
+            <div class="scrolly__related-card-img">
+              <img [src]="p.primaryImage" [alt]="p.title" />
+            </div>
+            <div class="scrolly__related-card-info">
+              <div class="scrolly__related-card-left">
+                <span class="scrolly__related-card-name">{{ p.title }}</span>
+                <span class="scrolly__related-card-category">{{ p.categoryName }}</span>
+              </div>
+              <span class="scrolly__related-card-price">
+                {{ p.hasDiscount ? p.discountedPrice : p.price | number:'1.0-0' }}
+              </span>
+            </div>
           </a>
         }
       </div>

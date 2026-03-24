@@ -1,6 +1,6 @@
 // Info panel — Stitch: screen 6ef3ffb4cfd84747bba4a16d4d56455d
-// Background + padding are owned by .pdp__panel (page wrapper), not this component.
-// Spacing uses individual margin-bottom per element, matching Stitch mb-* values.
+// Panel background + breadcrumb spacing owned by .pdp__panel (page wrapper).
+// This component owns everything from the title downward.
 
 :host {
   display: contents;
@@ -10,38 +10,27 @@
   display: flex;
   flex-direction: column;
 
-  // ── Category label — Stitch: text-[10px] tracking-label mb-4 ─────────
-  &__category {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 300;
-    font-size: 10px;
-    letter-spacing: 0.15em;   // Stitch: tracking-label = 0.15em
-    text-transform: uppercase;
-    color: #7a6f65;
-    margin: 0 0 16px;         // Stitch: mb-4 = 16px
-  }
-
-  // ── Product title — Stitch: text-7xl Cormorant leading-tight tracking-editorial mb-4
+  // ── 2. Product title — Stitch: text-7xl Cormorant 300 leading-tight tracking-editorial mb-4
   &__title {
     font-family: 'Cormorant Garamond', serif;
     font-weight: 300;
     font-size: 72px;          // Stitch: text-7xl = 72px
-    line-height: 1.1;         // Stitch: leading-tight
-    letter-spacing: 0.1em;   // Stitch: tracking-editorial
+    line-height: 1.2;         // Stitch: leading-tight
+    letter-spacing: 0.1em;   // Stitch: tracking-editorial = 0.1em
     color: #1e1b15;
     margin: 0 0 16px;         // Stitch: mb-4 = 16px
   }
 
-  // ── Star rating row — Stitch: flex items-center gap-1 mb-6 ───────────
+  // ── 3. Star rating row — Stitch: flex items-center gap-1 mb-6 ───────────
   &__rating {
     display: flex;
     align-items: center;
-    gap: 4px;                 // Stitch: gap-1 = 4px
+    gap: 4px;
     margin-bottom: 24px;      // Stitch: mb-6 = 24px
   }
 
   &__star {
-    font-size: 14px;          // Stitch: text-sm = 14px
+    font-size: 14px;
     color: #d9cfc3;
 
     &--filled { color: #b88e2f; }
@@ -51,13 +40,13 @@
     font-family: 'Montserrat', sans-serif;
     font-weight: 300;
     font-size: 10px;
-    letter-spacing: 0.05em;  // Stitch: tracking-widest ≈ 0.05em
+    letter-spacing: 0.15em;  // Stitch: tracking-widest
     text-transform: uppercase;
-    color: #a8a29e;
-    margin-left: 12px;        // Stitch: ml-3 = 12px
+    color: #78716c;
+    margin-left: 12px;
   }
 
-  // ── Price block — Stitch: text-3xl Cormorant mb-8 ────────────────────
+  // ── 4. Price — Stitch: text-3xl Cormorant 300 gold mb-8 ─────────────────
   &__price-block {
     display: flex;
     align-items: baseline;
@@ -76,91 +65,131 @@
     }
 
     &--original {
-      font-size: 24px;
-      color: #c4bdb5;
+      font-size: 14px;        // Stitch: text-sm = 14px strikethrough
+      color: #78716c;
       text-decoration: line-through;
     }
   }
 
-  // ── Description — Stitch: Inter leading-[1.7] mb-10 max-w-md ─────────
+  // ── 5. Description — Stitch: Inter 300 14px leading-[1.7] stone-600 mb-10
   &__description {
     font-family: 'Inter', sans-serif;
-    font-weight: 300;         // Stitch: font-light
+    font-weight: 300;
     font-size: 14px;
-    line-height: 1.7;         // Stitch: leading-[1.7]
+    line-height: 1.7;
     color: #57534e;
     margin: 0 0 40px;         // Stitch: mb-10 = 40px
     max-width: 28rem;         // Stitch: max-w-md
   }
 
-  // ── Availability — Stitch: Montserrat text-[10px] mb-8 ───────────────
-  &__availability {
+  // ── 6. Materials + Dimensions — Stitch: border-t border-b, 2-col grid, mb-12
+  &__mat-dims {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;                // Stitch: gap-8 = 32px
+    border-top: 1px solid rgba(210, 197, 177, 0.3);
+    border-bottom: 1px solid rgba(210, 197, 177, 0.3);
+    padding: 32px 0;          // Stitch: py-8 = 32px
+    margin-bottom: 48px;      // Stitch: mb-12 = 48px
+  }
+
+  &__mat-dims-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &__mat-dims-label {
     font-family: 'Montserrat', sans-serif;
     font-weight: 300;
     font-size: 10px;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.15em;  // Stitch: tracking-label
     text-transform: uppercase;
-    color: #57a37c;
-    margin: 0 0 24px;
-
-    &--oos { color: #e97171; }
+    color: #a8a29e;
   }
 
-  // ── Purchase row — Stitch: flex items-center gap-6 ───────────────────
+  &__mat-dims-value {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 14px;
+    color: #1e1b15;
+  }
+
+  // ── 7. Purchase row — Stitch: flex gap-6 ─────────────────────────────────
   &__purchase {
     display: flex;
-    align-items: center;
-    gap: 24px;                // Stitch: gap-6 = 24px (stepper + button)
-    margin-bottom: 24px;
+    align-items: stretch;
+    gap: 24px;                // Stitch: gap-6 = 24px
+    margin-bottom: 16px;
 
     lg-quantity-stepper { flex-shrink: 0; }
-    lg-button { flex: 1; min-width: 0; }
   }
 
-  // ── Text-style CTAs — Stitch: flex flex-col gap-4 pt-4 ───────────────
+  // ADD TO CART button — Stitch: bg-[#B88E2F] Montserrat 300 11px uppercase py-5
+  &__cta {
+    flex: 1;
+    background: #b88e2f;
+    color: #ffffff;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;  // Stitch: tracking-label
+    padding: 20px 0;          // Stitch: py-5 = 20px
+    border: none;
+    border-radius: 2px;       // Stitch: rounded-sm = 2px
+    cursor: pointer;
+    transition: opacity 400ms ease;
+
+    &:hover:not(:disabled) { opacity: 0.9; }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  // ── 8. Wishlist + Commission CTAs — Stitch: flex col center pt-4 gap-4 ──
   &__text-ctas {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 16px;                // Stitch: gap-4 = 16px
     padding-top: 16px;        // Stitch: pt-4 = 16px
     margin-bottom: 32px;
   }
 
   &__text-cta {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
     font-family: 'Montserrat', sans-serif;
     font-weight: 300;
     font-size: 10px;
-    letter-spacing: 0.15em;  // Stitch: tracking-label
+    letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: #1c1917;
-    text-decoration: none;
     background: none;
     border: none;
     cursor: pointer;
     padding: 0;
-    transition: color 150ms ease;
+    transition: opacity 150ms ease;
 
-    &:hover { color: #b88e2f; }
+    &:hover { opacity: 0.7; }
 
-    // Wishlist CTA — gold per Stitch
-    &--wishlist { color: #b88e2f; }
+    &--wishlist {
+      color: #b88e2f;         // Stitch: text-[#B88E2F]
+    }
+
+    &--commission {
+      color: #78716c;         // Stitch: stone-500
+    }
   }
 
-  &__arrow {
-    font-size: 12px;
-    letter-spacing: 0;
-  }
-
-  // ── Trust strip — Stitch: grid-cols-3 gap-4 pt-8 border-t ────────────
+  // ── 9. Trust row — Stitch: grid-cols-3 gap-4 pt-8 border-t ──────────────
   &__trust {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);  // Stitch: grid-cols-3
-    gap: 16px;                               // Stitch: gap-4 = 16px
-    padding-top: 32px;                       // Stitch: pt-8 = 32px
-    border-top: 1px solid rgba(210, 197, 177, 0.3);  // Stitch: outline-variant/30
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    padding-top: 32px;        // Stitch: pt-8 = 32px
+    margin-top: 32px;         // Stitch: mt-8 = 32px
+    border-top: 1px solid rgba(210, 197, 177, 0.3);
     text-align: center;
   }
 
@@ -168,18 +197,18 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;                  // Stitch: gap-2 = 8px
+    gap: 8px;
     font-family: 'Montserrat', sans-serif;
     font-weight: 300;
     font-size: 8px;            // Stitch: text-[8px]
-    letter-spacing: 0.15em;   // Stitch: tracking-label
+    letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: #7a6f65;
+    color: #78716c;
   }
 
   &__trust-icon {
-    width: 24px;               // Stitch: material symbols default 24px
+    width: 24px;
     height: 24px;
-    color: #7a6f65;
+    color: #a8a29e;            // Stitch: stone-400
   }
 }

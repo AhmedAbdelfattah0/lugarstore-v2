@@ -121,6 +121,7 @@
 .pdp {
   background: #f9f1e7;
   min-height: 100vh;
+  padding-top: 96px;            // Stitch: pt-24 = 96px — clears fixed navbar
 
   // ── Loading / error fallback ───────────────────────────────────────────
   &__loader {
