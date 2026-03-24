@@ -10,6 +10,14 @@
   box-sizing: border-box;
   pointer-events: none; // wrapper is non-interactive; children opt back in
 
+  @media (max-width: 1023px) {
+    padding: 100px 32px 60px; // tablet
+  }
+
+  @media (max-width: 767px) {
+    padding: 88px 20px 48px; // mobile: tighter, still clears navbar
+  }
+
   &__inner {
     max-width: 1600px;
     margin: 0 auto;
@@ -17,15 +25,19 @@
     flex-direction: column;
     gap: 32px;
     pointer-events: all; // re-enable for all actual content
+
+    @media (max-width: 767px) {
+      gap: 20px;
+    }
   }
 
   &__title {
     font-family: 'Cormorant Garamond', serif;
     font-weight: 300;
-    font-size: 96px;
-    line-height: 96px;
+    font-size: clamp(40px, 8vw, 96px); // fluid clamp per spec
+    line-height: 1.05;
     color: #1e1b15;
-    letter-spacing: 9.6px;
+    letter-spacing: clamp(2px, 0.1em, 9.6px); // scale letter-spacing with font
     margin: 0;
   }
 

@@ -22,6 +22,10 @@
   flex-direction: column;
   gap: 16px;                // Stitch: gap-4 = 16px
 
+  @media (max-width: 767px) {
+    padding: 16px; // mobile: tighter gallery padding
+  }
+
   // ── Main image — aspect-[4/5] per Stitch ──────────────────────────────
   &__main {
     position: relative;
@@ -45,6 +49,19 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);  // Stitch: grid-cols-4
     gap: 16px;                               // Stitch: gap-4 = 16px
+
+    @media (max-width: 767px) {
+      display: flex;          // mobile: horizontal scroll row
+      flex-direction: row;
+      overflow-x: auto;
+      gap: 8px;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
   }
 
   &__thumb {
@@ -70,6 +87,12 @@
 
     &:hover:not(&--active) {
       opacity: 0.8;
+    }
+
+    @media (max-width: 767px) {
+      flex-shrink: 0;
+      width: 72px;
+      height: 72px;
     }
   }
 

@@ -34,6 +34,14 @@
   justify-content: center;
   height: 100%;
   max-width: 896px;
+
+  @media (max-width: 1023px) {
+    padding: 0 48px; // tablet
+  }
+
+  @media (max-width: 767px) {
+    padding: 0 24px; // mobile
+  }
 }
 
 .scrolly__lifestyle-quote {
@@ -45,6 +53,15 @@
   color: #ffffff;
   margin: 0 0 32px;
   font-style: normal;
+
+  @media (max-width: 1023px) {
+    font-size: clamp(2.5rem, 7vw, 72px); // tablet
+  }
+
+  @media (max-width: 767px) {
+    font-size: clamp(2rem, 10vw, 48px); // mobile: fluid scale
+    margin: 0 0 20px;
+  }
 }
 
 .scrolly__lifestyle-glass {
@@ -70,6 +87,15 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   min-height: 819px;
+
+  @media (max-width: 1023px) {
+    min-height: 600px; // tablet: reduce min-height
+  }
+
+  @media (max-width: 767px) {
+    grid-template-columns: 1fr; // mobile: single column
+    min-height: auto;
+  }
 }
 
 .scrolly__craft-img {
@@ -79,6 +105,10 @@
   object-position: center;
   filter: grayscale(30%);
   display: block;
+
+  @media (max-width: 767px) {
+    min-height: 280px; // mobile: give image a floor height
+  }
 }
 
 .scrolly__craft-info {
@@ -87,6 +117,14 @@
   justify-content: center;
   padding: 96px;
   background: #ffffff;
+
+  @media (max-width: 1023px) {
+    padding: 64px 48px; // tablet
+  }
+
+  @media (max-width: 767px) {
+    padding: 48px 20px; // mobile
+  }
 }
 
 .scrolly__craft-label {
@@ -154,6 +192,14 @@
 .scrolly__related {
   background: #f9f1e7;
   padding: 96px 48px;
+
+  @media (max-width: 1023px) {
+    padding: 72px 32px; // tablet
+  }
+
+  @media (max-width: 767px) {
+    padding: 48px 20px; // mobile
+  }
 }
 
 .scrolly__related-inner {
@@ -166,6 +212,13 @@
   align-items: flex-end;
   justify-content: space-between;
   margin-bottom: 64px;
+
+  @media (max-width: 767px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 40px;
+  }
 }
 
 .scrolly__related-label {
@@ -206,6 +259,16 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 32px;
+
+  @media (max-width: 1023px) {
+    grid-template-columns: repeat(2, 1fr); // tablet: 2 cols
+    gap: 24px;
+  }
+
+  @media (max-width: 767px) {
+    grid-template-columns: 1fr; // mobile: single column
+    gap: 16px;
+  }
 }
 
 // Inline editorial card — FR-022: NOT lg-product-card

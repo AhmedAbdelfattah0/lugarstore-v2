@@ -5,25 +5,25 @@
 
 .atelier {
   background: #EDE4D8;
-  padding: 100px 0;
+  padding: clamp(40px, 8vw, 100px) 0;
 }
 
 .atelier__container {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 0 48px;
+  padding: 0 clamp(20px, 5vw, 48px);
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 80px;
   align-items: center;
 
-  @media (max-width: 1024px) {
-    gap: 48px;
+  @media (max-width: 1023px) {
+    gap: 48px; // tablet: less gap
   }
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-    padding: 0 24px;
-    gap: 40px;
+
+  @media (max-width: 767px) {
+    grid-template-columns: 1fr; // mobile: single column, image on top (DOM order)
+    gap: 32px;
   }
 }
 
@@ -31,6 +31,10 @@
   position: relative;
   overflow: hidden;
   min-height: 600px; // provides height reference for the absolute image
+
+  @media (max-width: 767px) {
+    min-height: 300px; // mobile: shorter image
+  }
 }
 
 .atelier__image {

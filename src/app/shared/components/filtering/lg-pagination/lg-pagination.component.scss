@@ -70,3 +70,25 @@
     pointer-events: none;
   }
 }
+
+// Mobile compact counter: visible only below md (767px)
+.page-mobile-counter {
+  display: none;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  color: #333333;
+
+  @media (max-width: 767px) {
+    display: block;
+  }
+}
+
+// Hide individual page numbers and dots on mobile
+@media (max-width: 767px) {
+  .page-item,
+  .page-dots {
+    display: none;
+  }
+}

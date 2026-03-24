@@ -14,7 +14,7 @@
       </svg>
     </button>
 
-    <!-- Page numbers with smart truncation -->
+    <!-- Page numbers with smart truncation — hidden on mobile -->
     @for (p of visiblePages(); track $index) {
       @if (isEllipsis(p)) {
         <span class="page-dots">...</span>
@@ -31,6 +31,9 @@
         </button>
       }
     }
+
+    <!-- Mobile-only: ‹ current / total › compact counter -->
+    <span class="page-mobile-counter" aria-live="polite">{{ page() }} / {{ totalPages() }}</span>
 
     <!-- Next arrow -->
     <button

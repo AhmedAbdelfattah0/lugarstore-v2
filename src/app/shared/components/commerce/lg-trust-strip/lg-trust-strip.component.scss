@@ -10,12 +10,9 @@
   background: #FFFFFF;
   padding: 60px 0;
 
-  @media (max-width: 1024px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  @media (max-width: 640px) {
-    grid-template-columns: 1fr;
+  @media (max-width: 767px) {
+    grid-template-columns: 1fr 1fr; // mobile: 2×2 CSS grid per spec
+    padding: 40px 0;
   }
 }
 
@@ -28,21 +25,18 @@
     border-right: none;
   }
 
-  @media (max-width: 1024px) {
-    // 2-column: remove right border on even items, add bottom border on top row
-    &:nth-child(2n) {
-      border-right: none;
-    }
-    &:nth-child(-n + 2) {
-      border-bottom: 1px solid #B88E2F;
-    }
-  }
-
-  @media (max-width: 640px) {
+  @media (max-width: 767px) {
+    padding: 28px 20px;
+    // Mobile 2×2: remove vertical gold dividers, add horizontal between rows
     border-right: none;
-    border-bottom: 1px solid #B88E2F;
 
-    &--last {
+    // Row 1 items (1st and 2nd): add bottom border
+    &:nth-child(-n + 2) {
+      border-bottom: 1px solid #E8E8E8;
+    }
+
+    // Row 2 items (3rd and 4th): no borders
+    &:nth-child(n + 3) {
       border-bottom: none;
     }
   }

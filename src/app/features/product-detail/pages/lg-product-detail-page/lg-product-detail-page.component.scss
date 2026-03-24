@@ -123,6 +123,10 @@
   min-height: 100vh;
   padding-top: 96px;            // Stitch: pt-24 = 96px — clears fixed navbar
 
+  @media (max-width: 767px) {
+    padding-top: 60px;          // mobile: navbar is 60px on mobile
+  }
+
   // ── Loading / error fallback ───────────────────────────────────────────
   &__loader {
     display: flex;
@@ -139,6 +143,11 @@
     display: grid;
     grid-template-columns: 55fr 45fr;   // Stitch: 55% / 45%
     min-height: 921px;                  // Stitch: min-h-[921px]
+
+    @media (max-width: 767px) {
+      grid-template-columns: 1fr;       // mobile: single column
+      min-height: auto;
+    }
   }
 
   // ── Gallery wrapper ────────────────────────────────────────────────────
@@ -157,6 +166,15 @@
     flex-direction: column;
     justify-content: center;            // Stitch: justify-center
     box-sizing: border-box;
+
+    @media (max-width: 1023px) {
+      padding: 48px 40px;               // tablet: slightly reduced
+    }
+
+    @media (max-width: 767px) {
+      padding: 32px 20px;               // mobile: comfortable but tight
+      justify-content: flex-start;
+    }
 
     // Breadcrumb sits above the info content with Stitch's mb-8 = 32px
     lg-breadcrumb {

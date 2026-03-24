@@ -107,6 +107,10 @@
 .card-body {
   padding: 16px;
 
+  @media (max-width: 767px) {
+    padding: 12px; // mobile: tighter padding per spec
+  }
+
   &--compact {
     padding: 12px;
   }
@@ -124,7 +128,7 @@
 
 .product-title {
   font-family: var(--font-body);
-  font-size: 0.9375rem;
+  font-size: clamp(0.8125rem, 2vw, 0.9375rem); // fluid clamp on mobile
   font-weight: 400;
   color: #333333;
   line-height: 1.4;

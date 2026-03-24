@@ -18,7 +18,7 @@
   }
 }
 
-// CSS Grid: left nav | center logo | right icons
+// CSS Grid: left nav | center logo | right icons — 3 cols always for logo centering
 .navbar__inner {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
@@ -29,12 +29,16 @@
   padding: 0 40px;
 
   @media (max-width: 1023px) {
-    grid-template-columns: 1fr auto;
-    padding: 0 20px;
+    padding: 0 24px; // tablet: reduce padding, keep 3-col grid
+  }
+
+  @media (max-width: 767px) {
+    padding: 0 16px; // mobile: tight padding; left cell empty (nav hidden) → logo stays centered
+    height: 60px;
   }
 }
 
-// Left cell: nav links
+// Left cell: nav links — shown on tablet and desktop, hidden on mobile
 .navbar__nav {
   display: flex;
   flex-direction: row;
@@ -42,7 +46,11 @@
   gap: 32px;
 
   @media (max-width: 1023px) {
-    display: none;
+    gap: 20px; // tablet: tighten gap
+  }
+
+  @media (max-width: 767px) {
+    display: none; // mobile: hide — left cell becomes empty, logo stays centered
   }
 }
 
@@ -59,6 +67,10 @@
 
   &:hover {
     color: #B88E2F;
+  }
+
+  @media (max-width: 1023px) {
+    font-size: 0.65rem; // tablet: slightly smaller
   }
 }
 
@@ -110,15 +122,15 @@
 
   &--desktop {
     @media (max-width: 1023px) {
-      display: none;
+      display: none; // search icon: desktop only
     }
   }
 
   &--mobile {
     display: none;
 
-    @media (max-width: 1023px) {
-      display: flex;
+    @media (max-width: 767px) {
+      display: flex; // hamburger: mobile only
     }
   }
 }

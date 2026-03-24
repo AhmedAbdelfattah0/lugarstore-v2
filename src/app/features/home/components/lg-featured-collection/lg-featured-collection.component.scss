@@ -5,7 +5,7 @@
 
 .featured {
   background: #EDE4D8;
-  padding: 100px 0;
+  padding: clamp(40px, 8vw, 100px) 0;
 }
 
 .featured__container {
@@ -157,30 +157,28 @@
 
 // ── Responsive ───────────────────────────────────────────────────────────────
 
-@media (max-width: 1024px) {
+@media (max-width: 1023px) {
   .bento-grid {
+    grid-template-columns: 55fr 45fr; // tablet: 55/45 per spec
     height: 560px;
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .bento-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr; // mobile: single column
     height: auto;
   }
 
-  .bento-left {
-    height: 400px;
+  .bento-left,
+  .bento-right-top,
+  .bento-right-bottom {
+    height: auto; // mobile: all same natural height (uniform cards)
+    flex: none;
   }
 
   .bento-right {
     height: auto;
-  }
-
-  .bento-right-top,
-  .bento-right-bottom {
-    height: 280px;
-    flex: none;
   }
 }
 
@@ -191,11 +189,12 @@
   gap: 16px;
   margin-top: 16px;
 
-  @media (max-width: 1024px) {
-    grid-template-columns: repeat(2, 1fr);
+  @media (max-width: 1023px) {
+    grid-template-columns: repeat(2, 1fr); // tablet: 2 cols
   }
-  @media (max-width: 600px) {
-    grid-template-columns: 1fr;
+
+  @media (max-width: 767px) {
+    grid-template-columns: 1fr; // mobile: single column
   }
 }
 

@@ -15,8 +15,13 @@
   width: 100%;
   min-height: 600px;
 
-  @media (max-width: 1024px) {
-    grid-template-columns: 1fr;
+  @media (max-width: 1023px) {
+    grid-template-columns: 45% 55%; // tablet: slightly adjust ratio
+    min-height: 500px;
+  }
+
+  @media (max-width: 767px) {
+    grid-template-columns: 1fr; // mobile: single column
     min-height: auto;
   }
 }
@@ -29,12 +34,16 @@
   flex-direction: column;
   justify-content: center;
   gap: 20px;
+  order: 2; // always below image on mobile
 
-  @media (max-width: 1024px) {
-    padding: 60px 40px;
+  @media (max-width: 1023px) {
+    padding: 60px 40px; // tablet
+    order: unset; // reset order on tablet (side by side)
   }
-  @media (max-width: 768px) {
-    padding: 48px 24px;
+
+  @media (max-width: 767px) {
+    padding: 40px 20px; // mobile
+    order: 2; // text below image
   }
 }
 
@@ -150,10 +159,16 @@
   position: relative;
   overflow: hidden;
   min-height: 480px;
+  order: 1; // default (side-by-side is natural order)
 
-  @media (max-width: 1024px) {
-    height: 380px;
+  @media (max-width: 1023px) {
+    min-height: 380px; // tablet
+  }
+
+  @media (max-width: 767px) {
+    height: 40vh; // mobile: image on top at 40vh per spec
     min-height: unset;
+    order: 1; // image comes first on mobile
   }
 }
 
