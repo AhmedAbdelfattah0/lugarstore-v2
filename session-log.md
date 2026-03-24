@@ -713,3 +713,39 @@ lg-quantity-stepper Stitch tokens not yet applied (interrupted before fix)
 
 ### Next Step
 > Fix lg-quantity-stepper SCSS to match Stitch spec: border 1px solid rgba(210,197,177,0.5), no border-radius, button padding 16px 12px, value padding 0 16px with border separators
+
+---
+
+## Session: 2026-03-24 | 16:00
+
+**Project:** Lugar Store v2
+**Feature:** PDP zoom modal + lg-mobile-drawer click-blocking fix
+**Status:** ✅ Completed
+
+### What Was Done
+- Implemented fullscreen zoom modal inside `lg-image-gallery` (no separate component): private `_isZoomed`/`_zoomIndex` signals, `openZoom`/`closeZoom`/`navigate`/`setZoomImage` methods, keyboard listener (Escape/ArrowLeft/ArrowRight) with `isPlatformBrowser` guard, body scroll lock with `isPlatformBrowser` guard, `ngOnDestroy` cleanup
+- Modal HTML: `gallery__main` click opens zoom, zoom button `stopPropagation`, modal gated with `@if(isBrowser && isZoomed())`, overlay click closes, image/nav/thumbs `stopPropagation`, nav+thumbs in single `@if(images().length > 1)`
+- Modal SCSS: `@keyframes zoom-overlay-in` + `zoom-img-in`, all fixed-position elements at z-301 above z-300 overlay, gold `#B88E2F` active thumb border, 60×60px thumbnail strip, Montserrat Light nav arrows
+- Fixed lg-mobile-drawer click-blocking bug: moved `<lg-mobile-drawer />` from `lg-navbar` template into `app.html` (root-level alongside `lg-toast` and `lg-quick-view-modal`)
+- Fixed desktop whitespace-below-footer bug: replaced `display:contents` (unreliable across browsers) with `display:none` on `:host` + `display:block` at `max-width: 1023px` breakpoint
+
+### Files Touched
+- `src/app/features/product-detail/components/lg-image-gallery/lg-image-gallery.component.ts` — added PLATFORM_ID/signal/OnDestroy, `_isZoomed`/`_zoomIndex` signals, `openZoom`/`closeZoom`/`navigate`/`setZoomImage`, arrow-fn `_keyHandler`
+- `src/app/features/product-detail/components/lg-image-gallery/lg-image-gallery.component.html` — `gallery__main` click, zoom button stopPropagation, fullscreen zoom modal block
+- `src/app/features/product-detail/components/lg-image-gallery/lg-image-gallery.component.scss` — `@keyframes` + zoom overlay/img/close/nav/thumbs styles
+- `src/app/shared/components/navigation/lg-navbar/lg-navbar.component.html` — removed `<lg-mobile-drawer />`
+- `src/app/shared/components/navigation/lg-navbar/lg-navbar.component.ts` — removed `LgMobileDrawerComponent` import
+- `src/app/app.html` — added `<lg-mobile-drawer />`
+- `src/app/app.ts` — added `LgMobileDrawerComponent` import
+- `src/app/shared/components/navigation/lg-mobile-drawer/lg-mobile-drawer.component.scss` — `display:none` host + `display:block` at `max-width: 1023px`
+
+### Key Decisions
+- Zoom modal kept inside `lg-image-gallery` (no separate component) — local UI state signals in a component are appropriate for pure micro-interaction state (not business state)
+- `display:contents` on Angular host elements proved unreliable across browsers — `display:none` + media query is the correct pattern for mobile-only overlay components
+- `lg-mobile-drawer` belongs at `app-root` level (like `lg-toast` and `lg-quick-view-modal`), not inside `lg-navbar` fixed host — the navbar's `position:fixed; z-index:50; no explicit height` host was the root cause of click-blocking; `DrawerService` is root-scoped so hamburger toggle still works
+
+### Blockers / Open Questions
+- None
+
+### Next Step
+> Fix lg-quantity-stepper SCSS to match Stitch spec: border 1px solid rgba(210,197,177,0.5), no border-radius, button padding 16px 12px, value padding 0 16px with border separators
