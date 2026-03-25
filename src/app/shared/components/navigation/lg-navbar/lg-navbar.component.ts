@@ -7,7 +7,7 @@ import {
   afterNextRender,
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { DrawerService } from '../../../../core/services/drawer.service';
 import { CartService } from '../../../../core/services/cart.service';
 import { WishlistService } from '../../../../core/services/wishlist.service';
@@ -21,7 +21,7 @@ interface NavLink {
   selector: 'lg-navbar',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink],
+  imports: [RouterLink, RouterLinkActive],
   templateUrl: './lg-navbar.component.html',
   styleUrl: './lg-navbar.component.scss',
 })
@@ -35,11 +35,10 @@ export class LgNavbarComponent {
 
   protected readonly navLinks: NavLink[] = [
     { label: 'Collections', route: '/products' },
-    { label: 'Living',      route: '/products?category=living' },
-    { label: 'Bedroom',     route: '/products?category=bedroom' },
-    { label: 'Dining',      route: '/products?category=dining' },
     { label: 'Hot Deals',   route: '/hot-deals' },
     { label: 'Atelier',     route: '/atelier' },
+    { label: 'Bespoke',     route: '/custom-order' },
+    { label: 'Contact',     route: '/contact' },
   ];
 
   constructor() {

@@ -1,18 +1,22 @@
 <header class="navbar" [class.navbar--scrolled]="scrolled()">
   <div class="navbar__inner">
+   <!-- Center: logo -->
+   <a routerLink="/" class="navbar__logo" aria-label="Lugar Furniture — Home">
+    LUGAR FURNITURE
+  </a>
 
     <!-- Left: nav links (desktop only) -->
     <nav class="navbar__nav" aria-label="Main navigation">
       @for (link of navLinks; track link.route) {
-        <a [routerLink]="link.route" class="navbar__link">{{ link.label }}</a>
+        <a
+          [routerLink]="link.route"
+          routerLinkActive="active"
+          class="navbar__link"
+        >{{ link.label }}</a>
       }
     </nav>
 
-    <!-- Center: logo -->
-    <a routerLink="/" class="navbar__logo" aria-label="Lugar Furniture — Home">
-      LUGAR FURNITURE
-    </a>
-
+ 
     <!-- Right: icons -->
     <div class="navbar__actions">
 

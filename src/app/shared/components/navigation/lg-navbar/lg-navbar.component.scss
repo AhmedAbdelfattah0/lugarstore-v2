@@ -68,8 +68,14 @@
   white-space: nowrap;
   transition: color 0.2s;
 
-  &:hover {
+  &:hover,
+  &.active {
     color: #B88E2F;
+  }
+
+  &.active {
+    border-bottom: 1px solid #B88E2F;
+    padding-bottom: 2px;
   }
 
   @media (max-width: 1023px) {

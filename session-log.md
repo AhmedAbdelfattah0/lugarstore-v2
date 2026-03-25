@@ -1052,3 +1052,34 @@ None
 - `src/app/features/hot-deals/` — new feature, all files created
 - `src/app/features/atelier/pages/lg-atelier-page/` — full rebuild of all 3 files
 - `public/atelier-*.jpg` — 7 new image assets
+---
+## Session: 2026-03-25
+
+**Goal:** Build Contact and Custom Order pages for Lugar Store v2.
+
+**Completed:**
+- `src/app/features/contact/services/contact.service.ts` — created; POST `/messages/create_message.php`
+- `src/app/features/contact/pages/lg-contact-page/lg-contact-page.component.ts` — created
+- `src/app/features/contact/pages/lg-contact-page/lg-contact-page.component.html` — created; two-column layout (40/60), contact info left + reactive form right
+- `src/app/features/contact/pages/lg-contact-page/lg-contact-page.component.scss` — created
+- `src/app/features/custom-order/services/custom-order.service.ts` — created; uploadImage + submitOrder
+- `src/app/features/custom-order/pages/lg-custom-order-page/lg-custom-order-page.component.ts` — created; file preview signals + SSR-safe object URLs
+- `src/app/features/custom-order/pages/lg-custom-order-page/lg-custom-order-page.component.html` — created; single 720px form card + thumbnail grid
+- `src/app/features/custom-order/pages/lg-custom-order-page/lg-custom-order-page.component.scss` — created
+
+**Decisions:**
+- `BreadcrumbItem.route` not `.url` — matched existing model shape
+- File previews use `URL.createObjectURL` guarded with `isPlatformBrowser` — SSR-safe
+- `filePreviews` signal stores `{ file, previewUrl, name }[]`; `selectedFiles` is a `computed()` derived from it — single source of truth, URLs revoked on remove and reset
+- Both pages use raw `<input>` / `<textarea>` + BEM SCSS directly rather than `lg-input` for most fields (matching checkout page pattern); `lg-input[type=file-upload]` used only for the file upload field
+
+**Deferred:**
+- Nothing — both pages complete and build passes clean (zero errors, zero warnings)
+
+**Next Session Should:**
+- Review all Phase 5 pages (cart, wishlist, checkout, hot-deals, contact, custom-order, atelier) in browser for visual QA
+- Then move to Phase 6 — SEO pass, sitemap, robots.txt, final production build audit
+
+**Key Files:**
+- `src/app/features/contact/` — new feature folder, all files created fresh
+- `src/app/features/custom-order/` — pages + services created; routes already registered in app.routes.ts
