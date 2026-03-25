@@ -85,19 +85,25 @@
 
 // Center cell: logo
 .navbar__logo {
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 300;
-  font-size: 13px;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: #333333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-decoration: none;
-  white-space: nowrap;
-  text-align: center;
-  transition: color 0.2s;
+  gap: 0.5rem;
+}
 
-  &:hover {
-    color: #B88E2F;
+.navbar__logo-img {
+  height: 40px;
+  width: auto;
+  display: block;
+  transition: opacity 0.2s;
+
+  .navbar__logo:hover & {
+    opacity: 0.7;
+  }
+
+  @media (max-width: 767px) {
+    height: 32px;
   }
 }
 

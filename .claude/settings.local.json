@@ -152,7 +152,8 @@
       "Bash(git stash:*)",
       "Bash(grep:*)",
       "Bash(curl:*)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Bash(find /Users/ahmedabdelfatah/Documents/personal-projects/ecommerce-website/src -type f \\\\\\(-name *.html -o -name *.ts -o -name *.js \\\\\\))"
     ]
   },
   "mcpServers": {

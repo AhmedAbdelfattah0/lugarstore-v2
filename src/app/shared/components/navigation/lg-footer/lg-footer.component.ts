@@ -30,7 +30,7 @@ export class LgFooterComponent {
         { label: 'Custom Orders',  href: '/custom-order' },
         { label: 'Atelier',        href: '/atelier' },
         { label: 'Contact Us',     href: '/contact' },
-        { label: 'WhatsApp',       href: 'https://wa.me/201234567890' },
+        { label: 'WhatsApp',       href: 'https://wa.me/201080777114' },
       ],
     },
     {
@@ -45,10 +45,10 @@ export class LgFooterComponent {
   ];
 
   protected readonly socials = [
-    { label: 'Instagram', href: 'https://instagram.com/lugarfurniture', icon: 'instagram' },
-    { label: 'Facebook',  href: 'https://facebook.com/lugarfurniture',  icon: 'facebook' },
-    { label: 'TikTok',    href: 'https://tiktok.com/@lugarfurniture',   icon: 'tiktok' },
-    { label: 'WhatsApp',  href: 'https://wa.me/201234567890',           icon: 'whatsapp' },
+    { label: 'Instagram', href: 'https://www.instagram.com/lugarfurniture.eg/',                                        icon: 'instagram' },
+    { label: 'Facebook',  href: 'https://www.facebook.com/lugarinv?mibextid=ZbWKwL',                                  icon: 'facebook' },
+    { label: 'TikTok',    href: 'https://www.tiktok.com/@lugarfurnitureinv?_t=8sj2O0ysXQo&_r=1',                      icon: 'tiktok' },
+    { label: 'WhatsApp',  href: 'https://wa.me/201080777114',                                                         icon: 'whatsapp' },
   ];
 
   protected readonly currentYear = new Date().getFullYear();

@@ -1083,3 +1083,32 @@ None
 **Key Files:**
 - `src/app/features/contact/` — new feature folder, all files created fresh
 - `src/app/features/custom-order/` — pages + services created; routes already registered in app.routes.ts
+---
+
+## Session: 2026-03-25
+
+**Goal:** Redesign navbar navigation — replace category sub-links with 5 clean top-level routes and add active link highlighting.
+
+**Completed:**
+- Updated navLinks in lg-navbar: Collections · Hot Deals · Atelier · Bespoke · Contact (removed Living/Bedroom/Dining category links)
+- Added `RouterLinkActive` import + `routerLinkActive="active"` on each nav link `<a>`
+- Added `.navbar__link.active` SCSS: color `#B88E2F` + `border-bottom: 1px solid #B88E2F` + `padding-bottom: 2px`
+- Mirrored same 5-link update in lg-mobile-drawer navLinks
+- Build: zero errors, zero warnings, 9 static routes prerendered
+
+**Decisions:**
+- Category links (Living/Bedroom/Dining) removed from navbar — they belong in PLP filter bar, not global nav
+- `RouterLinkActive` with default prefix matching — `/products/:id` activates Collections link (acceptable UX for this app)
+- No `exact: true` needed — none of the 5 routes are root or share prefixes
+
+**Deferred:**
+- Nothing — task fully complete
+
+**Next Session Should:**
+- Continue Phase 5 — Checkout page (CountryService + CreateOrderPayload already wired, page stub exists)
+
+**Key Files:**
+- `src/app/shared/components/navigation/lg-navbar/lg-navbar.component.ts` — navLinks trimmed to 5, RouterLinkActive added
+- `src/app/shared/components/navigation/lg-navbar/lg-navbar.component.html` — routerLinkActive="active" on nav links
+- `src/app/shared/components/navigation/lg-navbar/lg-navbar.component.scss` — .active style added
+- `src/app/shared/components/navigation/lg-mobile-drawer/lg-mobile-drawer.component.ts` — navLinks trimmed to 5
