@@ -145,9 +145,26 @@
     padding: 32px 24px 60px; // tablet
   }
 
+  // Tablet bento: first card full width, right cards side-by-side below
   .bento-grid {
-    grid-template-columns: 55fr 45fr; // tablet: 55/45 bento
-    height: 560px;
+    grid-template-columns: 1fr; // bento-left spans full width
+    height: auto;
+  }
+
+  .bento-left {
+    height: 520px; // large featured card
+    flex: none;
+  }
+
+  .bento-right {
+    flex-direction: row; // right two cards sit side-by-side
+    height: 380px;
+  }
+
+  .bento-right-top,
+  .bento-right-bottom {
+    flex: 1;
+    height: 100%;
   }
 
   .standard-grid {
@@ -173,6 +190,7 @@
   }
 
   .bento-right {
+    flex-direction: column; // reset from tablet's row — cards stack vertically on mobile
     height: auto;
   }
 

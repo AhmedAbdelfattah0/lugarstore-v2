@@ -9,9 +9,13 @@
   border-bottom: 1px solid rgba(210, 197, 177, 0.2);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
   position: sticky;
-  top: 68px;
+  top: 68px;      // desktop + tablet: navbar is 68px
   z-index: 100;
   box-sizing: border-box;
+
+  @media (max-width: 767px) {
+    top: 60px;    // mobile: navbar collapses to 60px
+  }
 
   &__inner {
     max-width: 1600px;

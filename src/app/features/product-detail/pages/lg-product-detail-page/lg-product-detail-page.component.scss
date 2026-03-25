@@ -144,6 +144,10 @@
     grid-template-columns: 55fr 45fr;   // Stitch: 55% / 45%
     min-height: 921px;                  // Stitch: min-h-[921px]
 
+    @media (max-width: 1023px) {
+      min-height: 680px;                // tablet: reduce — 921px exceeds 768px viewport
+    }
+
     @media (max-width: 767px) {
       grid-template-columns: 1fr;       // mobile: single column
       min-height: auto;

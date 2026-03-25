@@ -19,6 +19,14 @@
     letter-spacing: 0.1em;   // Stitch: tracking-editorial = 0.1em
     color: #1e1b15;
     margin: 0 0 16px;         // Stitch: mb-4 = 16px
+
+    @media (max-width: 1023px) {
+      font-size: 52px;        // tablet: readable in 45% column
+    }
+
+    @media (max-width: 767px) {
+      font-size: clamp(2rem, 9vw, 42px); // mobile: fluid — fits full-width panel
+    }
   }
 
   // ── 3. Star rating row — Stitch: flex items-center gap-1 mb-6 ───────────
@@ -123,6 +131,11 @@
     margin-bottom: 16px;
 
     lg-quantity-stepper { flex-shrink: 0; }
+
+    @media (max-width: 480px) {
+      flex-direction: column; // very small screens: stack stepper above button
+      gap: 16px;
+    }
   }
 
   // ADD TO CART button — Stitch: bg-[#B88E2F] Montserrat 300 11px uppercase py-5

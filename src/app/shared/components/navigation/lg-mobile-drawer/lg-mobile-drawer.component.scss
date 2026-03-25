@@ -39,10 +39,20 @@
   flex-direction: column;
   overflow-y: auto;
   transform: translateX(100%);
-  transition: transform 0.35s cubic-bezier(0.25, 0.1, 0.25, 1);
+  // visibility: hidden delays until after the 0.35s slide-out animation completes,
+  // removing the element from the pointer-event hit-test tree when fully closed.
+  // visibility 0s 0.35s means: immediately visible on open (0s delay), hidden after 0.35s on close.
+  visibility: hidden;
+  pointer-events: none;
+  transition: transform 0.35s cubic-bezier(0.25, 0.1, 0.25, 1),
+              visibility 0s linear 0.35s;
 
   &.open {
     transform: translateX(0);
+    visibility: visible;
+    pointer-events: auto;
+    transition: transform 0.35s cubic-bezier(0.25, 0.1, 0.25, 1),
+                visibility 0s linear 0s; // immediately visible when opening
   }
 }
 

@@ -8,6 +8,11 @@
   width: 100%;
   height: 100vh;
   overflow: hidden;
+
+  @media (max-width: 767px) {
+    height: auto; // mobile: stacked layout — let content determine height
+    overflow: visible;
+  }
 }
 
 .hero__grid {

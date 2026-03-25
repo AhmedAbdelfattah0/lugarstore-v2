@@ -71,7 +71,7 @@
   }
 }
 
-// Mobile compact counter: visible only below md (767px)
+// Compact counter: visible on tablet and below (‹ 1/37 › format per spec)
 .page-mobile-counter {
   display: none;
   font-family: 'Montserrat', sans-serif;
@@ -80,13 +80,13 @@
   letter-spacing: 0.08em;
   color: #333333;
 
-  @media (max-width: 767px) {
+  @media (max-width: 1023px) {
     display: block;
   }
 }
 
-// Hide individual page numbers and dots on mobile
-@media (max-width: 767px) {
+// Hide individual page numbers and dots on tablet + mobile
+@media (max-width: 1023px) {
   .page-item,
   .page-dots {
     display: none;

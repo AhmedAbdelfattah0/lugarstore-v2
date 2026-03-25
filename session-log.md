@@ -795,3 +795,43 @@ None
 
 ### Next Step
 > Phase 5 — Commerce pages: Cart, Wishlist, Checkout
+---
+## Session: 2026-03-25
+
+**Goal:** Fix mobile layout issues — horizontal overflow, drawer styling, navbar/banner ordering.
+
+**Completed:**
+- Installed `security-audit-v4` skill from `~/Downloads/security-audit.skill` (zip archive)
+- Fixed horizontal overflow (white space on right on mobile)
+- Fixed lg-mobile-drawer — complete design system rewrite
+- Fixed offer banner/navbar ordering on mobile
+
+**Decisions:**
+- `overflow-x: hidden` + `max-width: 100vw` added to BOTH `html` and `body` outside `@layer` — `body` alone is insufficient; fixed elements with `translateX(100%)` can cause `html` to create phantom scroll width
+- Drawer structural CSS (`position: fixed`, `width: 88vw`, `height: 100vh`) moved from Tailwind utilities into SCSS — guarantees layout containment regardless of utility load order
+- Drawer overlay changed from `@if` (DOM insertion) to always-present with CSS opacity/pointer-events toggle — avoids DOM reflow on open
+- Drawer redesigned: Cormorant Garamond 28px nav links, gold arrow on hover, Montserrat footer icons, gold social icon squares
+- Navbar changed from `position: fixed` to `position: sticky; top: var(--banner-height, 0px)` — eliminates `padding-top` hacks on all pages
+- `--banner-height: 44px` CSS variable set on `lg-home-page :host` only — cascades into navbar child; other pages inherit default `0px` (no gap)
+- Banner DOM order fixed: `<lg-offer-banner />` first, `<lg-navbar />` second in `lg-home-page.component.html`
+- Hero `padding-top` reduced from `68px → 40px` (was clearing fixed navbar, no longer needed)
+- PDP `padding-top` reduced from `96px → 24px` desktop, `60px → 16px` mobile (same reason)
+
+**Deferred:**
+- Banner dismissal gap: when banner is dismissed, `--banner-height: 44px` still applies → 44px gap above navbar. Acceptable for now (dismissed state persists via localStorage, rarely seen)
+
+**Next Session Should:**
+- Start Phase 5 — Commerce Pages (Cart, Wishlist, Checkout)
+- Cart page: read CartService API, build `lg-cart-page` with line items, qty stepper, order summary
+- Run `/sec.audit` if security review is needed before Phase 5
+
+**Key Files:**
+- `src/styles.scss` — `overflow-x: hidden` + `max-width: 100vw` on html+body outside @layer; `* { box-sizing: border-box }` outside @layer
+- `src/app/shared/components/navigation/lg-mobile-drawer/lg-mobile-drawer.component.scss` — full rewrite: new design system (drawer/overlay/header/nav/footer/social classes)
+- `src/app/shared/components/navigation/lg-mobile-drawer/lg-mobile-drawer.component.html` — full rewrite: semantic class names, always-present overlay, restructured footer
+- `src/app/shared/components/navigation/lg-navbar/lg-navbar.component.scss` — `position: sticky; top: var(--banner-height, 0px)`
+- `src/app/features/home/pages/lg-home-page/lg-home-page.component.html` — banner before navbar
+- `src/app/features/home/pages/lg-home-page/lg-home-page.component.scss` — `--banner-height: 44px` on :host
+- `src/app/features/home/components/lg-offer-banner/lg-offer-banner.component.scss` — `position: sticky; top: 0; z-index: 201`
+- `src/app/features/home/components/lg-hero/lg-hero.component.scss` — padding-top 68px → 40px
+- `src/app/features/product-detail/pages/lg-product-detail-page/lg-product-detail-page.component.scss` — padding-top 96px → 24px
