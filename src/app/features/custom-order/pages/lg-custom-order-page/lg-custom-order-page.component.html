@@ -1,0 +1,165 @@
+<lg-navbar />
+
+<main class="custom-order-page">
+
+  <div class="custom-order-page__breadcrumb-row">
+    <lg-breadcrumb [items]="breadcrumbs" />
+  </div>
+
+  <header class="custom-order-page__header">
+    <h1 class="custom-order-page__heading">Commission a Custom Piece</h1>
+    <p class="custom-order-page__subtext">
+      Tell us what you have in mind. Our Cairo atelier team will reach out
+      within 24 hours to discuss every detail.
+    </p>
+  </header>
+
+  <div class="custom-order-page__form-wrap">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate class="custom-order-form">
+
+      <div class="form-field">
+        <label class="form-field__label" for="co-name">Full Name *</label>
+        <input
+          id="co-name"
+          type="text"
+          class="form-field__input"
+          [class.form-field__input--error]="!!fieldError('name')"
+          formControlName="name"
+          placeholder="Your full name"
+        />
+        @if (fieldError('name')) {
+          <span class="form-field__error">{{ fieldError('name') }}</span>
+        }
+      </div>
+
+      <div class="form-field">
+        <label class="form-field__label" for="co-phone">Phone Number *</label>
+        <input
+          id="co-phone"
+          type="tel"
+          class="form-field__input"
+          [class.form-field__input--error]="!!fieldError('phone')"
+          formControlName="phone"
+          placeholder="+20 100 000 0000"
+        />
+        @if (fieldError('phone')) {
+          <span class="form-field__error">{{ fieldError('phone') }}</span>
+        }
+      </div>
+
+      <div class="form-field">
+        <label class="form-field__label" for="co-email">Email Address *</label>
+        <input
+          id="co-email"
+          type="email"
+          class="form-field__input"
+          [class.form-field__input--error]="!!fieldError('email')"
+          formControlName="email"
+          placeholder="you@example.com"
+        />
+        @if (fieldError('email')) {
+          <span class="form-field__error">{{ fieldError('email') }}</span>
+        }
+      </div>
+
+      <div class="form-field">
+        <label class="form-field__label" for="co-city">Governorate / City *</label>
+        <input
+          id="co-city"
+          type="text"
+          class="form-field__input"
+          [class.form-field__input--error]="!!fieldError('city')"
+          formControlName="city"
+          placeholder="Cairo"
+        />
+        @if (fieldError('city')) {
+          <span class="form-field__error">{{ fieldError('city') }}</span>
+        }
+      </div>
+
+      <div class="form-field">
+        <label class="form-field__label" for="co-message">Your Vision *</label>
+        <textarea
+          id="co-message"
+          class="form-field__input form-field__input--textarea"
+          [class.form-field__input--error]="!!fieldError('message')"
+          formControlName="message"
+          placeholder="Describe what you're looking for — room type, preferred style, dimensions if known, any specific materials or finishes. Every detail helps."
+          rows="7"
+        ></textarea>
+        @if (fieldError('message')) {
+          <span class="form-field__error">{{ fieldError('message') }}</span>
+        }
+      </div>
+
+      <!-- File upload via lg-input -->
+      <div class="form-field">
+        <lg-input
+          type="file-upload"
+          label="Reference Images"
+          placeholder="Upload reference photos (optional)"
+          [multiple]="true"
+          (filesChange)="onFilesChange($event)"
+        />
+
+        <!-- Thumbnail previews -->
+        @if (filePreviews().length > 0) {
+          <div class="file-previews">
+            @for (preview of filePreviews(); track preview.name; let i = $index) {
+              <div class="file-preview">
+                <img
+                  class="file-preview__thumb"
+                  [src]="preview.previewUrl"
+                  [alt]="preview.name"
+                />
+                <span class="file-preview__name">{{ preview.name }}</span>
+                <button
+                  type="button"
+                  class="file-preview__remove"
+                  (click)="removeFile(i)"
+                  [attr.aria-label]="'Remove ' + preview.name"
+                >
+                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+                    <line x1="1" y1="1" x2="9" y2="9"/>
+                    <line x1="9" y1="1" x2="1" y2="9"/>
+                  </svg>
+                </button>
+              </div>
+            }
+          </div>
+        }
+      </div>
+
+      <button
+        type="submit"
+        class="custom-order-form__submit"
+        [disabled]="isSubmitting()"
+      >
+        @if (isSubmitting()) {
+          <lg-spinner size="sm" />
+          <span>Submitting…</span>
+        } @else {
+          <span>Submit Request</span>
+        }
+      </button>
+
+      <p class="custom-order-form__note">
+        Our team will contact you within 24 hours to discuss your custom
+        order in full detail.
+      </p>
+
+    </form>
+
+    <!-- WhatsApp CTA -->
+    <div class="custom-order-page__whatsapp">
+      <span class="custom-order-page__whatsapp-label">Prefer to chat directly?</span>
+      <a [href]="whatsappHref" target="_blank" rel="noopener noreferrer"
+         class="custom-order-page__whatsapp-link">
+        Message us on WhatsApp →
+      </a>
+    </div>
+  </div>
+
+</main>
+
+<lg-footer />
