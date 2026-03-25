@@ -46,11 +46,12 @@ export class QuickViewService {
     const product = this._selectedProduct();
     if (!product) return null;
     return {
-      id: product.id,
-      title: product.title,
-      image: product.primaryImage,
-      qty: this._qty(),
-      price: this.activePrice(),
+      id:           product.id,
+      title:        product.title,
+      image:        product.primaryImage,
+      qty:          this._qty(),
+      price:        this.activePrice(),
+      categoryName: product.categoryName,
     };
   }
 }

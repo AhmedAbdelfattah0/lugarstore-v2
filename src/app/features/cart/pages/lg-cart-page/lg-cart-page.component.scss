@@ -1,0 +1,306 @@
+// ─── Host — full-width cream background ───────────────────────────────────────
+:host {
+  display: block;
+  background: #F9F1E7;
+}
+
+// ─── Page wrapper ─────────────────────────────────────────────────────────────
+.cart-page {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 64px 48px 80px;
+}
+
+// ─── Two-column layout ────────────────────────────────────────────────────────
+.cart-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 65fr) minmax(0, 35fr);
+  gap: 48px;
+  align-items: start;
+}
+
+// ─── Page heading ─────────────────────────────────────────────────────────────
+.cart-heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(40px, 5vw, 72px);
+  font-weight: 300;
+  color: #1e1b15;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  margin-bottom: 48px;
+}
+
+// ─── Column headers ───────────────────────────────────────────────────────────
+.cart-headers {
+  display: grid;
+  grid-template-columns: 3fr 1fr 1.5fr 1fr;
+  gap: 16px;
+  align-items: center;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #d2c5b1;
+
+  span {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    font-size: 0.6875rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #4e4637;
+  }
+
+  &__subtotal {
+    text-align: right;
+  }
+}
+
+// ─── Item row ─────────────────────────────────────────────────────────────────
+.cart-item {
+  display: grid;
+  grid-template-columns: 3fr 1fr 1.5fr 1fr;
+  gap: 16px;
+  align-items: center;
+  padding: 28px 0;
+  border-bottom: 1px solid #E8E8E8;
+
+  &__product {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  &__thumb {
+    width: 88px;
+    height: 88px;
+    object-fit: cover;
+    flex-shrink: 0;
+    background: #EDE4D8;
+  }
+
+  &__info {
+    min-width: 0;
+  }
+
+  &__name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: #1e1b15;
+    line-height: 1.3;
+  }
+
+  &__category {
+    margin-top: 6px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    font-size: 0.625rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #78716c;
+  }
+
+  &__price {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9375rem;
+    font-weight: 400;
+    color: #1e1b15;
+  }
+
+  &__qty {
+    display: flex;
+    align-items: center;
+  }
+
+  &__subtotal-cell {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 16px;
+  }
+
+  &__subtotal {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9375rem;
+    font-weight: 400;
+    color: #1e1b15;
+  }
+
+  &__remove {
+    background: none;
+    border: none;
+    padding: 4px;
+    cursor: pointer;
+    color: #4e4637;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: #ba1a1a;
+    }
+  }
+}
+
+// ─── Continue shopping ────────────────────────────────────────────────────────
+.cart-continue {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 32px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-size: 0.6875rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #7a5900;
+  transition: opacity 0.2s ease;
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+// ─── Right panel ──────────────────────────────────────────────────────────────
+.cart-right {
+  position: sticky;
+  top: 120px;
+  align-self: start;
+}
+
+// ─── Empty state ──────────────────────────────────────────────────────────────
+.cart-empty {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 48px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+// ─── Mobile sticky checkout bar (hidden desktop) ──────────────────────────────
+.cart-mobile-bar {
+  display: none;
+}
+
+// ─── Mobile layout ────────────────────────────────────────────────────────────
+@media (max-width: 767px) {
+
+  .cart-page {
+    padding: 40px 20px 100px;
+  }
+
+  .cart-layout {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .cart-right {
+    position: static;
+  }
+
+  .cart-headers {
+    display: none;
+  }
+
+  .cart-heading {
+    font-size: 2.25rem;
+    margin-bottom: 24px;
+  }
+
+  .cart-item {
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    gap: 12px;
+    padding: 20px 0;
+
+    &__product {
+      grid-column: 1 / 2;
+      grid-row: 1 / 2;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    &__thumb {
+      width: 72px;
+      height: 72px;
+    }
+
+    &__price {
+      grid-column: 2 / 3;
+      grid-row: 1 / 2;
+      align-self: flex-start;
+      padding-top: 2px;
+    }
+
+    &__qty {
+      grid-column: 1 / 2;
+      grid-row: 2 / 3;
+    }
+
+    &__subtotal-cell {
+      grid-column: 2 / 3;
+      grid-row: 2 / 3;
+      justify-content: flex-start;
+      gap: 12px;
+    }
+  }
+
+  .cart-empty {
+    padding: 60px 20px;
+  }
+
+  // Sticky checkout bar
+  .cart-mobile-bar {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #fff8f1;
+    border-top: 1px solid #d2c5b1;
+    padding: 16px 20px;
+    z-index: 50;
+
+    &__btn {
+      display: block;
+      width: 100%;
+      padding: 14px 32px;
+      background: #7a5900;
+      color: #ffffff;
+      border: none;
+      cursor: pointer;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 300;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      transition: background 0.4s ease-in-out;
+
+      &:hover {
+        background: #5c4200;
+      }
+    }
+  }
+}
+
+// ─── Tablet ───────────────────────────────────────────────────────────────────
+@media (min-width: 768px) and (max-width: 1023px) {
+
+  .cart-page {
+    padding: 48px 32px 80px;
+  }
+
+  .cart-layout {
+    grid-template-columns: minmax(0, 60fr) minmax(0, 40fr);
+    gap: 32px;
+  }
+
+  .cart-heading {
+    font-size: 2.75rem;
+    margin-bottom: 36px;
+  }
+}

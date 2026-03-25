@@ -49,8 +49,7 @@
   display: block;
   height: 100%;
   overflow: hidden;
-  text-decoration: none;
-  color: inherit;
+  cursor: pointer;
 
   lg-product-card {
     display: block;
@@ -94,8 +93,7 @@
   min-height: 0;
   overflow: hidden;
   display: block;
-  text-decoration: none;
-  color: inherit;
+  cursor: pointer;
 
   lg-product-card {
     display: block;
@@ -125,8 +123,7 @@
 
 .card-link {
   display: block;
-  text-decoration: none;
-  color: inherit;
+  cursor: pointer;
 }
 
 // ── Regular 3-column grid: products 4+ ───────────────────────────────────────

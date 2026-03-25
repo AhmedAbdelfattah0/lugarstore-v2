@@ -6,7 +6,7 @@ import {
   effect,
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { RouterLink, Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Title, Meta } from '@angular/platform-browser';
 
@@ -32,7 +32,6 @@ import { LgPaginationComponent } from '../../../../shared/components/filtering/l
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    RouterLink,
     LgNavbarComponent,
     LgFooterComponent,
     LgPlpHeaderComponent,
@@ -93,11 +92,12 @@ export class LgProductsPageComponent {
 
   protected onAddToCart(product: Product): void {
     this.cart.add({
-      id: product.id,
-      title: product.title,
-      image: product.primaryImage,
-      qty: 1,
-      price: product.hasDiscount ? product.discountedPrice : product.price,
+      id:           product.id,
+      title:        product.title,
+      image:        product.primaryImage,
+      qty:          1,
+      price:        product.hasDiscount ? product.discountedPrice : product.price,
+      categoryName: product.categoryName,
     });
     this.toast.show(`${product.title} added to cart`, 'success');
   }

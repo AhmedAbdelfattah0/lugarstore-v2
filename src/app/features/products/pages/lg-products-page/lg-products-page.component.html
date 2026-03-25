@@ -55,35 +55,35 @@
 
           <!-- Large card - left -->
           @if (products[0]; as p0) {
-            <a class="bento-left" [routerLink]="['/products', p0.id]">
+            <div class="bento-left" (click)="navigateToProduct(p0.id)">
               <lg-product-card
                 [product]="p0"
                 variant="featured"
                 (addToCart)="onAddToCart($event)"
                 (addToWishlist)="onAddToWishlist($event)"
               />
-            </a>
+            </div>
           }
 
           <!-- Two stacked cards - right -->
           <div class="bento-right">
             @if (products[1]; as p1) {
-              <a class="bento-right-top" [routerLink]="['/products', p1.id]">
+              <div class="bento-right-top" (click)="navigateToProduct(p1.id)">
                 <lg-product-card
                   [product]="p1"
                   (addToCart)="onAddToCart($event)"
                   (addToWishlist)="onAddToWishlist($event)"
                 />
-              </a>
+              </div>
             }
             @if (products[2]; as p2) {
-              <a class="bento-right-bottom" [routerLink]="['/products', p2.id]">
+              <div class="bento-right-bottom" (click)="navigateToProduct(p2.id)">
                 <lg-product-card
                   [product]="p2"
                   (addToCart)="onAddToCart($event)"
                   (addToWishlist)="onAddToWishlist($event)"
                 />
-              </a>
+              </div>
             }
           </div>
 
@@ -93,13 +93,13 @@
         @if (products.length > 3) {
           <div class="standard-grid">
             @for (product of products.slice(3); track product.id) {
-              <a class="card-link" [routerLink]="['/products', product.id]">
+              <div class="card-link" (click)="navigateToProduct(product.id)">
                 <lg-product-card
                   [product]="product"
                   (addToCart)="onAddToCart($event)"
                   (addToWishlist)="onAddToWishlist($event)"
                 />
-              </a>
+              </div>
             }
           </div>
         }

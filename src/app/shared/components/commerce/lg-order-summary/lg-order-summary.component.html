@@ -1,83 +1,64 @@
-<div class="bg-[#F9F1E7] border border-[#E8E8E8] p-6 flex flex-col gap-6">
+<div class="summary">
 
   <!-- Heading -->
-  <h3 class="font-[Montserrat] font-light text-xs uppercase tracking-[0.2em] text-[#333333]">
-    Order Summary
-  </h3>
+  <h3 class="summary__heading">Order Summary</h3>
 
-  <!-- Item list -->
+  <!-- Item list — text only, no images -->
   @if (items().length > 0) {
-    <ul class="flex flex-col gap-4">
+    <ul class="summary__items">
       @for (item of items(); track item.id) {
-        <li class="flex items-start gap-4">
-          <!-- Thumbnail -->
-          <img
-            [src]="item.image"
-            [alt]="item.title"
-            class="w-16 h-16 object-cover flex-shrink-0 bg-[#EDE4D8]"
-          />
-          <!-- Info -->
-          <div class="flex-1 min-w-0">
-            <p class="font-[Montserrat] font-light text-xs uppercase tracking-[0.1em] text-[#333333] truncate">
-              {{ item.title }}
-            </p>
-            <p class="mt-1 font-[Inter] text-xs text-[#7A6F65]">
-              Qty {{ item.qty }} × {{ item.price | lgCurrencyEgp }}
-            </p>
+        <li class="summary__item">
+          <div class="summary__item-info">
+            <span class="summary__item-name">{{ item.title }}</span>
+            <span class="summary__item-meta">Qty {{ item.qty }} × {{ item.price | lgCurrencyEgp }}</span>
           </div>
-          <!-- Line total -->
-          <p class="font-[Montserrat] font-light text-xs text-[#333333] flex-shrink-0">
-            {{ item.price * item.qty | lgCurrencyEgp }}
-          </p>
+          <span class="summary__item-total">{{ item.price * item.qty | lgCurrencyEgp }}</span>
         </li>
       }
     </ul>
   }
 
-  <!-- Divider -->
-  <div class="border-t border-[#E8E8E8]"></div>
+  <!-- Gold thin divider -->
+  <div class="summary__gold-divider"></div>
 
   <!-- Subtotal -->
-  <div class="flex items-center justify-between">
-    <span class="font-[Montserrat] font-light text-xs uppercase tracking-[0.15em] text-[#7A6F65]">
-      Subtotal
-    </span>
-    <span class="font-[Montserrat] font-light text-sm text-[#333333]">
-      {{ subtotal() | lgCurrencyEgp }}
-    </span>
+  <div class="summary__row">
+    <span class="summary__row-label">Subtotal</span>
+    <span class="summary__row-value">{{ subtotal() | lgCurrencyEgp }}</span>
   </div>
 
-  <!-- Shipping -->
-  <div class="flex items-center justify-between">
-    <span class="font-[Montserrat] font-light text-xs uppercase tracking-[0.15em] text-[#7A6F65]">
-      Shipping
-    </span>
-    <span class="font-[Montserrat] font-light text-sm text-[#B88E2F]">
-      Free
-    </span>
+  <!-- Estimated Shipping -->
+  <div class="summary__row">
+    <span class="summary__row-label">Estimated Shipping</span>
+    <span class="summary__row-free">FREE</span>
   </div>
 
-  <!-- Divider -->
-  <div class="border-t border-[#E8E8E8]"></div>
+  <!-- Grey divider -->
+  <div class="summary__divider"></div>
 
   <!-- Total -->
-  <div class="flex items-baseline justify-between">
-    <span class="font-[Montserrat] font-light text-xs uppercase tracking-[0.15em] text-[#333333]">
-      Total
-    </span>
-    <span class="font-[Cormorant_Garamond] font-light text-2xl text-[#B88E2F]">
-      {{ subtotal() | lgCurrencyEgp }}
-    </span>
+  <div class="summary__total">
+    <span class="summary__total-label">Total</span>
+    <span class="summary__total-amount">{{ subtotal() | lgCurrencyEgp }}</span>
   </div>
 
   <!-- CTA -->
-  <lg-button
-    variant="primary"
-    size="lg"
-    [attr.style]="'width: 100%'"
-    (click)="ctaClick.emit()"
-  >
+  <button class="summary__cta" type="button" (click)="ctaClick.emit()">
     {{ ctaLabel() }}
-  </lg-button>
+  </button>
+
+  <!-- SSL trust line -->
+  <div class="summary__trust">
+    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+      <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+    </svg>
+    <span>SSL Secured · Safe Checkout</span>
+  </div>
+
+  <!-- Brand quote -->
+  <p class="summary__quote">
+    "Luxury is not a rush. Every piece in your bag is handcrafted upon order by our master artisans."
+  </p>
 
 </div>

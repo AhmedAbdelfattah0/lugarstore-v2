@@ -835,3 +835,66 @@ None
 - `src/app/features/home/components/lg-offer-banner/lg-offer-banner.component.scss` — `position: sticky; top: 0; z-index: 201`
 - `src/app/features/home/components/lg-hero/lg-hero.component.scss` — padding-top 68px → 40px
 - `src/app/features/product-detail/pages/lg-product-detail-page/lg-product-detail-page.component.scss` — padding-top 96px → 24px
+---
+
+## Session: 2026-03-25
+
+**Goal:** Responsive checkpoint — audit and fix all pages at 375px / 768px / 1280px across Home, PLP, and PDP.
+
+**Completed:**
+- `lg-hero.component.scss` — Added `height: auto; overflow: visible` on mobile (was `100vh` with `overflow: hidden`, clipping stacked content)
+- `lg-mobile-drawer.component.scss` — Added `visibility: hidden` + `pointer-events: none` (closed state) with 0.35s delayed visibility transition matching slide-out animation
+- `lg-product-detail-page.component.scss` — Added `min-height: 680px` at `≤1023px` (was `921px`, taller than 768px viewport)
+- `lg-filter-bar.component.scss` — Added `top: 60px` at `≤767px` (navbar is 60px on mobile, was always 68px)
+- `lg-products-page.component.scss` — PLP bento tablet: `bento-left` full-width, `bento-right` row of two cards; mobile reset `flex-direction: column` (bug caught from screenshot — right cards were side-by-side on mobile)
+- `lg-trust-strip.component.scss` — 2×2 grid now applies at `≤1023px` (tablet), not just mobile
+- `lg-featured-collection.component.scss` — Product grid (below bento) collapses to 1-col at `≤1023px` per spec
+- `lg-product-info.component.scss` — Title responsive: 52px tablet, `clamp(2rem, 9vw, 42px)` mobile; purchase row stacks at `≤480px`
+- `lg-pagination.component.scss` — Compact `‹ 1/37 ›` format now shows at `≤1023px` (was only `≤767px`)
+
+**Decisions:**
+- `visibility: hidden` with `0s linear 0.35s` delay: hides after slide-out completes so animation isn't clipped; immediately visible on open
+- PLP bento tablet = "first card full width": bento-left full row, bento-right switches to `flex-direction: row`
+- Homepage featured grid 1-col on tablet: editorial/immersive intent — distinct from PLP which keeps 2-col
+- Trust strip 2×2 from tablet down: 4-col at 768px is too cramped per spec
+
+**Deferred:**
+- Phase 5 — Commerce Pages (Cart, Wishlist, Checkout)
+
+**Next Session Should:**
+- Continue Phase 5 — start with Cart page, then Wishlist, then Checkout
+- All three pages need: page scaffold, state service, component wiring to CartService/WishlistService
+
+**Key Files:**
+- `src/app/features/products/pages/lg-products-page/lg-products-page.component.scss` — PLP bento responsive + mobile flex-direction bug fix
+- `src/app/shared/components/navigation/lg-mobile-drawer/lg-mobile-drawer.component.scss` — visibility/pointer-events fix
+
+---
+## Session: 2026-03-25 11:57
+
+**Goal:** Fix Quick Add button navigating to PDP instead of adding to cart + showing toast (lg-product-card bug in PLP).
+
+**Completed:**
+- `src/app/features/products/pages/lg-products-page/lg-products-page.component.html` — replaced all `<a [routerLink]>` card wrappers with `<div (click)="navigateToProduct(id)">` so stopPropagation works cleanly
+- `src/app/features/products/pages/lg-products-page/lg-products-page.component.ts` — removed `RouterLink` from imports (no longer needed)
+- `src/app/features/products/pages/lg-products-page/lg-products-page.component.scss` — replaced `text-decoration:none; color:inherit` with `cursor:pointer` on bento + card-link wrappers
+
+**Decisions:**
+- Root cause: `<a [routerLink]>` sets an `href` attribute; native browser navigation fires on click regardless of `stopPropagation()` on child elements. `stopPropagation` only stops DOM event bubbling, not the native anchor follow.
+- Fix: Swap `<a [routerLink]>` for `<div (click)="navigateToProduct()">` — `navigateToProduct()` already existed in the component. Now stopPropagation on Quick Add correctly blocks the wrapper div's click handler.
+- `lg-featured-collection` uses `<div>` wrappers with no navigation (no routerLink) — card clicks on homepage don't navigate to PDP. This was not reported as a bug; left for next session to confirm desired behavior.
+
+**Deferred:**
+- Phase 5 Wishlist page — not started
+- Phase 5 Checkout page — not started
+- Featured collection card body click → PDP navigation — needs investigation/decision
+
+**Next Session Should:**
+- Confirm Quick Add fix works in browser (no navigation, toast appears)
+- Decide whether lg-featured-collection card body clicks should navigate to PDP (inject Router + add click handlers on wrapper divs)
+- Begin Phase 5: Wishlist page (`lg-wishlist-page`) — use same two-column pattern as cart, reuse lg-order-summary
+
+**Key Files:**
+- `src/app/features/products/pages/lg-products-page/` — all 3 files modified (html, ts, scss)
+- `src/app/shared/components/product/lg-product-card/lg-product-card.component.ts` — stopPropagation already present at line 56 (no change needed; fix was in PLP wrapper)
+

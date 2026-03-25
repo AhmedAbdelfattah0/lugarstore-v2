@@ -4,6 +4,7 @@ export interface CartItem {
   image: string;
   qty: number;
   price: number;
+  categoryName?: string;
 }
 
 // localStorage keys

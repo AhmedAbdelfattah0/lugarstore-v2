@@ -68,11 +68,12 @@ export class LgFeaturedCollectionComponent {
 
   protected addToCart(product: Product): void {
     const item: CartItem = {
-      id:    product.id,
-      title: product.title,
-      image: product.primaryImage,
-      qty:   1,
-      price: product.hasDiscount ? product.discountedPrice : product.price,
+      id:           product.id,
+      title:        product.title,
+      image:        product.primaryImage,
+      qty:          1,
+      price:        product.hasDiscount ? product.discountedPrice : product.price,
+      categoryName: product.categoryName,
     };
     this.cart.add(item);
     this.toast.show(`${product.title} added to cart`, 'success');

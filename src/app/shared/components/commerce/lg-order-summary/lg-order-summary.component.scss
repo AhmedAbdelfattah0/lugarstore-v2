@@ -1,1 +1,190 @@
-// Order summary styles handled via Tailwind utilities
+.summary {
+  background: #ffffff;
+  border: 1px solid #E8E8E8;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  // ─── Heading ───────────────────────────────────────────────────────────────
+  &__heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: #1e1b15;
+    letter-spacing: 0.01em;
+  }
+
+  // ─── Item list ─────────────────────────────────────────────────────────────
+  &__items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  &__item {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #E8E8E8;
+
+    &:last-child {
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+  }
+
+  &__item-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+    flex: 1;
+  }
+
+  &__item-name {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8125rem;
+    font-weight: 400;
+    color: #1e1b15;
+    line-height: 1.4;
+  }
+
+  &__item-meta {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8125rem;
+    color: #4e4637;
+    line-height: 1.4;
+  }
+
+  &__item-total {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8125rem;
+    color: #1e1b15;
+    flex-shrink: 0;
+    text-align: right;
+  }
+
+  // ─── Gold thin divider ─────────────────────────────────────────────────────
+  &__gold-divider {
+    height: 1px;
+    background: rgba(184, 142, 47, 0.35);
+  }
+
+  // ─── Summary rows ──────────────────────────────────────────────────────────
+  &__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  &__row-label {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    font-size: 0.6875rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #4e4637;
+  }
+
+  &__row-value {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.875rem;
+    color: #1e1b15;
+  }
+
+  &__row-free {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    font-weight: 300;
+    color: #B88E2F;
+    letter-spacing: 0.05em;
+  }
+
+  // ─── Grey divider ──────────────────────────────────────────────────────────
+  &__divider {
+    height: 1px;
+    background: #E8E8E8;
+  }
+
+  // ─── Total ─────────────────────────────────────────────────────────────────
+  &__total {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  &__total-label {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    font-size: 0.6875rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #4e4637;
+  }
+
+  &__total-amount {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 300;
+    color: #B88E2F;
+    line-height: 1;
+  }
+
+  // ─── CTA button ────────────────────────────────────────────────────────────
+  &__cta {
+    display: block;
+    width: 100%;
+    padding: 18px 32px;
+    background: #B88E2F;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    font-size: 0.6875rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    transition: background 0.4s ease-in-out;
+
+    &:hover {
+      background: #9a7a2a;
+    }
+  }
+
+  // ─── SSL trust line ────────────────────────────────────────────────────────
+  &__trust {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    color: #807665;
+
+    span {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 300;
+      font-size: 0.5625rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+  }
+
+  // ─── Brand quote ───────────────────────────────────────────────────────────
+  &__quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1rem;
+    font-weight: 300;
+    color: #B88E2F;
+    text-align: center;
+    line-height: 1.7;
+    margin-top: 4px;
+  }
+}

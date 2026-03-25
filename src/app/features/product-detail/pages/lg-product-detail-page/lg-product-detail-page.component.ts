@@ -87,11 +87,12 @@ export class LgProductDetailPageComponent {
     const product = this.pdpState.product();
     if (!product) return;
     this.cart.add({
-      id:    product.id,
-      title: product.title,
-      image: product.primaryImage,
-      qty:   this.pdpState.qty(),
-      price: this.pdpState.activePrice(),
+      id:           product.id,
+      title:        product.title,
+      image:        product.primaryImage,
+      qty:          this.pdpState.qty(),
+      price:        this.pdpState.activePrice(),
+      categoryName: product.categoryName,
     });
     this.toast.show(`${product.title} added to cart`, 'success');
   }
@@ -119,11 +120,12 @@ export class LgProductDetailPageComponent {
 
   protected onRelatedAddToCart(product: Product): void {
     this.cart.add({
-      id:    product.id,
-      title: product.title,
-      image: product.primaryImage,
-      qty:   1,
-      price: product.hasDiscount ? product.discountedPrice : product.price,
+      id:           product.id,
+      title:        product.title,
+      image:        product.primaryImage,
+      qty:          1,
+      price:        product.hasDiscount ? product.discountedPrice : product.price,
+      categoryName: product.categoryName,
     });
     this.toast.show(`${product.title} added to cart`, 'success');
   }
