@@ -1,0 +1,134 @@
+<lg-navbar />
+
+<main class="hot-deals-page">
+
+  <!-- ── Hero Banner ────────────────────────────────────────────── -->
+  <!-- Content is normal flow (drives hero height). Image-wrap is absolute (right half). -->
+  <section class="hero">
+
+    <div class="hero__content">
+      <p class="hero__eyebrow">LIMITED TIME</p>
+      <h1 class="hero__heading">Hot Deals</h1>
+      <p class="hero__subline">Up to 50% off archived floor pieces</p>
+      <button class="hero__cta" type="button" (click)="scrollToProducts()">
+        SHOP DEALS
+      </button>
+    </div>
+
+    <div class="hero__image-wrap">
+      <img
+        src="hero-lifestyle.jpg"
+        alt="Luxury furniture — limited time offers"
+        class="hero__image"
+      />
+      <div class="hero__overlay"></div>
+    </div>
+
+  </section>
+
+  <!-- ── Filter Bar ─────────────────────────────────────────────── -->
+  <lg-filter-bar
+    [categories]="state.categories()"
+    [activeCategory]="state.activeCategory()"
+    [sortValue]="state.sort()"
+    [productCount]="state.totalCount()"
+    (categoryChange)="onCategoryChange($event)"
+    (sortChange)="onSortChange($event)"
+  />
+
+  <!-- ── Products Section ───────────────────────────────────────── -->
+  <section class="products-section" #productsSection>
+    <div class="products-container">
+
+      @if (state.isLoading()) {
+        <div class="loader-wrapper">
+          <lg-spinner />
+        </div>
+      }
+
+      @else if (state.error()) {
+        <lg-empty-state
+          icon="!"
+          title="Something went wrong"
+          [message]="state.error()!"
+        />
+      }
+
+      @else if (state.paginatedProducts().length === 0) {
+        <lg-empty-state
+          icon="o"
+          title="No deals right now"
+          message="Check back soon for exclusive offers."
+          ctaLabel="Explore Full Collection"
+          (ctaClick)="navigateToCollection()"
+        />
+      }
+
+      @else {
+        @let products = state.paginatedProducts();
+
+        <!-- Bento layout: first 3 -->
+        <div class="bento-grid">
+          @if (products[0]; as p0) {
+            <div class="bento-left" (click)="navigateToProduct(p0.id)">
+              <lg-product-card
+                [product]="p0"
+                variant="featured"
+                (addToCart)="onAddToCart($event)"
+                (addToWishlist)="onAddToWishlist($event)"
+              />
+            </div>
+          }
+
+          <div class="bento-right">
+            @if (products[1]; as p1) {
+              <div class="bento-right-top" (click)="navigateToProduct(p1.id)">
+                <lg-product-card
+                  [product]="p1"
+                  (addToCart)="onAddToCart($event)"
+                  (addToWishlist)="onAddToWishlist($event)"
+                />
+              </div>
+            }
+            @if (products[2]; as p2) {
+              <div class="bento-right-bottom" (click)="navigateToProduct(p2.id)">
+                <lg-product-card
+                  [product]="p2"
+                  (addToCart)="onAddToCart($event)"
+                  (addToWishlist)="onAddToWishlist($event)"
+                />
+              </div>
+            }
+          </div>
+        </div>
+
+        <!-- Standard 3-col grid: products[3+] -->
+        @if (products.length > 3) {
+          <div class="standard-grid">
+            @for (product of products.slice(3); track product.id) {
+              <div class="card-link" (click)="navigateToProduct(product.id)">
+                <lg-product-card
+                  [product]="product"
+                  (addToCart)="onAddToCart($event)"
+                  (addToWishlist)="onAddToWishlist($event)"
+                />
+              </div>
+            }
+          </div>
+        }
+      }
+
+      @if (!state.isLoading() && state.totalPages() > 1) {
+        <lg-pagination
+          [total]="state.totalCount()"
+          [page]="state.page()"
+          (pageChange)="onPageChange($event)"
+        />
+      }
+
+    </div>
+  </section>
+
+</main>
+
+<lg-footer />

@@ -148,7 +148,11 @@
       "Bash(bash /Users/ahmedabdelfatah/.claude/skills/spec-driven/scripts/implement.sh --done \".spec/features/002-004-cart-page\" \"T04\")",
       "Bash(bash /Users/ahmedabdelfatah/.claude/skills/spec-driven/scripts/implement.sh --done \".spec/features/002-004-cart-page\" \"T05\")",
       "Bash(bash /Users/ahmedabdelfatah/.claude/skills/spec-driven/scripts/implement.sh --done \".spec/features/002-004-cart-page\" \"T06\")",
-      "Bash(grep \"\\\\.ts$\")"
+      "Bash(grep \"\\\\.ts$\")",
+      "Bash(git stash:*)",
+      "Bash(grep:*)",
+      "Bash(curl:*)",
+      "Bash(ls:*)"
     ]
   },
   "mcpServers": {

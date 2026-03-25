@@ -38,7 +38,8 @@ export class LgNavbarComponent {
     { label: 'Living',      route: '/products?category=living' },
     { label: 'Bedroom',     route: '/products?category=bedroom' },
     { label: 'Dining',      route: '/products?category=dining' },
-    { label: 'About',       route: '/about' },
+    { label: 'Hot Deals',   route: '/hot-deals' },
+    { label: 'Atelier',     route: '/atelier' },
   ];
 
   constructor() {

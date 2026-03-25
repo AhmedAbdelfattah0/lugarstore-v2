@@ -1,0 +1,325 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.hot-deals-page {
+  min-height: 100vh;
+  background: var(--color-bg-primary);
+}
+
+// ── Hero ──────────────────────────────────────────────────────────────────────
+// Flexbox: content left (45%), image right (55%).
+// Hardcoded #1A1A18 — @theme vars not reliable in component SCSS.
+
+.hero {
+  display: flex;
+  align-items: stretch;
+  background: #1A1A18;
+  min-height: clamp(320px, 32vw, 440px);
+  overflow: hidden;
+}
+
+.hero__content {
+  flex: 0 0 45%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 56px 64px;
+  gap: 20px;
+  box-sizing: border-box;
+}
+
+.hero__image-wrap {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+// Gradient blends image left edge into the dark bg
+.hero__image-wrap::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 140px;
+  height: 100%;
+  background: linear-gradient(to right, #1A1A18, transparent);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hero__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  // Darken + desaturate stand-in image to match dark moody hero design.
+  // Replace hero-lifestyle.jpg with a dark interior photo to remove this filter.
+  filter: brightness(0.55) saturate(0.6);
+}
+
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.hero__eyebrow {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin: 0;
+}
+
+.hero__heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: clamp(52px, 5vw, 80px);
+  line-height: 1;
+  color: #ffffff;
+  margin: 0;
+}
+
+.hero__subline {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 20px;
+  color: rgba(255, 255, 255, 0.65);
+  margin: 0;
+}
+
+.hero__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-start;
+  padding: 14px 40px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-size: 11px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #ffffff;
+  background: var(--color-gold);
+  border: 1px solid var(--color-gold);
+  cursor: pointer;
+  transition: background 0.25s, border-color 0.25s;
+
+  &:hover {
+    background: var(--color-gold-hover);
+    border-color: var(--color-gold-hover);
+  }
+}
+
+// ── Products section ──────────────────────────────────────────────────────────
+
+.products-section {
+  background: var(--color-bg-primary);
+}
+
+.products-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 40px 60px 80px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.loader-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 80px 0;
+}
+
+// ── Bento grid ────────────────────────────────────────────────────────────────
+
+.bento-grid {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 16px;
+  height: 700px;
+  margin-bottom: 16px;
+}
+
+.bento-left {
+  display: block;
+  height: 100%;
+  overflow: hidden;
+  cursor: pointer;
+
+  lg-product-card {
+    display: block;
+    height: 100%;
+
+    ::ng-deep .product-card {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    ::ng-deep .card-img {
+      flex: 1;
+      min-height: 0;
+      overflow: hidden;
+      padding-top: 0;
+      position: relative;
+    }
+
+    ::ng-deep .card-body {
+      flex-shrink: 0;
+    }
+  }
+}
+
+.bento-right {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: 100%;
+}
+
+.bento-right-top,
+.bento-right-bottom {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  display: block;
+  cursor: pointer;
+
+  lg-product-card {
+    display: block;
+    height: 100%;
+
+    ::ng-deep .product-card {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    ::ng-deep .card-img {
+      flex: 1;
+      min-height: 0;
+      overflow: hidden;
+      padding-top: 0;
+      position: relative;
+    }
+
+    ::ng-deep .card-body {
+      flex-shrink: 0;
+    }
+  }
+}
+
+.card-link {
+  display: block;
+  cursor: pointer;
+}
+
+.standard-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 48px;
+}
+
+// ── Responsive ────────────────────────────────────────────────────────────────
+
+@media (max-width: 1023px) {
+  // Tablet: stack vertically, image on top
+  .hero {
+    flex-direction: column;
+    min-height: unset;
+  }
+
+  .hero__content {
+    flex: none;
+    padding: 40px 32px;
+    order: 2;
+  }
+
+  .hero__image-wrap {
+    flex: none;
+    height: 280px;
+    order: 1;
+  }
+
+  .products-container {
+    padding: 32px 24px 60px;
+  }
+
+  .bento-grid {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+
+  .bento-left {
+    height: 520px;
+    flex: none;
+  }
+
+  .bento-right {
+    flex-direction: row;
+    height: 380px;
+  }
+
+  .bento-right-top,
+  .bento-right-bottom {
+    flex: 1;
+    height: 100%;
+  }
+
+  .standard-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  .hero__image-wrap {
+    height: 220px;
+    flex: none;
+  }
+
+  .hero__content {
+    flex: none;
+  }
+
+  .hero__content {
+    padding: 32px 20px;
+    gap: 12px;
+  }
+
+  .hero__heading {
+    font-size: 48px;
+  }
+
+  .products-container {
+    padding: 24px 16px 48px;
+  }
+
+  .bento-grid {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+
+  .bento-left,
+  .bento-right-top,
+  .bento-right-bottom {
+    height: auto;
+    flex: none;
+  }
+
+  .bento-right {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .standard-grid {
+    grid-template-columns: 1fr;
+  }
+}

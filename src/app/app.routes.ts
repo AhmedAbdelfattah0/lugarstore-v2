@@ -1,11 +1,6 @@
 import { Routes } from '@angular/router';
 import { LgHomePageComponent } from './features/home/pages/lg-home-page/lg-home-page.component';
-
-import { LgCheckoutPageComponent } from './features/checkout/pages/lg-checkout-page/lg-checkout-page.component';
-import { LgHotDealsPageComponent } from './features/hot-deals/pages/lg-hot-deals-page/lg-hot-deals-page.component';
-import { LgContactPageComponent } from './features/contact/pages/lg-contact-page/lg-contact-page.component';
-import { LgCustomOrderPageComponent } from './features/custom-order/pages/lg-custom-order-page/lg-custom-order-page.component';
-import { LgAtelierPageComponent } from './features/atelier/pages/lg-atelier-page/lg-atelier-page.component';
+import { checkoutGuard } from './features/checkout/guards/checkout.guard';
 
 export const routes: Routes = [
   { path: '',            component: LgHomePageComponent },
@@ -13,10 +8,18 @@ export const routes: Routes = [
   { path: 'products/:id', loadComponent: () => import('./features/product-detail/pages/lg-product-detail-page/lg-product-detail-page.component').then(m => m.LgProductDetailPageComponent) },
   { path: 'cart',        loadComponent: () => import('./features/cart/pages/lg-cart-page/lg-cart-page.component').then(m => m.LgCartPageComponent) },
   { path: 'wishlist',    loadComponent: () => import('./features/wishlist/pages/lg-wishlist-page/lg-wishlist-page.component').then(m => m.LgWishlistPageComponent) },
-  { path: 'checkout',    component: LgCheckoutPageComponent },
-  { path: 'hot-deals',   component: LgHotDealsPageComponent },
-  { path: 'contact',     component: LgContactPageComponent },
-  { path: 'custom-order', component: LgCustomOrderPageComponent },
-  { path: 'atelier',     component: LgAtelierPageComponent },
+  {
+    path: 'checkout',
+    canActivate: [checkoutGuard],
+    loadComponent: () => import('./features/checkout/pages/lg-checkout-page/lg-checkout-page.component').then(m => m.LgCheckoutPageComponent),
+  },
+  {
+    path: 'order-success',
+    loadComponent: () => import('./features/checkout/pages/lg-order-success-page/lg-order-success-page.component').then(m => m.LgOrderSuccessPageComponent),
+  },
+  { path: 'hot-deals',   loadComponent: () => import('./features/hot-deals/pages/lg-hot-deals-page/lg-hot-deals-page.component').then(m => m.LgHotDealsPageComponent) },
+  { path: 'contact',     loadComponent: () => import('./features/contact/pages/lg-contact-page/lg-contact-page.component').then(m => m.LgContactPageComponent) },
+  { path: 'custom-order', loadComponent: () => import('./features/custom-order/pages/lg-custom-order-page/lg-custom-order-page.component').then(m => m.LgCustomOrderPageComponent) },
+  { path: 'atelier',     loadComponent: () => import('./features/atelier/pages/lg-atelier-page/lg-atelier-page.component').then(m => m.LgAtelierPageComponent) },
   { path: '**',          redirectTo: '' },
 ];

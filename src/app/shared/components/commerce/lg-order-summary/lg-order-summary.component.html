@@ -43,9 +43,11 @@
   </div>
 
   <!-- CTA -->
-  <button class="summary__cta" type="button" (click)="ctaClick.emit()">
-    {{ ctaLabel() }}
-  </button>
+  @if (showCta()) {
+    <button class="summary__cta" type="button" (click)="ctaClick.emit()">
+      {{ ctaLabel() }}
+    </button>
+  }
 
   <!-- SSL trust line -->
   <div class="summary__trust">

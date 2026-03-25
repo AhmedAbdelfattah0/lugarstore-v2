@@ -6,6 +6,11 @@ export const serverRoutes: ServerRoute[] = [
     path: 'products/:id',
     renderMode: RenderMode.Client,
   },
+  // Checkout — guarded by cart state (localStorage), must render client-side
+  {
+    path: 'checkout',
+    renderMode: RenderMode.Client,
+  },
   // All other routes — pre-rendered at build time for static hosting (Hostinger)
   {
     path: '**',

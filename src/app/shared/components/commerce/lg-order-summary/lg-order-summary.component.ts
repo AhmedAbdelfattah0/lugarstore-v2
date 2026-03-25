@@ -13,6 +13,7 @@ import { CurrencyEgpPipe } from '../../../pipes/currency-egp.pipe';
 export class LgOrderSummaryComponent {
   readonly items    = input.required<CartItem[]>();
   readonly ctaLabel = input<string>('Proceed to Checkout');
+  readonly showCta  = input<boolean>(true);
 
   readonly ctaClick = output<void>();
 

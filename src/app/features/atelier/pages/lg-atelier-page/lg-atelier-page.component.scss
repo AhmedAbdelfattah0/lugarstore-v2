@@ -1,0 +1,715 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.atelier-page {
+  background: #F9F1E7;
+}
+
+%eyebrow {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #B88E2F;
+  margin: 0 0 24px;
+  display: block;
+}
+
+// ── Section 1: Story Split ─────────────────────────────────────────────────────
+
+.story {
+  display: flex;
+  align-items: stretch;
+  min-height: 100vh;
+  background: #F9F1E7;
+}
+
+.story__image-col {
+  width: 45%;
+  flex-shrink: 0;
+  position: relative;
+  min-height: 600px;
+}
+
+.story__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.story__image-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(26, 26, 24, 0.1);
+  mix-blend-mode: multiply;
+}
+
+.story__content-col {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 80px 96px;
+  background: #F9F1E7;
+}
+
+.story__content {
+  max-width: 540px;
+}
+
+.story__eyebrow {
+  @extend %eyebrow;
+}
+
+.story__heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: clamp(48px, 5vw, 72px);
+  line-height: 1.1;
+  color: #333333;
+  margin: 0 0 32px;
+}
+
+.story__body {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.8;
+  color: #7A6F65;
+  margin: 0 0 32px;
+  max-width: 420px;
+}
+
+.story__divider {
+  width: 60px;
+  height: 1px;
+  background: #B88E2F;
+  margin-bottom: 28px;
+}
+
+.story__credentials {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.story__credential {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-size: 11px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #333333;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.credential-line {
+  display: inline-block;
+  width: 16px;
+  height: 1px;
+  background: #B88E2F;
+  flex-shrink: 0;
+}
+
+.story__cta {
+  padding: 18px 44px;
+  border: 1px solid #B88E2F;
+  background: transparent;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #B88E2F;
+  cursor: pointer;
+  transition: background 0.4s ease, color 0.4s ease;
+
+  &:hover {
+    background: #B88E2F;
+    color: #ffffff;
+  }
+}
+
+// ── Section 2: Stats ───────────────────────────────────────────────────────────
+
+.stats {
+  background: #F9F1E7;
+  padding: 80px 0;
+  border-top: 1px solid rgba(210, 197, 177, 0.3);
+}
+
+.stats__inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 60px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 32px;
+  text-align: center;
+
+  &--bordered {
+    border-left: 1px solid rgba(210, 197, 177, 0.4);
+    border-right: 1px solid rgba(210, 197, 177, 0.4);
+  }
+}
+
+.stat-item__value {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: 64px;
+  line-height: 1;
+  color: #B88E2F;
+}
+
+.stat-item__label {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #7A6F65;
+}
+
+// ── Section 3: From Earth to Form ─────────────────────────────────────────────
+
+.earth {
+  background: #F9F1E7;
+  padding: 100px 0;
+}
+
+.earth__inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 60px;
+}
+
+.earth__header {
+  margin-bottom: 60px;
+}
+
+.earth__heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: clamp(36px, 4vw, 52px);
+  color: #333333;
+  margin: 0 0 12px;
+  line-height: 1.1;
+}
+
+.earth__subtext {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  color: #7A6F65;
+  letter-spacing: 0.5px;
+  margin: 0;
+}
+
+.earth__bento {
+  display: grid;
+  grid-template-columns: 7fr 5fr;
+  gap: 32px;
+  height: 700px;
+  overflow: hidden;
+}
+
+.earth__feature {
+  position: relative;
+  overflow: hidden;
+
+  &:hover .earth__feature-img {
+    transform: scale(1.04);
+  }
+}
+
+.earth__feature-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s ease;
+}
+
+.earth__feature-card {
+  position: absolute;
+  bottom: 32px;
+  left: 32px;
+  background: #ffffff;
+  padding: 24px 28px;
+  max-width: 320px;
+  box-shadow: 0 20px 40px rgba(30, 27, 21, 0.05);
+}
+
+.earth__feature-card-label {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #B88E2F;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.earth__feature-card-quote {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 22px;
+  line-height: 1.35;
+  color: #333333;
+  margin: 0;
+}
+
+.earth__side {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  gap: 32px;
+  overflow: hidden;
+  min-height: 0;
+}
+
+.earth__side-img-wrap {
+  position: relative;
+  overflow: hidden;
+
+  &:hover .earth__side-img {
+    transform: scale(1.04);
+  }
+
+  &:hover .earth__side-hover {
+    opacity: 1;
+  }
+}
+
+.earth__side-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s ease;
+}
+
+.earth__side-hover {
+  position: absolute;
+  inset: 0;
+  background: rgba(26, 26, 24, 0.4);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.earth__side-hover-label {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+.earth__side-quote {
+  background: #FAF2E8;
+  padding: 36px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  min-height: 0;
+}
+
+.earth__pull-quote {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 26px;
+  line-height: 1.35;
+  color: #B88E2F;
+  margin: 0 0 16px;
+}
+
+.earth__pull-body {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.7;
+  color: #7A6F65;
+  margin: 0;
+}
+
+// ── Section 4: Master Artisans ─────────────────────────────────────────────────
+
+.artisans {
+  background: #FAF2E8;
+  padding: 100px 0;
+}
+
+.artisans__inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 60px;
+}
+
+.artisans__header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.artisans__eyebrow {
+  @extend %eyebrow;
+  margin-bottom: 16px;
+}
+
+.artisans__heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: clamp(40px, 5vw, 64px);
+  color: #333333;
+  margin: 0;
+  line-height: 1.1;
+}
+
+.artisans__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 64px;
+  align-items: start;
+}
+
+.artisan-card {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+
+  &--offset {
+    padding-top: 48px;
+  }
+}
+
+.artisan-card__portrait {
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+}
+
+.artisan-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: grayscale(100%);
+  transition: filter 0.7s ease;
+
+  .artisan-card:hover & {
+    filter: grayscale(0%);
+  }
+}
+
+.artisan-card__info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.artisan-card__name {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: 30px;
+  color: #333333;
+  margin: 0;
+}
+
+.artisan-card__role {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-size: 10px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #B88E2F;
+  margin: 0;
+}
+
+.artisan-card__bio {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.7;
+  color: #7A6F65;
+  margin: 0;
+}
+
+// ── Section 5: Quote Divider ───────────────────────────────────────────────────
+
+.quote-section {
+  height: 614px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: #1c1a17;
+}
+
+.quote-section__bg {
+  position: absolute;
+  inset: 0;
+}
+
+.quote-section__bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.3;
+}
+
+.quote-section__content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 900px;
+  padding: 0 32px;
+}
+
+.quote-section__text {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-style: italic;
+  font-size: clamp(28px, 4vw, 52px);
+  line-height: 1.35;
+  color: #ffffff;
+  margin: 0 0 32px;
+  border: none;
+}
+
+.quote-section__line {
+  width: 48px;
+  height: 1px;
+  background: #B88E2F;
+  margin: 0 auto;
+}
+
+// ── Section 6: Showroom CTA ───────────────────────────────────────────────────
+
+.showroom-cta {
+  background: #F9F1E7;
+  padding: 100px 0;
+  border-top: 1px solid #E8E8E8;
+}
+
+.showroom-cta__inner {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 60px;
+  text-align: center;
+}
+
+.showroom-cta__eyebrow {
+  @extend %eyebrow;
+}
+
+.showroom-cta__heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: clamp(36px, 4vw, 56px);
+  color: #333333;
+  margin: 0 0 24px;
+  line-height: 1.1;
+}
+
+.showroom-cta__subtext {
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.8;
+  color: #7A6F65;
+  margin: 0 0 48px;
+}
+
+.showroom-cta__actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.showroom-cta__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 40px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-size: 11px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.25s, color 0.25s, border-color 0.25s;
+
+  &--primary {
+    background: #B88E2F;
+    color: #ffffff;
+    border: 1px solid #B88E2F;
+
+    &:hover {
+      background: #9A7A32;
+      border-color: #9A7A32;
+    }
+  }
+
+  &--outlined {
+    background: transparent;
+    color: #333333;
+    border: 1px solid #E8E8E8;
+
+    &:hover {
+      border-color: #B88E2F;
+      color: #B88E2F;
+    }
+  }
+}
+
+// ── Responsive ─────────────────────────────────────────────────────────────────
+
+@media (max-width: 1023px) {
+  .story {
+    flex-direction: column;
+    min-height: unset;
+  }
+
+  .story__image-col {
+    width: 100%;
+    height: 480px;
+    flex-shrink: 0;
+    position: relative;
+  }
+
+  .story__content-col {
+    padding: 64px 40px;
+  }
+
+  .earth__inner,
+  .artisans__inner {
+    padding: 0 40px;
+  }
+
+  .earth__bento {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+
+  .earth__feature {
+    height: 480px;
+  }
+
+  .earth__side {
+    grid-template-rows: 360px auto;
+  }
+
+  .artisans__grid {
+    gap: 40px;
+  }
+
+  .artisan-card--offset {
+    padding-top: 0;
+  }
+
+  .quote-section {
+    height: auto;
+    min-height: 420px;
+    padding: 80px 40px;
+  }
+}
+
+@media (max-width: 767px) {
+  .story__image-col {
+    height: 320px;
+  }
+
+  .story__content-col {
+    padding: 48px 24px;
+  }
+
+  .stats__inner {
+    grid-template-columns: 1fr;
+    padding: 0 24px;
+  }
+
+  .stat-item--bordered {
+    border-left: none;
+    border-right: none;
+    border-top: 1px solid rgba(210, 197, 177, 0.4);
+    border-bottom: 1px solid rgba(210, 197, 177, 0.4);
+  }
+
+  .earth {
+    padding: 64px 0;
+  }
+
+  .earth__inner {
+    padding: 0 20px;
+  }
+
+  .earth__feature {
+    height: 360px;
+  }
+
+  .earth__side {
+    grid-template-rows: 280px auto;
+  }
+
+  .artisans {
+    padding: 64px 0;
+  }
+
+  .artisans__inner {
+    padding: 0 20px;
+  }
+
+  .artisans__header {
+    margin-bottom: 48px;
+  }
+
+  .artisans__grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .quote-section {
+    height: auto;
+    min-height: 380px;
+    padding: 80px 24px;
+  }
+
+  .showroom-cta {
+    padding: 64px 0;
+  }
+
+  .showroom-cta__inner {
+    padding: 0 20px;
+  }
+
+  .showroom-cta__actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .showroom-cta__btn {
+    text-align: center;
+    padding: 16px 24px;
+  }
+}
