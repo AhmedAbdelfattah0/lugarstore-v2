@@ -1112,3 +1112,36 @@ None
 - `src/app/shared/components/navigation/lg-navbar/lg-navbar.component.html` — routerLinkActive="active" on nav links
 - `src/app/shared/components/navigation/lg-navbar/lg-navbar.component.scss` — .active style added
 - `src/app/shared/components/navigation/lg-mobile-drawer/lg-mobile-drawer.component.ts` — navLinks trimmed to 5
+---
+
+## Session: 2026-03-25
+
+**Goal:** Replace placeholder contact/social data with real Lugar business info, and swap text wordmarks with real SVG logos.
+
+**Completed:**
+- `src/environments/environment.ts` — whatsappPhone updated to real number `201080777114`
+- `src/environments/environment.production.ts` — same
+- `src/app/shared/components/navigation/lg-footer/lg-footer.component.ts` — socials array updated: Instagram → `lugarfurniture.eg`, Facebook → `lugarinv`, TikTok → `lugarfurnitureinv`; WhatsApp href updated
+- `src/app/features/contact/pages/lg-contact-page/lg-contact-page.component.html` — replaced fictitious address with 3 real locations (Cairo showroom, Damietta showroom, Factory); phone → +20 108 077 7114; hours → Mon–Fri 9am–10pm / Sat–Sun 9am–9pm; social links corrected
+- `src/app/shared/components/navigation/lg-navbar/lg-navbar.component.html` — replaced text wordmark with `lugar-logo-2-transparent.svg` + brand name span
+- `src/app/shared/components/navigation/lg-footer/lg-footer.component.html` — replaced `.footer__wordmark` text with `lugar-logo-transparent.svg`
+- `src/app/shared/components/navigation/lg-navbar/lg-navbar.component.scss` — `.navbar__logo` changed to flex; `.navbar__logo-img` added (40px / 32px mobile, hover opacity)
+- `src/app/shared/components/navigation/lg-footer/lg-footer.component.scss` — `.footer__wordmark` replaced with `.footer__logo-img` (160px wide, `filter: brightness(0) invert(1)` for dark bg)
+
+**Decisions:**
+- Footer SVG needs `filter: brightness(0) invert(1)` — both SVGs have dark (#020202) fills; footer bg is #1A1A18 (dark), so invert is required
+- Navbar uses `lugar-logo-2-transparent.svg` (portrait ratio); footer uses `lugar-logo-transparent.svg` (landscape/wider ratio)
+- Instagram URL corrected to `lugarfurniture.eg` (user-confirmed, overrides what was scraped from old site)
+
+**Deferred:**
+- Nothing — all changes complete
+
+**Next Session Should:**
+- Visual QA all pages in dev server — confirm logo renders correctly in navbar and footer
+- Then Phase 6: SEO pass, sitemap.xml, robots.txt, final production build audit
+
+**Key Files:**
+- `public/lugar-logo-transparent.svg` — footer logo (landscape)
+- `public/lugar-logo-2-transparent.svg` — navbar logo (portrait)
+- `src/app/shared/components/navigation/lg-navbar/` — html + scss updated
+- `src/app/shared/components/navigation/lg-footer/` — html + scss + ts updated
