@@ -121,10 +121,10 @@
 .pdp {
   background: #f9f1e7;
   min-height: 100vh;
-  padding-top: 96px;            // Stitch: pt-24 = 96px — clears fixed navbar
+  padding-top: 24px;            // breathing room below sticky navbar (in flow — no overlap hack needed)
 
   @media (max-width: 767px) {
-    padding-top: 60px;          // mobile: navbar is 60px on mobile
+    padding-top: 16px;
   }
 
   // ── Loading / error fallback ───────────────────────────────────────────

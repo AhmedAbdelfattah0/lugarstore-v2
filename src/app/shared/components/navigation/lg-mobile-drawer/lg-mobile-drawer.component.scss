@@ -1,27 +1,192 @@
-// Hidden on desktop — hamburger button is also hidden above 1023px (same breakpoint)
-// display:none propagates to all children including position:fixed, so no whitespace
+// ── Host ─────────────────────────────────────────────────────────────────────
+// Always block — drawer + overlay are position:fixed so they don't affect layout
 :host {
-  display: none;
+  display: block;
+}
 
-  @media (max-width: 1023px) {
-    display: block;
+// ── Overlay ───────────────────────────────────────────────────────────────────
+.drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 299;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+
+  &.open {
+    opacity: 1;
+    pointer-events: auto;
   }
 }
 
-.drawer-panel {
+// ── Drawer panel ─────────────────────────────────────────────────────────────
+// transform: translateX(100%) pushes fully off-screen right — position:fixed
+// elements don't contribute to document scroll width, preventing the
+// white-space-on-right bug on mobile.
+// height: 100dvh covers dynamic viewport (excludes mobile browser chrome).
+.drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 88vw;
+  max-width: 360px;
+  height: 100vh;
+  height: 100dvh;
+  z-index: 300;
+  background: #F9F1E7;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
   transform: translateX(100%);
-  visibility: hidden;
-  pointer-events: none;
-  // delay visibility:hidden until after the 0.35s slide-out finishes
-  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-              visibility 0s linear 0.35s;
+  transition: transform 0.35s cubic-bezier(0.25, 0.1, 0.25, 1);
+
+  &.open {
+    transform: translateX(0);
+  }
 }
 
-.drawer-panel.drawer-open {
-  transform: translateX(0);
-  visibility: visible;
-  pointer-events: auto;
-  // no delay on open — become visible immediately as slide-in starts
-  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-              visibility 0s linear 0s;
+// ── Header ────────────────────────────────────────────────────────────────────
+.drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid #E8E8E8;
+  flex-shrink: 0;
+}
+
+.drawer-title {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #333333;
+}
+
+.drawer-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  color: #333333;
+  font-size: 20px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
+
+  &:hover { color: #B88E2F; }
+}
+
+// ── Nav ───────────────────────────────────────────────────────────────────────
+.drawer-nav {
+  flex: 1;
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.drawer-nav-link {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: 28px;
+  color: #333333;
+  text-decoration: none;
+  padding: 16px 0;
+  border-bottom: 1px solid #E8E8E8;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: color 0.2s ease;
+
+  &:last-child { border-bottom: none; }
+
+  &:hover { color: #B88E2F; }
+
+  // Gold arrow revealed on hover
+  &::after {
+    content: '→';
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    color: #B88E2F;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  &:hover::after { opacity: 1; }
+}
+
+// ── Footer ────────────────────────────────────────────────────────────────────
+.drawer-footer {
+  padding: 24px;
+  border-top: 1px solid #E8E8E8;
+  flex-shrink: 0;
+}
+
+.drawer-icons {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.drawer-icon-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #333333;
+  text-decoration: none;
+  transition: color 0.2s ease;
+
+  &:hover { color: #B88E2F; }
+
+  .badge {
+    background: #B88E2F;
+    color: #ffffff;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+}
+
+// ── Social ────────────────────────────────────────────────────────────────────
+.drawer-social {
+  display: flex;
+  gap: 16px;
+}
+
+.drawer-social-icon {
+  width: 36px;
+  height: 36px;
+  border: 1px solid #E8E8E8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #B88E2F;
+  cursor: pointer;
+  text-decoration: none;
+  transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+
+  &:hover {
+    border-color: #B88E2F;
+    background: #B88E2F;
+    color: #ffffff;
+  }
 }

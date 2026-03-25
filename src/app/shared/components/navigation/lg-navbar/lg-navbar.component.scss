@@ -1,11 +1,14 @@
 // lg-navbar — CSS Grid three-column layout (no Tailwind dependency)
+// position: sticky keeps the navbar in document flow (no padding-top hacks on pages).
+// --banner-height CSS variable is set by the home page (44px when offer banner is
+// present) so the navbar stacks directly below the banner. All other pages inherit
+// the default of 0px, so the navbar sticks flush to the viewport top.
 :host {
   display: block;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 50;
+  position: sticky;
+  top: var(--banner-height, 0px);
+  z-index: 200;
+  width: 100%;
 }
 
 .navbar {

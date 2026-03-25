@@ -1,7 +1,9 @@
 // Custom element must be block to fill full viewport width
+// --banner-height offsets the sticky navbar below the sticky offer banner (44px tall)
 :host {
   display: block;
   width: 100%;
+  --banner-height: 44px;
 }
 
 .home-loading {

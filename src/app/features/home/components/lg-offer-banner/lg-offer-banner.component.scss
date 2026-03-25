@@ -1,6 +1,10 @@
 :host {
   display: block;
   width: 100%;
+  // Sticky at very top — navbar stacks directly below when both scroll together
+  position: sticky;
+  top: 0;
+  z-index: 201;
 }
 
 .offer-banner {

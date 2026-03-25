@@ -1,11 +1,20 @@
 // === Guaranteed full-width reset — outside @layer for highest specificity ===
-// These override Tailwind Preflight and any layer-scoped rules
+// These override Tailwind Preflight and any layer-scoped rules.
+// overflow-x: hidden + max-width: 100vw on BOTH html and body is required:
+// body alone is insufficient — fixed elements transformed off-screen (e.g.
+// the drawer at translateX(100%)) can cause html to create phantom scroll width.
 html,
 body {
   margin: 0;
   padding: 0;
   width: 100%;
-  max-width: none;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+// box-sizing outside @layer so it wins over any Tailwind preflight reset
+* {
+  box-sizing: border-box;
 }
 
 app-root {

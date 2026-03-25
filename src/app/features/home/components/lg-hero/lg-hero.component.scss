@@ -28,21 +28,21 @@
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  padding: 68px 80px 80px; // 68px clears fixed navbar
+  padding: 40px 80px 80px; // top: comfortable offset (navbar is sticky in flow, no overlap)
   height: 100%;
   background: #F9F1E7;
   box-sizing: border-box;
 
   @media (max-width: 1200px) {
-    padding: 68px 56px 80px;
+    padding: 40px 56px 80px;
   }
 
   @media (max-width: 1023px) {
-    padding: 68px 40px 60px; // tablet: tighter — still two-column
+    padding: 40px 40px 60px;
   }
 
   @media (max-width: 767px) {
-    padding: 40px 20px 48px; // mobile: below image (navbar cleared by order)
+    padding: 32px 20px 48px; // mobile: below image
     height: auto;
     order: 2;
   }
