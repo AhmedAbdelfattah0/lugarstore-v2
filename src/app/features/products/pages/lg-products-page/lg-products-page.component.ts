@@ -103,7 +103,14 @@ export class LgProductsPageComponent {
   }
 
   protected onAddToWishlist(product: Product): void {
-    this.wishlist.toggle(product.id);
+    this.wishlist.toggle({
+      id: product.id,
+      title: product.title,
+      image: product.primaryImage,
+      qty: 1,
+      price: product.hasDiscount ? product.discountedPrice : product.price,
+      categoryName: product.categoryName,
+    });
     const added = this.wishlist.isInWishlist(product.id);
     this.toast.show(added ? 'Added to wishlist' : 'Removed from wishlist', 'wishlist');
   }

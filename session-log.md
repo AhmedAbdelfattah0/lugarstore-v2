@@ -898,3 +898,36 @@ None
 - `src/app/features/products/pages/lg-products-page/` — all 3 files modified (html, ts, scss)
 - `src/app/shared/components/product/lg-product-card/lg-product-card.component.ts` — stopPropagation already present at line 56 (no change needed; fix was in PLP wrapper)
 
+---
+## Session: 2026-03-25 16:45
+
+**Goal:** Build the wishlist page (Phase 5) with full cart-migration functionality, migrating WishlistService from ID-only storage to full CartItem storage.
+
+**Completed:**
+- `src/app/core/services/wishlist.service.ts` — refactored: now stores `CartItem[]` instead of `number[]`; `ids` is `computed(() => items.map(i => i.id))` for backward compat; added `totalValue` computed; `toggle(item: CartItem)` replaces `toggle(id: number)`
+- `src/app/features/wishlist/pages/lg-wishlist-page/lg-wishlist-page.component.ts` — full implementation replacing stub
+- `src/app/features/wishlist/pages/lg-wishlist-page/lg-wishlist-page.component.html` — 2-col layout, item rows, summary panel, empty state
+- `src/app/features/wishlist/pages/lg-wishlist-page/lg-wishlist-page.component.scss` — full styles matching cart page pattern
+- `src/app/app.routes.ts` — wishlist route changed from eager `component:` to lazy `loadComponent:`
+- `src/app/features/home/components/lg-featured-collection/lg-featured-collection.component.ts` — updated `toggle()` call to pass full CartItem
+- `src/app/features/products/pages/lg-products-page/lg-products-page.component.ts` — same
+- `src/app/features/product-detail/pages/lg-product-detail-page/lg-product-detail-page.component.ts` — updated both wishlist toggle call sites
+
+**Decisions:**
+- Option A chosen for wishlist storage: store full `CartItem[]` not IDs — simpler, zero extra API calls on wishlist page
+- `ids` kept as `computed()` not removed — `lg-product-card` uses `wishlistService.ids().includes(id)` for `isWishlisted` check; no component changes needed
+- Replaced `<lg-button>` with native `<button>` + SCSS in summary panel — `lg-button` Tailwind classes are dynamically computed in TS and not picked up by Tailwind v4 scanner at build time; cart page uses same native-button pattern
+
+**Deferred:**
+- Stale localStorage migration for existing users who have `number[]` in `wishlist` key — on first load the parse will silently return `[]` (the try/catch already handles this) so it self-heals, but no explicit migration notice
+
+**Next Session Should:**
+- Build the Checkout page (`/checkout`) — `LgCheckoutPageComponent` is still a stub
+- Reference Stitch frames for checkout layout before writing any code
+- CountryService is already built at `src/app/features/checkout/services/country.service.ts`
+
+**Key Files:**
+- `src/app/core/services/wishlist.service.ts` — breaking interface change: `toggle()` now takes `CartItem`, not `number`
+- `src/app/features/wishlist/pages/lg-wishlist-page/` — all 3 files new/replaced
+- `src/app/app.routes.ts` — wishlist now lazy-loaded (29KB chunk)
+---

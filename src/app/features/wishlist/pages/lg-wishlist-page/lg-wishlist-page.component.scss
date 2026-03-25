@@ -1,0 +1,367 @@
+// ─── Host ─────────────────────────────────────────────────────────────────────
+:host {
+  display: block;
+  background: #F9F1E7;
+}
+
+// ─── Page wrapper ─────────────────────────────────────────────────────────────
+.wishlist-page {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 64px 48px 80px;
+}
+
+// ─── Two-column layout ────────────────────────────────────────────────────────
+.wishlist-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 65fr) minmax(0, 35fr);
+  gap: 48px;
+  align-items: start;
+}
+
+// ─── Page heading ─────────────────────────────────────────────────────────────
+.wishlist-heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(40px, 5vw, 72px);
+  font-weight: 300;
+  color: #1e1b15;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  margin-bottom: 48px;
+}
+
+// ─── Column headers ───────────────────────────────────────────────────────────
+.wishlist-headers {
+  display: grid;
+  grid-template-columns: 3fr 1.5fr 1.5fr;
+  gap: 16px;
+  align-items: center;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #d2c5b1;
+
+  span {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    font-size: 0.6875rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #4e4637;
+  }
+
+  &__actions {
+    text-align: right;
+  }
+}
+
+// ─── Item row ─────────────────────────────────────────────────────────────────
+.wishlist-item {
+  display: grid;
+  grid-template-columns: 3fr 1.5fr 1.5fr;
+  gap: 16px;
+  align-items: center;
+  padding: 28px 0;
+  border-bottom: 1px solid #E8E8E8;
+
+  &__product {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  &__thumb {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    flex-shrink: 0;
+    background: #EDE4D8;
+  }
+
+  &__info {
+    min-width: 0;
+  }
+
+  &__name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: #1e1b15;
+    line-height: 1.3;
+  }
+
+  &__category {
+    margin-top: 6px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    font-size: 0.625rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #78716c;
+  }
+
+  &__price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.125rem;
+    font-weight: 400;
+    color: #B88E2F;
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 16px;
+  }
+
+  &__move-btn {
+    background: none;
+    border: 1px solid #B88E2F;
+    padding: 7px 14px;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    font-size: 0.625rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #B88E2F;
+    transition: background 0.3s ease, color 0.3s ease;
+    white-space: nowrap;
+
+    &:hover {
+      background: #B88E2F;
+      color: #ffffff;
+    }
+  }
+
+  &__remove {
+    background: none;
+    border: none;
+    padding: 4px;
+    cursor: pointer;
+    color: #B88E2F;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    transition: opacity 0.2s ease;
+
+    &:hover {
+      opacity: 0.6;
+    }
+  }
+}
+
+// ─── Continue shopping ────────────────────────────────────────────────────────
+.wishlist-continue {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 32px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-size: 0.6875rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #7a5900;
+  transition: opacity 0.2s ease;
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+// ─── Right summary panel ──────────────────────────────────────────────────────
+.wishlist-right {
+  position: sticky;
+  top: 120px;
+  align-self: start;
+}
+
+.wishlist-summary {
+  background: #ffffff;
+  padding: 40px 32px;
+
+  &__heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.75rem;
+    font-weight: 300;
+    color: #1e1b15;
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+
+  &__count {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    font-weight: 300;
+    color: #7A6F65;
+    margin-bottom: 24px;
+  }
+
+  &__total-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin: 24px 0 32px;
+  }
+
+  &__total-label {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    font-size: 0.6875rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #7A6F65;
+  }
+
+  &__total-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 300;
+    color: #B88E2F;
+    line-height: 1;
+  }
+
+  &__actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  &__move-all {
+    display: block;
+    width: 100%;
+    padding: 14px 32px;
+    background: #B88E2F;
+    border: 1px solid #B88E2F;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #ffffff;
+    transition: background 0.4s ease-in-out, border-color 0.4s ease-in-out;
+
+    &:hover {
+      background: #9A7A32;
+      border-color: #9A7A32;
+    }
+  }
+
+  &__continue {
+    display: block;
+    width: 100%;
+    padding: 14px 32px;
+    background: none;
+    border: 1px solid #B88E2F;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #B88E2F;
+    transition: background 0.4s ease-in-out, color 0.4s ease-in-out;
+
+    &:hover {
+      background: #B88E2F;
+      color: #ffffff;
+    }
+  }
+}
+
+// ─── Empty state ──────────────────────────────────────────────────────────────
+.wishlist-empty {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 48px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+// ─── Mobile layout ────────────────────────────────────────────────────────────
+@media (max-width: 767px) {
+
+  .wishlist-page {
+    padding: 40px 20px 80px;
+  }
+
+  .wishlist-layout {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .wishlist-right {
+    position: static;
+  }
+
+  .wishlist-headers {
+    display: none;
+  }
+
+  .wishlist-heading {
+    font-size: 2.25rem;
+    margin-bottom: 24px;
+  }
+
+  .wishlist-item {
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    gap: 12px;
+    padding: 20px 0;
+
+    &__product {
+      grid-column: 1 / 3;
+      grid-row: 1 / 2;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    &__thumb {
+      width: 60px;
+      height: 60px;
+    }
+
+    &__price {
+      grid-column: 1 / 2;
+      grid-row: 2 / 3;
+      align-self: center;
+    }
+
+    &__actions {
+      grid-column: 2 / 3;
+      grid-row: 2 / 3;
+      justify-content: flex-end;
+    }
+  }
+
+  .wishlist-summary {
+    padding: 28px 20px;
+  }
+
+  .wishlist-empty {
+    padding: 60px 20px;
+  }
+}
+
+// ─── Tablet ───────────────────────────────────────────────────────────────────
+@media (min-width: 768px) and (max-width: 1023px) {
+
+  .wishlist-page {
+    padding: 48px 32px 80px;
+  }
+
+  .wishlist-layout {
+    grid-template-columns: minmax(0, 60fr) minmax(0, 40fr);
+    gap: 32px;
+  }
+
+  .wishlist-heading {
+    font-size: 2.75rem;
+    margin-bottom: 36px;
+  }
+}

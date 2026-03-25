@@ -100,7 +100,14 @@ export class LgProductDetailPageComponent {
   protected onWishlistToggle(): void {
     const product = this.pdpState.product();
     if (!product) return;
-    this.wishlist.toggle(product.id);
+    this.wishlist.toggle({
+      id: product.id,
+      title: product.title,
+      image: product.primaryImage,
+      qty: 1,
+      price: product.hasDiscount ? product.discountedPrice : product.price,
+      categoryName: product.categoryName,
+    });
     const added = this.wishlist.isInWishlist(product.id);
     this.toast.show(added ? 'Added to wishlist' : 'Removed from wishlist', 'wishlist');
   }
@@ -131,7 +138,14 @@ export class LgProductDetailPageComponent {
   }
 
   protected onRelatedAddToWishlist(product: Product): void {
-    this.wishlist.toggle(product.id);
+    this.wishlist.toggle({
+      id: product.id,
+      title: product.title,
+      image: product.primaryImage,
+      qty: 1,
+      price: product.hasDiscount ? product.discountedPrice : product.price,
+      categoryName: product.categoryName,
+    });
     const added = this.wishlist.isInWishlist(product.id);
     this.toast.show(added ? 'Added to wishlist' : 'Removed from wishlist', 'wishlist');
   }

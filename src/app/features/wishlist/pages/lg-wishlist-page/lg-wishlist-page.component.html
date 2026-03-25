@@ -1,0 +1,126 @@
+<lg-navbar />
+
+@if (items().length > 0) {
+
+  <main class="wishlist-page">
+    <div class="wishlist-layout">
+
+      <!-- Left: items panel -->
+      <div class="wishlist-left">
+        <h1 class="wishlist-heading">Saved Pieces</h1>
+
+        <!-- Column headers (desktop only) -->
+        <div class="wishlist-headers" aria-hidden="true">
+          <span class="wishlist-headers__product">Product</span>
+          <span class="wishlist-headers__price">Price</span>
+          <span class="wishlist-headers__actions">Actions</span>
+        </div>
+
+        <!-- Item rows -->
+        @for (item of items(); track item.id) {
+          <div class="wishlist-item">
+
+            <!-- Product col: thumb + info -->
+            <div class="wishlist-item__product">
+              <img
+                class="wishlist-item__thumb"
+                [src]="item.image"
+                [alt]="item.title"
+                width="70"
+                height="70"
+              />
+              <div class="wishlist-item__info">
+                <p class="wishlist-item__name">{{ item.title }}</p>
+                @if (item.categoryName) {
+                  <p class="wishlist-item__category">{{ item.categoryName }}</p>
+                }
+              </div>
+            </div>
+
+            <!-- Price -->
+            <span class="wishlist-item__price">{{ item.price | lgCurrencyEgp }}</span>
+
+            <!-- Actions: Move to Bag + Remove heart -->
+            <div class="wishlist-item__actions">
+              <button
+                class="wishlist-item__move-btn"
+                type="button"
+                (click)="onMoveToBag(item)"
+              >
+                Move to Bag
+              </button>
+
+              <button
+                class="wishlist-item__remove"
+                type="button"
+                (click)="onRemove(item)"
+                [attr.aria-label]="'Remove ' + item.title + ' from wishlist'"
+              >
+                <!-- Filled heart — always gold since item is in wishlist -->
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="#B88E2F" stroke="#B88E2F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                </svg>
+              </button>
+            </div>
+
+          </div>
+        }
+
+        <!-- Continue shopping -->
+        <button class="wishlist-continue" type="button" (click)="onContinueShopping()">
+          ← Continue Shopping
+        </button>
+      </div>
+
+      <!-- Right: summary panel -->
+      <div class="wishlist-right">
+        <div class="wishlist-summary">
+
+          <h2 class="wishlist-summary__heading">Your Saved Pieces</h2>
+          <p class="wishlist-summary__count">{{ pieceLabel() }}</p>
+
+          <lg-divider variant="gold" />
+
+          <div class="wishlist-summary__total-row">
+            <span class="wishlist-summary__total-label">Total Value</span>
+            <span class="wishlist-summary__total-value">{{ totalValue() | lgCurrencyEgp }}</span>
+          </div>
+
+          <div class="wishlist-summary__actions">
+            <button
+              class="wishlist-summary__move-all"
+              type="button"
+              (click)="onMoveAllToBag()"
+            >
+              Move All to Bag
+            </button>
+            <button
+              class="wishlist-summary__continue"
+              type="button"
+              (click)="onContinueShopping()"
+            >
+              Continue Shopping
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+} @else {
+
+  <main class="wishlist-empty">
+    <lg-empty-state
+      icon="heart"
+      title="No saved pieces yet"
+      message="Your curated collection starts here"
+      ctaLabel="Explore Collections"
+      (ctaClick)="onContinueShopping()"
+    />
+  </main>
+
+}
+
+<lg-footer />

@@ -80,8 +80,15 @@ export class LgFeaturedCollectionComponent {
   }
 
   protected addToWishlist(product: Product): void {
-    this.wishlist.toggle(product.id);
-    const isNowWishlisted = this.wishlist.ids().includes(product.id);
+    this.wishlist.toggle({
+      id: product.id,
+      title: product.title,
+      image: product.primaryImage,
+      qty: 1,
+      price: product.hasDiscount ? product.discountedPrice : product.price,
+      categoryName: product.categoryName,
+    });
+    const isNowWishlisted = this.wishlist.isInWishlist(product.id);
     this.toast.show(
       isNowWishlisted ? 'Added to wishlist' : 'Removed from wishlist',
       'success',
